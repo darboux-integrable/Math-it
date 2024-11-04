@@ -1,0 +1,72 @@
+{
+  "subjects": [
+    "Algebra",
+    "College Algebra",
+    "Trigonometry",
+    "Precalculus",
+    "Integral Calculus",
+    "Differential Calculus",
+    "Calculus 1",
+    "Calculus 2",
+    "Statistics",
+    "Discrete Math"
+  ],
+  "mathStrings": [
+    "$$ A \\cup(B \\cap C) = (A \\cup B) \\cap (A \\cup C)$$",
+    "$$x = {-b \\pm \\sqrt{b^2-4ac}\\over2a}$$",
+    "$$a^2+b^2=c^2$$",
+    "$$\\cos(\\theta)=\\frac{\\vec{v} \\cdot \\vec{u}}{||\\vec{v}||\\times||\\vec{u}||}$$",
+    "$$\\vec{v}\\cdot\\vec{u}=||\\vec{v}||\\space||\\vec{u}||\\cos(\\theta)$$",
+    "$$\\neg(A\\vee B)\\equiv\\neg A \\wedge\\neg B$$",
+    "$$\\frac{d}{dx}\\sin(x)=\\cos(x)$$",
+    "$$a^2=b^2+c^2-2bc\\cos{\\alpha}$$",
+    "$$\\frac{a}{\\sin{\\alpha}}=\\frac{b}{\\sin{\\beta}}=\\frac{c}{\\sin{\\gamma}}$$",
+    "$$\\sin{2\\theta}=2\\sin{\\theta}\\cos{\\theta}$$",
+    "$$\\sin^2{\\theta}=\\frac{1-\\cos{2\\theta}}{2}$$",
+    "$$\\cos^2\\theta=\\frac{1+\\cos{2\\theta}}{2}$$",
+    "$$tan^2\\theta=\\frac{1-\\cos{2\\theta}}{1+\\cos{2\\theta}}$$",
+    "$$F^\\prime(x)=f(x)\\implies\\int_a^bf(x)dx=F(b)-F(a)$$",
+    "$$\\frac{d}{dx}\\int f(x)dx=f(x)$$"
+  ],
+  "quotes": [
+    {
+        "quoteText": "This project has truly changed my life!",
+        "author": "- Tyler Robucci"
+      },
+      {
+        "quoteText": "There is real potential for this project's future!",
+        "author": "- Mu-Alpha-Theta Honor Society"
+      },
+      {
+        "quoteText": "How is this project's creator single?!",
+        "author": "- The project's creator"
+      }
+  ],
+  "features":[
+    {
+      "title": "Practice Your Skills",
+      "icon": "../assets/basic4.svg",
+      "text": "Math-It offers extensive math practice that covers a variety of different math subjects. These subjects can range from elementary school mathematics like addition and subtraction to highschool math like algebra, trigonometry, and precalculus all the way to topics like differential and integral calculus, discrete math, and linear algebra. You can practice against the clock, or at your own pace."
+    },
+    {
+      "title": "Post Your Questions and Get Answers",
+      "icon": "../assets/post.svg",
+      "text": "Math-It also includes a discussion area for when you get stuck. Here you can post any questions you may have regarding math topic. The questions can be theoretical, proofs, computational, past problems, and more. Answers from tutors are tutor verified. Answers from educators are teacher verified. And to make sure you get the best answer, answers with more upvotes are seen first."
+    },
+    {
+      "title": "Create Classrooms and Monitor Students",
+      "icon": "../assets/teacher.svg",
+      "text": "Users who sign up as an educator are able to create classes. Here they can give their students a class code which signs that user into the class. From there the teacher can assign work to their students and monitor their porgress on assignments. Educators will also receive statistics on their classes like the average grade on an assignment and the average time to complete said assignment."
+    },
+    {
+      "title": "Join the Community, Become a Tutor",
+      "icon": "../assets/grade.png",
+      "text": "Join our diverse community of tutors. Offer your prospective on problems and help those in need. When you sign up as a tutor, you may be prompted to enter subjects that you are good at. When questions listed with these topics appear, your account may be notified. Any answers you provide are tutor certified."
+    },
+    {
+      "title": "Access a Surplus of Resources",
+      "icon": "../assets/puzzle.svg",
+      "text": "Math-It allows users of all types to post resources they found useful. Resources can be sorted by type like video or article or flashcards or by subject like algebra, calculus, discrete math, etc... You can save resources to your personal collections to make them easier to find later when you need them.  "
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
+.feature{
+    position: relative;
+    min-width: 30ch;
+    width: 40ch;
+    color: white;
+    font-family: "quicksand";
+    background-color: var(--dark-3);
+    border-radius: 10px;
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+@property --a{
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+.feature:hover::before{
+    opacity: 1;
+}
+
+.feature::before{
+    --size: 10px;
+    content: "";
+    position: absolute;
+    top: calc( var(--size) / -2);
+    left: calc(var(--size) / -2);
+    width: calc(100% + var(--size));
+    height: calc(100% + var(--size));
+    animation: spin linear 3000ms infinite;
+    transition: opacity 500ms linear;
+    opacity: 0;
+    border-radius: 12px;
+    background-image: repeating-conic-gradient(from var(--a), var(--green-1) 0%, var(--green-1) 5%, transparent 5%, transparent 40%, var(--green-1) 50%);
+    z-index: -1;
+}
+
+.feature::after{
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 10px;
+    height: 100%;
+    background-color: inherit;
+}
+
+@keyframes spin{
+    from {
+        --a: 0deg;
+    }
+    to{
+        --a: 360deg;
+    }
+}
+
+.featureHead{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 10px;
+    z-index: 100 !important;
+}
+
+.textContainer{
+    width: calc(100% - 40px);
+    max-width: 65ch;
+    padding-inline: 20px;
+}
+
+.featureIcon{
+    width: 50px;
+    height: 50px;
+}
