@@ -1,0 +1,87 @@
+.pageContainer{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentWrapper{
+    background-color: red;
+    width: 60%;
+    height: 80%;
+}
+
+
+/* .contentWrapper{
+    background-color: var(--dark-1);
+    display: flex;
+    justify-self: center;    
+    width: 50%;
+    height: 80vh !important;
+    padding: 20px;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+
+
+.leftContent{
+    display: flex;
+    flex-direction: column-reverse;
+    max-width: 55%;
+    flex-grow: 1;
+}
+
+.sidebar{
+
+    display: flex;
+    flex-grow: 1;
+    max-height: 35px;
+}
+
+.userTypeButton{
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.signUpWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding-bottom: 20px;
+    align-items: center;
+}
+
+.signUpTitle{
+    color: white;
+    text-align: center;
+    border-bottom: 5px solid var(--green-1);
+    width: calc(100% - 40px);
+    padding-bottom: 10px;
+}
+
+.signUpButton{
+    width: 135px;
+    border-radius: 100px;
+    height: 35px;
+}
+
+.signUpInputs{
+    background-color: red;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap; 
+}
+
+
+.rightContent{
+    max-width: 45%;
+}
+
+.userImg{
+    width: 100%;
+} */

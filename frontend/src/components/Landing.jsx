@@ -5,13 +5,9 @@ import postIcon from "../assets/post.svg";
 import gradeIcon from "../assets/grade.png";
 import basic4Icon from "../assets/basic4.svg";
 import teacherIcon from "../assets/teacher.svg";
-import classroomIcon from "../assets/classroom.svg";
-import tutoringIcon from "../assets/tutoring.svg";
-import studentIcon from "../assets/math-student.svg";
 import Navbar from "./Navbar";
 import Quote from "./Quote";
 import Feature from "./Feature";
-import SignUpCard from "./SignUpCard";
 import landingJSON from "../json/landing";
 
 let subjects = landingJSON.subjects;
@@ -116,18 +112,6 @@ function Landing() {
             />
           );
         })}
-      </section>
-
-      <section className={styles.signUpSection}>
-        <h1 className={styles.signUpTitle}>So, What'd ya say? Sign Up</h1>
-
-        <div className={styles.signUpCards}>
-            <SignUpCard title="Educator" icon={classroomIcon} perks={["Create Custom Classrooms", "Monitor Student Progress", "Get insights into how your students are doing"]}/>
-            <SignUpCard title="Learner" icon={studentIcon} perks={["Home your skills to ace your next exam", "Practice your speed and accuracy", "Post Questions and get Answers"]}/>
-            <SignUpCard title="Tutor" icon={tutoringIcon} perks={["Join our diverse community of tutors", "Help those who are stuggling in math, boosting math literacy"]}/>
-        </div>
-    
-
       </section>
     </>
   );

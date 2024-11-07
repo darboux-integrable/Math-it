@@ -1,18 +1,3 @@
-:root{
-    --dark-1: #17181c;
-    --dark-2: #22242a;
-    --dark-3: #1e1f24;
-
-    --green-1: rgb(43, 209, 129);
-    --green-2: #30e990;
-    --light-green-1: #68fbc2;
-
-    --purple-1: rgb(171,32,253);
-
-    --title-font: "Noto Sans JP", sans-serif;
-    --text-font: "Quicksand", sans-serif;
-
-}
 
 body, html{
     margin: 0;
