@@ -1,87 +1,271 @@
-.pageContainer{
-    width: 100vw;
+body, html{ 
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
-
+.wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-top: 30px;
+}
 .contentWrapper{
-    background-color: red;
+    background-color: var(--dark-1);
     width: 60%;
     height: 80%;
-}
-
-
-/* .contentWrapper{
-    background-color: var(--dark-1);
     display: flex;
-    justify-self: center;    
-    width: 50%;
-    height: 80vh !important;
-    padding: 20px;
-    padding-left: 0;
-    padding-bottom: 0;
+    font-family: var(--text-font);
+    margin-inline: auto;
+    color: white;
+    overflow: hidden;
+    border-radius: 8px;
 }
-
 
 .leftContent{
     display: flex;
-    flex-direction: column-reverse;
-    max-width: 55%;
+    flex-direction: column;
+    justify-content: space-between;
     flex-grow: 1;
-}
-
-.sidebar{
-
-    display: flex;
-    flex-grow: 1;
-    max-height: 35px;
-}
-
-.userTypeButton{
-    flex-grow: 1;
-    margin: 0;
-    padding: 0;
+    width: 50%;
+    background-color: var(--dark-1);
+    overflow: hidden;
+    min-width: 300px;
 }
 
 .signUpWrapper{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     flex-grow: 1;
-    padding-bottom: 20px;
-    align-items: center;
+}
+
+.signUpWrapper::after{
+    content: '';
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
 }
 
 .signUpTitle{
-    color: white;
     text-align: center;
-    border-bottom: 5px solid var(--green-1);
-    width: calc(100% - 40px);
-    padding-bottom: 10px;
-}
-
-.signUpButton{
-    width: 135px;
-    border-radius: 100px;
-    height: 35px;
+    padding-top: 20px;
+    font-family: var(--title-font);
 }
 
 .signUpInputs{
-    background-color: red;
-    height: 100%;
-    width: 100%;
+    position: relative;
     display: flex;
+    flex-grow: 1;
+    padding-left: 40px;
     flex-direction: column;
-    flex-wrap: wrap; 
+    gap: 30px;
 }
 
+.inputWrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputField{
+    width: 70%;
+    height: 35px;
+    border-radius: 15px;
+    border: none;
+    margin-top: 5px;
+    margin-left: 10px;
+    background-color: var(--dark-2);
+    color: white;
+    color: var(--light-green-1);
+}
+
+.inputTitle{
+    font-family: var(--title-font);
+    position: relative;
+    margin: 0;
+    padding-bottom: 2px;
+}
+
+.signUpButton{
+    position: relative;
+    min-width: 135px;
+    min-height: 35px;
+    align-self: center;
+    border-radius: 100px;
+    color: white;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+    margin-bottom: 30px;
+    margin-top: 20px;
+    font-size: 1.7rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-inline: 50px;
+    border: none;
+    cursor: pointer;
+    transition: transform 150ms ease-in-out;
+}
+
+.signUpButton::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+    filter: blur(0px);
+    transition: filter 150ms linear;
+    z-index: -1;
+}
+
+.signUpButton:hover::before{
+    filter: blur(5px);
+}
+
+.signUpButton:hover{
+    transform: scale(1.1);
+}
+
+.sidebar{
+    width: 100%;
+    display: flex;
+    background-color: var(--dark-4);
+}
+
+.sidebar > button{
+    height: 40px;
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.activeButton{
+    background-color: var(--dark-1) !important;
+    border-top: none;
+}
 
 .rightContent{
-    max-width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.userImgWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    position: relative;
 }
 
 .userImg{
+    max-width: 500px;
+    width: 90%;
+    height: 90%;
+    margin-inline: 30px;
+    opacity: 0.1;
+}
+
+.loginLinkWrapper{
     width: 100%;
-} */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.loginText{
+    margin: 0px;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+.loginButton{
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+
+    padding-bottom: 5px;
+    background-repeat: no-repeat;
+    background-size: 0% 5px;
+    background-position-y: 100%;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+    transition: background-size 150ms linear;
+    cursor: pointer;
+}
+
+.loginButton:hover{
+    background-size: 100% 5px;
+}
+
+.fadeOut{
+    position: relative;
+    animation: fade-out 300ms ease-in forwards;
+}
+
+.fadeIn{
+    position: relative;
+    animation: fade-in 300ms ease-in forwards;
+}
+
+/* Load the tutor section */
+.tutorWrapper{
+    background-color: var(--dark-1);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tutorTitle{
+    font-family: var(--title-font);
+    text-align: center;
+}
+
+.tutorText{
+    text-align: center;
+}
+
+.topicsWrapper{
+    overflow-y: auto;
+    width: 60%;
+    overflow-x: hidden;
+    margin-inline: auto;
+    margin-bottom: 20px;
+    display: grid;
+    border-radius: 10px;
+    flex-grow: 1;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+}
+
+@keyframes fade-in{
+    0%{
+        left: 100%;
+        opacity: 0;
+    }
+
+    100%{
+        left: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out{
+
+    0%{
+        left: 0px;
+        opacity: 1;
+    }
+    100%{
+        left: -100%;
+        opacity: 0;
+    }
+
+}

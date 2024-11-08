@@ -18,6 +18,10 @@ body{
     color: white;
 }
 
+.darkNav{
+    background-color: rgba(0,0,0,0.4);
+}
+
 .navButtons{
     display: flex;
     align-items: center;
@@ -60,6 +64,7 @@ body{
     display: flex;
     align-items: center;
     gap: 20px;
+    cursor: pointer;
 }
 
 .navbarLogo{

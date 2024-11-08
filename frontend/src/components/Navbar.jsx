@@ -1,10 +1,12 @@
 import styles from "./navbar.module.css";
 import logo from "../assets/logo.svg";
 
-function Navbar({buttons}) {
+function Navbar({buttons, bg}) {
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.logoContainer}>
+    <nav className={
+      `${styles.navbar} ${bg == "dark" ? styles.darkNav : ""}`
+    }>
+      <div className={styles.logoContainer} onclick={() => {location.replace("/")}}>
         <img src={logo} alt="Math it logo" className={styles.navbarLogo} />
         <h1 className={styles.logoTitle}>Math-It</h1>
       </div>

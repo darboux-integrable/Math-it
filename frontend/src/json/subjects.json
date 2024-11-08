@@ -1,14 +1,57 @@
 {
     "subjects": [
-        "Algebra",
-        "College Algebra",
-        "Trigonometry",
-        "Precalculus",
-        "Integral Calculus",
-        "Differential Calculus",
-        "Calculus 1",
-        "Calculus 2",
-        "Statistics",
-        "Discrete Math"
+        {
+            "subject": "Algbra",
+            "color1": "#7f5539",
+            "color2": "#ddb892"
+        },
+        {
+            "subject": "College Algebra",
+            "color1": "#3c096c",
+            "color2": "#9d4edd"
+        },
+        {
+            "subject": "Trigonometry",
+            "color1": "#ff4800",
+            "color2": "#ff7900"
+        },
+        {
+            "subject": "Precalculus",
+            "color1": "#ffc4d6",
+            "color2": "#ff5d8f"
+        },
+        {
+            "subject": "Calculus 1",
+            "color1": "#ff1f1f",
+            "color2": "#ff6666"
+        },
+        {
+            "subject": "Calculus 2",
+            "color1": "#3c8898",
+            "color2": "#7aaeb9"
+        },
+        {
+            "subject": "Calculus 3",
+            "color1": "#40916c",
+            "color2": "#74c69d"
+        },
+        {
+            "subject": "Differential Equations",
+            "color1": "#aacc00",
+            "color2": "#ffff3f"
+        },
+        {
+            "subject": "Linear Algebra",
+            "color1": "#00b4d8",
+            "color2": "#90e0ef"
+        },
+        {
+            "subject": "Statistics",
+            "color1": "#77adee",
+            "color2": "#99e3eb"
+        }
+
     ]
+
+
 }
