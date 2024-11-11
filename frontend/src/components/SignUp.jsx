@@ -4,7 +4,7 @@ import classroomIcon from "../assets/classroom.svg";
 import tutoringIcon from "../assets/tutoring.svg";
 import studentIcon from "../assets/math-student.svg";
 import Navbar from "./Navbar";
-import SubjectBar from "./subjectBar";
+import SubjectBar from "./SubjectBar";
 import { Show } from "solid-js";
 import subjectsJSON from "../json/subjects";
 

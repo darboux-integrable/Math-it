@@ -1,0 +1,9 @@
+.wrapper{
+    display: flex;
+    height: 100%;
+}
+
+.pageContent{
+    margin-left: 75px;
+    flex-grow: 1;
+}

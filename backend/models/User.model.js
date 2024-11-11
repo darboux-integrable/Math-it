@@ -3,6 +3,21 @@ import mongoose from "mongoose";
 const userSchema = mongoose.Schema({
 
     // To determine if the user is learner, educator, or tutor
+    firstName: {
+        type: String,
+        required: true,
+    },
+
+    lastName: {
+        type: String,
+        rquired: true
+    },
+
+    suffix: {
+        type: String,
+        required: false
+    },
+    
     userType: {
         type: String,
         required: true
@@ -42,6 +57,16 @@ const userSchema = mongoose.Schema({
     },
 
     resources: {
+        type: Array,
+        required: false
+    },
+
+    assignments: {
+        type: Array,
+        required: false
+    },
+
+    notifications: {
         type: Array,
         required: false
     }

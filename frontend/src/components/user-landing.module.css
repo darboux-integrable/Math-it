@@ -1,0 +1,246 @@
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 10px;
+  z-index: 2;
+  color: white;
+  background-color: var(--dark-2);
+}
+
+.assignmentsContainer {
+  width: 50%;
+  padding-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+.userTitle {
+  /* font-family: "Playwrite AU VIC", cursive; */
+  font-family: var(--title-font);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 4rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.usernameTitle {
+  margin: 0;
+  position: relative;
+  font-size: 2rem;
+  margin-left: 10px;
+  font-family: "Playwrite AU VIC", cursive;
+  font-family: var(--title-font);
+}
+
+.notificationsBackground, .mathematicianBackground{
+    background-color: var(--dark-4);
+    padding: 16px;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    border-radius: 18px;
+    align-items: center;
+    color: white;
+    font-family: var(--text-font);
+}
+
+.notificationsBackground{
+    max-height: 630px;
+}
+
+.notificationsWrapper{
+    background-color: var(--dark-4);
+    border: 4px solid var(--dark-2);
+    border-radius: 15px;
+    padding-inline: 20px;
+    width: fit-content;
+}
+
+.notificationsTitle{
+    font-family: var(--title-font);
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.titleDivideBar{
+    width: 90%;
+    height: 3px;
+    background-color: var(--dark-2);
+    border-radius: 10px;
+}
+
+.notifications{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 500px;
+    scrollbar-color: var(--dark-4) var(--dark-2);
+    padding-right: 10px;
+}
+
+.notification{
+    background-color: var(--dark-3);
+    padding: 10px;
+    border-radius: 8px;
+    min-height: 100px;
+    max-width: 50ch;
+}
+
+.notificationTitle{
+    font-family: var(--title-font);
+    margin: 0;
+}
+
+.notificationHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.viewPostButton{
+    background-color: var(--green-1);
+    width: 135px;
+    height: 40px;
+    border: none;
+    color: white;
+    font-size: 1.7rem;
+    border-radius: 5px;
+    margin-right: 20px;
+    cursor: pointer;
+    transition: scale 200ms;
+}
+
+.viewPostButton:hover{
+    scale: 1.1;
+}
+
+.notificationFooter{
+    display: flex;
+    gap: 20px;
+}
+
+.notificationFooter > p{
+    margin: 0;
+}
+
+.notificationBody{
+    display: flex;
+    justify-content: space-between;
+}
+
+.notificationGradeWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notificationGrade{
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark-1);
+    align-items: center;
+    padding: 8px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.notificationGrade > p{
+    margin: 0;
+}
+
+.gradeLine{
+    width: 90%;
+    height: 3px; 
+    background-color: var(--dark-2);
+}
+
+.mathImage{
+    margin: 10px;
+    float: left;
+    border-radius: 15px;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.mathematicianBackground{
+    width: 40%;
+}
+
+.mathematicianQuotes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.mathematicianWrapper{
+    border: 4px solid var(--dark-2);
+    border-radius: 10px;
+    padding-inline: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.mathematicianTitle{
+    font-family: var(--title-font);
+    background-color: var(--dark-3);
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.bottomSection{
+    position: relative;
+    top: -5px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    background-color: var(--dark-1);
+    justify-content: space-around;
+    transform: translateY(-5px);
+}
+
+
+.waves{
+    background-color: var(--dark-2);
+}
+
+.bottomSection, .waves{
+    position: relative;
+    top: -120px;
+}
+
+
+.waveTransition{
+    position: relative;
+    background-color: var(--dark-1);
+    z-index: 1;
+}
+
+@media (max-width: 1088px) {
+    .bottomSection{
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 15px;
+    }
+    .mathematicianBackground{
+        width: 60%;
+    }
+}
+

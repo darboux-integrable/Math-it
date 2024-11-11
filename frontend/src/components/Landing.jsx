@@ -32,7 +32,7 @@ function Landing() {
   return (
     <>
       <div>
-        <Navbar buttons={["About", "Features", "Login"]} />
+        <Navbar buttons={["Login"]} />
         <section className={styles.openingContainer}>
           <div className={styles.titleContainer}>
             <h1 className={styles.pageTitle}>Math-It</h1>
