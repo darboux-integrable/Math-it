@@ -162,6 +162,7 @@ function SignUp() {
                   );
                 })}
               </div>
+              <button className={styles.signUpButton}>Done!</button>
             </div>
           </Show>
         </div>

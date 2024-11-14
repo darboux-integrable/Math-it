@@ -93,7 +93,7 @@
 }
 
 .notification{
-    background-color: var(--dark-3);
+    background-color: var(--dark-5);
     padding: 10px;
     border-radius: 8px;
     min-height: 100px;

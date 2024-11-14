@@ -1,0 +1,22 @@
+.subjectButton {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  background-color: var(--dark-1);
+  margin-top: 10px;
+  color: white;
+}
+
+.subjectImage {
+  width: 100%;
+}
+
+.subjectTitle {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  margin: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-wrap: nowrap;
+}

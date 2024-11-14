@@ -1,57 +1,74 @@
 {
-    "subjects": [
-        {
-            "subject": "Algbra",
-            "color1": "#7f5539",
-            "color2": "#ddb892"
-        },
-        {
-            "subject": "College Algebra",
-            "color1": "#3c096c",
-            "color2": "#9d4edd"
-        },
-        {
-            "subject": "Trigonometry",
-            "color1": "#ff4800",
-            "color2": "#ff7900"
-        },
-        {
-            "subject": "Precalculus",
-            "color1": "#ffc4d6",
-            "color2": "#ff5d8f"
-        },
-        {
-            "subject": "Calculus 1",
-            "color1": "#ff1f1f",
-            "color2": "#ff6666"
-        },
-        {
-            "subject": "Calculus 2",
-            "color1": "#3c8898",
-            "color2": "#7aaeb9"
-        },
-        {
-            "subject": "Calculus 3",
-            "color1": "#40916c",
-            "color2": "#74c69d"
-        },
-        {
-            "subject": "Differential Equations",
-            "color1": "#aacc00",
-            "color2": "#ffff3f"
-        },
-        {
-            "subject": "Linear Algebra",
-            "color1": "#00b4d8",
-            "color2": "#90e0ef"
-        },
-        {
-            "subject": "Statistics",
-            "color1": "#77adee",
-            "color2": "#99e3eb"
-        }
-
-    ]
-
-
+  "subjects": [
+    {
+      "subject": "Algbra",
+      "description": "Algebra is a branch of mathematics that uses symbols and variables to represent numbers and solve equations. It involves manipulating these symbols using operations like addition, subtraction, multiplication, and division to find unknown values.",
+      "topics": ["Linear Equations", "Substitution", "Elimination"],
+      "color1": "#7f5539",
+      "color2": "#ddb892"
+    },
+    {
+      "subject": "College Algebra",
+      "description": "College algebra builds on basic algebra, covering topics like function analysis, exponential and logarithmetic equations, rational equations, and inequalities. It focuses on problem-solving and prepares students for more advanced math.",
+      "topics": ["Rational Equations", "Logarithms", "Exponentials"],
+      "color1": "#3c096c",
+      "color2": "#9d4edd"
+    },
+    {
+      "subject": "Trigonometry",
+      "description": "Trigonometry is a branch of mathematics that studies the relationships between the angles and sides of triangles. It focuses on functions like sine, cosine, and tangent, which are used to solve problems involving angles, distances, and periodic phenomena.",
+      "topics": ["Unit Circle", "Trigonometric Identities", "Phase Shift"],
+      "color1": "#ff4800",
+      "color2": "#ff7900"
+    },
+    {
+      "subject": "Precalculus",
+      "description": "Precalculus is a math course that prepares students for calculus, covering topics like functions, polynomials, exponential and logarithmic expressions, and trigonometry.",
+      "topics": ["Rational Equations", "Logarithms", "Exponentials", "Unit Circle", "Trigonometric Identities", "Phase Shift"],
+      "color1": "#ffc4d6",
+      "color2": "#ff5d8f"
+    },
+    {
+      "subject": "Calculus 1",
+      "description": "Calculus 1 is where the magic of change begins! You’ll dive into limits, derivatives, and the concept of instantaneous rate of change. It’s the foundation of calculus, giving you the tools to understand how things move, grow, and change.",
+      "topics": ["Chain Rule", "Product Rule", "Quotent Rule", "Power Rule"],
+      "color1": "#ff1f1f",
+      "color2": "#ff6666"
+    },
+    {
+      "subject": "Calculus 2",
+      "description": "Calculus 2 takes your calculus journey to the next level! Get ready to master advanced integration techniques like integration by parts and trigonometric substitution. You’ll also explore infinite series and power series, unlocking the ability to tackle more complex and fascinating problems.",
+      "topics": ["Integration By Parts", "Trigomonetric Substitution", "Partial Fractions", "Improper Integrals", "Direct Comparison Test", "Limit Comparison Test", "Ratio Test", "Root Test", "Nth Term Test", "Integral Test"],
+      "color1": "#3c8898",
+      "color2": "#7aaeb9"
+    },
+    {
+      "subject": "Calculus 3",
+      "description": "Calculus 3, or multivariable calculus, takes you into the exciting world of higher dimensions! You'll explore partial derivatives, multiple integrals, and vector fields, unlocking the power to solve complex problems involving more than one variable.",
+      "topics": ["Partial Derivatives", "Multiple Integration", "Directional Derivatives", "The Jacobian", "Spherical Coordinates", "Cyclindrical Coordinates"],
+      "color1": "#40916c",
+      "color2": "#74c69d"
+    },
+    {
+      "subject": "Differential Equations",
+      "description": "You’ll explore equations that describe how things change over time, like population growth, heat flow, and even motion. With tools to solve both ordinary and partial differential equations.",
+      "topics": ["Wronskian", "Ordinary Differential Equations", "Seperatable Differential Equations", "Partial Differential Equations"],
+      "color1": "#aacc00",
+      "color2": "#ffff3f"
+    },
+    {
+      "subject": "Linear Algebra",
+      "description": "Linear Algebra is the key to unlocking the power of vectors, matrices, and linear systems! You’ll dive into concepts like vector spaces, eigenvalues, and matrix transformations, which are crucial for everything from computer graphics to machine learning.",
+      "topics": ["Matrix Multiplication", "Matrix Addition/Subjtraction", "Systems of Equations", "Reduced Row Echelon Form", "LU Decomposition", "Inner Product Spaces", "Eigen Vectors"],
+      "color1": "#00b4d8",
+      "color2": "#90e0ef"
+    },
+    {
+      "subject": "Statistics",
+      "description": "You’ll learn how to summarize data with measures like mean and standard deviation, make predictions using probability, and test hypotheses to draw conclusions. Whether for research, business, or everyday decision-making, statistics provides the tools to understand patterns, assess risk, and make informed choices based on data.",
+      "topics": ["Coefficient of Correlation", "Ceoefficient of Determination", "Least Squares Regression Line", "Normal Distributions"],
+      "color1": "#77adee",
+      "color2": "#99e3eb"
+    }
+  ]
 }

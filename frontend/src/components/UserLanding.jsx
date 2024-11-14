@@ -9,20 +9,20 @@ const UserLanding = () => {
   let user = {
     userName: "DarbouxIntegrable",
     assignments: [
-      // {
-      //   title: "Homework 9.2",
-      //   class: "Calculus 2",
-      //   period: "A1",
-      //   teacher: "Mr. Streets",
-      //   dueDate: { month: "Sep", day: 10, time: "11:59PM" },
-      // },
-      // {
-      //   title: "Homework 9.2",
-      //   class: "Calculus 2",
-      //   period: "A1",
-      //   teacher: "Mr. Streets",
-      //   dueDate: { month: "Sep", day: 10, time: "11:59PM" },
-      // },
+      {
+        title: "Homework 9.2",
+        class: "Calculus 2",
+        period: "A1",
+        teacher: "Mr. Streets",
+        dueDate: { month: "Sep", day: 10, time: "11:59PM" },
+      },
+      {
+        title: "Homework 9.2",
+        class: "Calculus 2",
+        period: "A1",
+        teacher: "Mr. Streets",
+        dueDate: { month: "Sep", day: 10, time: "11:59PM" },
+      },
 
     ],
     notifications: [

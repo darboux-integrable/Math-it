@@ -52,7 +52,7 @@
 .assignment{
     display: flex;
     border-radius: 10px;
-    background-color: var(--dark-3);
+    background-color: var(--dark-5);
     padding-inline: 20px;
     align-items: center;
     font-family: var(--text-font);
