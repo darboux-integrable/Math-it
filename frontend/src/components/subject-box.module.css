@@ -3,6 +3,7 @@
   padding: 10px;
   box-shadow: 0px 0px 10px 5px var(--dark-1);
   border-radius: 10px;
+
 }
 
 .subjectBox {
@@ -13,6 +14,8 @@
   border-radius: 10px;
   height: calc(100% - 10px);
   border: 5px var(--dark-3) solid;
+  display: flex;
+  flex-direction: column;
 }
 
 .boxHead {
@@ -54,8 +57,9 @@
   font-family: var(--text-font);
   padding-bottom: 10px;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   justify-content: space-between;
+  flex-grow: 1;
   width: 100%;
 }
 
@@ -63,24 +67,26 @@
   display: grid;
   gap: 5px;
   grid-template-columns: 1fr 1fr 1fr;
-  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 130px;
+  overflow-x: hidden;
+  grid-auto-rows: 1fr;
 }
 
-
-.topicTitle{
-    text-align: center;
-    border-radius: 5px;
-    border: none;
-    background-color: var(--dark-1);
-    color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    cursor: pointer;
-    transition: border 150ms;
-    font-size: 1rem;
-    border: transparent 2px solid; 
+.topicTitle {
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--dark-1);
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+  transition: border 150ms;
+  font-size: 1rem;
+  border: transparent 2px solid;
 }
 
-.topicTitle:hover{
-    border: var(--green-1) 2px solid; 
+.topicTitle:hover {
+  border: var(--green-1) 2px solid;
 }

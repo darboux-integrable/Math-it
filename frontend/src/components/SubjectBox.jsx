@@ -1,6 +1,10 @@
 import styles from "./subject-box.module.css";
 
+
 function SubjectBox({ title, description, topics }) {
+
+
+
   return (
     <div className={styles.boxBackground}>
         <div className={styles.subjectBox}>

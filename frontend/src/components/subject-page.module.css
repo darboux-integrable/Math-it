@@ -7,8 +7,10 @@
     margin-left: 75px;
     flex-grow: 1;
     display: flex;
-    flex-wrap: wrap;
     gap: 15px;
-    justify-content: center;
+    flex-direction: column;
+    color: white;
+    align-items: center;
 
 }
+

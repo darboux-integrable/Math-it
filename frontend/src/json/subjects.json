@@ -1,7 +1,7 @@
 {
   "subjects": [
     {
-      "subject": "Algbra",
+      "subject": "Algebra",
       "description": "Algebra is a branch of mathematics that uses symbols and variables to represent numbers and solve equations. It involves manipulating these symbols using operations like addition, subtraction, multiplication, and division to find unknown values.",
       "topics": ["Linear Equations", "Substitution", "Elimination"],
       "color1": "#7f5539",
@@ -38,7 +38,7 @@
     {
       "subject": "Calculus 2",
       "description": "Calculus 2 takes your calculus journey to the next level! Get ready to master advanced integration techniques like integration by parts and trigonometric substitution. You’ll also explore infinite series and power series, unlocking the ability to tackle more complex and fascinating problems.",
-      "topics": ["Integration By Parts", "Trigomonetric Substitution", "Partial Fractions", "Improper Integrals", "Direct Comparison Test", "Limit Comparison Test", "Ratio Test", "Root Test", "Nth Term Test", "Integral Test"],
+      "topics": ["Integration By Parts", "Trigomonetric Substitution", "Partial Fractions", "Improper Integrals", "Limit Comparison Test", "Ratio Test", "Direct Comparison Test", "Root Test", "Nth Term Test", "Integral Test"],
       "color1": "#3c8898",
       "color2": "#7aaeb9"
     },
@@ -59,7 +59,7 @@
     {
       "subject": "Linear Algebra",
       "description": "Linear Algebra is the key to unlocking the power of vectors, matrices, and linear systems! You’ll dive into concepts like vector spaces, eigenvalues, and matrix transformations, which are crucial for everything from computer graphics to machine learning.",
-      "topics": ["Matrix Multiplication", "Matrix Addition/Subjtraction", "Systems of Equations", "Reduced Row Echelon Form", "LU Decomposition", "Inner Product Spaces", "Eigen Vectors"],
+      "topics": ["Matrix Multiplication", "Matrix Addition/Subtraction", "Systems of Equations", "Reduced Row Echelon Form", "LU Decomposition", "Inner Product Spaces", "Eigen Vectors"],
       "color1": "#00b4d8",
       "color2": "#90e0ef"
     },

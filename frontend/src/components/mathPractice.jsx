@@ -1,5 +1,5 @@
 import styles from "./math-practice.module.css";
-import SubjectBox from "./subjectBox";
+import SubjectBox from "./SubjectBox";
 import SideNavbar from "./SideNavbar";
 import subjectsJSON from "../json/subjects.json";
 

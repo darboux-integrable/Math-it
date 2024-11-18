@@ -32,8 +32,6 @@ function SignUp() {
 
   return (
     <>
-      <Navbar buttons={["Login"]} bg="dark"></Navbar>
-      <div className={styles.wrapper}>
         <div className={styles.contentWrapper} id="contentWrapper">
           <Show when={!loadTutor()}>
             <div className={styles.leftContent}>
@@ -76,9 +74,7 @@ function SignUp() {
                       );
 
                       let containerElement = document.getElementById("contentWrapper");
-
                       let height = containerElement.getBoundingClientRect().height;
-                      
                       containerElement.style.height = height + "px";
 
                       fadeOutElems.forEach((element) => {
@@ -166,7 +162,6 @@ function SignUp() {
             </div>
           </Show>
         </div>
-      </div>
     </>
   );
 }
