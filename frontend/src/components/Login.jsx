@@ -22,7 +22,7 @@ function Login() {
 
           <div className={styles.inputs}>
             <div className={styles.inputWrapper}>
-                <p className={styles.inputTitle}>First and Last Names:</p>
+              <p className={styles.inputTitle}>First and Last Names:</p>
               <div className={styles.nameInputs}>
                 <input
                   value={firstName()}
@@ -46,7 +46,7 @@ function Login() {
             </div>
 
             <div className={styles.inputWrapper}>
-                <p className={styles.inputTitle}>Username or Email:</p>
+              <p className={styles.inputTitle}>Username or Email:</p>
               <input
                 type="text"
                 value={usernameOrEmail()}
@@ -59,7 +59,7 @@ function Login() {
             </div>
 
             <div className={styles.inputWrapper}>
-                <p className={styles.inputTitle}>Password:</p>
+              <p className={styles.inputTitle}>Password:</p>
               <input
                 type="text"
                 value={password()}
@@ -80,26 +80,6 @@ function Login() {
             <p className={styles.signupText}>Don't Have an Account?</p>
 
             <button className={styles.signUpButton}>Sign Up</button>
-          </div>
-
-          <div className={styles.mathUpCanvas} id="mathCanvas">
-            {mathStrings.map((equation) => {
-              const timer = mathStrings.indexOf(equation) * 1000;
-              return (
-                <h2
-                  className={styles.mathItem}
-                  style={{
-                    "animation-delay": `${timer}ms`,
-                    left: `${Math.floor(Math.random() * window.innerWidth)}px`,
-                  }}
-                >
-                  {equation}
-                </h2>
-              );
-            })}
-            {() => {
-              MathJax.Hub.Typeset();
-            }}
           </div>
         </div>
       </div>

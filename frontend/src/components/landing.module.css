@@ -213,7 +213,7 @@
 
 @keyframes up{
     0%{
-        bottom: -20%;
+        bottom: 0%;
         opacity: 1;
     }
     60%{

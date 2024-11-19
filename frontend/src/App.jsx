@@ -6,6 +6,7 @@ import UserLanding from "./components/UserLanding";
 import MathPractice from "./components/mathPractice";
 import SubjectPage from "./components/SubjectPage";
 import { useParams } from "@solidjs/router";
+import FormsLanding from "./components/FormsLanding";
 
 function App() {
   return (
@@ -18,8 +19,6 @@ function App() {
 
         <Route path="/users/:id/practice" component={<MathPractice />}></Route>
 
-        <Route path="/users/:id/landing" component={<UserLanding />}></Route>
-
         <Route
           path="users/:id/practice/:subject"
           component={() => {
@@ -27,6 +26,10 @@ function App() {
             return <SubjectPage params={params} />;
           }}
         ></Route>
+
+        <Route path="/users/:id/landing" component={<UserLanding />}></Route>
+
+        <Route path="/questions" component={<FormsLanding />}></Route>
       </Router>
   );
 }
