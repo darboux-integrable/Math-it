@@ -1,0 +1,9 @@
+.tagWrapper{
+    background-color: var(--dark-1);
+    border-radius: 4px;
+}
+
+.tagText{
+    color: white;
+    font-family: var(--text-font);
+}

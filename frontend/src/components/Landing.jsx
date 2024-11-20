@@ -17,7 +17,7 @@ const features = landingJSON.features;
 const icons = [basic4Icon, postIcon, teacherIcon, gradeIcon, puzzleIcon];
 
 function Landing() {
-  const [subject, setSubject] = createSignal("Algbra");
+  const [subject, setSubject] = createSignal("Algebra");
 
   const subjectTimer = 4500;
 

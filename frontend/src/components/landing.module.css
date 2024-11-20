@@ -1,4 +1,6 @@
 :root{
+    interpolate-size: allow-keywords;
+
     --dark-1: hsl(230, 11%, 11%);
     --dark-2: hsl(225, 11%, 15%);
     --dark-3: #1e1f24;
