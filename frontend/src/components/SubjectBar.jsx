@@ -2,7 +2,7 @@ import { createSignal } from "solid-js";
 import styles from "./subject-bar.module.css";
 import { Show } from "solid-js";
 
-function SubjectBar({ subject, delay, color1, color2 }) {
+function SubjectBar({ subject, delay, color1 }) {
   const [selected, setSelected] = createSignal(false);
 
   const [timePassed, setTimePassed] = createSignal(false);
@@ -24,7 +24,7 @@ function SubjectBar({ subject, delay, color1, color2 }) {
         <div
           className={styles.borderBox}
           style={{
-            "background-image": `linear-gradient(45deg, ${color1}, ${color2})`,
+            "background-image": `linear-gradient(45deg, ${color1}, ${color1})`,
             "animation-delay": delay + "ms",
           }}
         ></div>
@@ -41,7 +41,7 @@ function SubjectBar({ subject, delay, color1, color2 }) {
         <div
           className={styles.colorBox}
           style={{
-            "background-image": `linear-gradient(45deg, ${color1}, ${color2})`,
+            "background-image": `linear-gradient(45deg, ${color1}, ${color1})`,
           }}
         ></div>
         <div className={styles.subjectTextWrapper}>

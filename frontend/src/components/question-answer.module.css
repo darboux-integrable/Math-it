@@ -1,0 +1,7 @@
+.answerWrapper{
+    display: flex;
+    gap: 10px;
+    padding-bottom: 10px;
+    color: white;
+    font-family: var(--text-font);
+}

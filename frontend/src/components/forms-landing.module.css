@@ -110,8 +110,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 15px;
   padding: 5px;
-  padding-inline: 20px;
+  padding-inline: 15px;
 }
 
 .subjectFiltersWrapper {
@@ -155,8 +156,12 @@
   background-color: var(--dark-3);
 }
 
-.subjectColor {
+.subjectColor , .colorBox{
   min-width: 10px;
   min-height: 10px;
   border-radius: 50%;
+}
+
+.formsBody{
+  padding-bottom: 40px;
 }

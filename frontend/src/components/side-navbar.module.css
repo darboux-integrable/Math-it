@@ -11,6 +11,7 @@
     border-right: 3px solid var(--dark-4);
     overflow: hidden;
     background-color: var(--dark-2);
+    z-index: 100;
 }
 
 

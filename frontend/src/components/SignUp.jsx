@@ -153,7 +153,6 @@ function SignUp() {
                       subject={subjects[index].subject}
                       delay={index * 100 + 300}
                       color1={subjects[index].color1}
-                      color2={subjects[index].color2}
                     />
                   );
                 })}

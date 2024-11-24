@@ -1,0 +1,41 @@
+.upvotesWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-width: fit-content;
+    height: fit-content;
+    background-color: var(--dark-1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.voteButton{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--dark-1);
+    transition: filter 150ms linear;
+}
+
+.voteButton:hover{
+    filter: brightness(1.3);
+}
+
+.upVote, .downVote{
+    scale: 0.5;
+}
+
+.downVote{
+    transform: rotateX(180deg);
+}
+
+.upvotesText{
+    color: white;
+    margin: 0;
+    font-family: var(--title-font);
+}
