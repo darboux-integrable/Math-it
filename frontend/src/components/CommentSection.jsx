@@ -2,7 +2,7 @@ import { createSignal, Show } from "solid-js";
 import UserComment from "./UserComment";
 import styles from "./comment-section.module.css";
 
-function CommentSection({ comments }) {
+function CommentSection({ comments, commmentButtonTheme}) {
   const addComment = () => {};
 
   const [addCommentSection, setAddCommentSection] = createSignal(false);
@@ -24,7 +24,8 @@ function CommentSection({ comments }) {
         })}
       </div>
       <button
-        className={styles.addComment}
+        className={`${commmentButtonTheme == "notPrimary" ? styles.notPrimaryButton : styles.addComment}`}
+        
         onclick={() => {
           setAddCommentSection(true);
         }}

@@ -13,7 +13,7 @@ function QuestionAnswer({ upvotes, comments, answerBody }) {
           </div>
         </div>
       </div>
-      <CommentSection comments={comments} />
+      <CommentSection comments={comments} commmentButtonTheme={"notPrimary"} />
     </div>
   );
 }
