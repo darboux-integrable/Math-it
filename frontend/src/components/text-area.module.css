@@ -1,0 +1,97 @@
+.textAreaWrapper {
+  display: flex;
+  margin-top: 25px;
+  background-color: var(--dark-1);
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+.bottomSection {
+  width: 100%;
+}
+
+.textArea {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: var(--dark-1);
+  color: white;
+  font-family: var(--text-font);
+  outline: none;
+  border: none;
+  resize: vertical;
+}
+
+.topSection {
+  display: flex;
+  padding: 5px;
+  gap: 20px;
+}
+
+.topSection > * {
+    display: flex;
+    gap: 3px;
+}
+
+.topSectionButtonWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 150ms;
+  cursor: pointer;
+}
+
+.topSectionButtonWrapper:hover{
+    background-color: var(--dark-5);
+}
+
+.topSectionButtonImage {
+  width: 25px;
+  height: 25px;
+}
+
+.buttonAboutWrapper {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  text-wrap: nowrap;
+  width: auto;
+  z-index: 1000;
+  opacity: 0;
+  color: white;
+  background-color: var(--dark-4);
+  font-family: var(--text-font);
+  padding-inline: 10px;
+  transition-delay: 500ms;
+  transition-property: opacity;
+  transition-timing-function: ease-out;
+  transition-duration: 250ms;
+  border-radius: 5px;
+  border-top-left-radius: 0px;
+}
+
+.buttonAboutWrapper::before {
+  --size: 15px;
+
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--size) + 1px );
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+
+  border-bottom: var(--size) solid var(--dark-4);
+}
+
+.buttonAboutText {
+  margin: none;
+}
+
+.topSectionButtonWrapper:hover:hover > .buttonAboutWrapper {
+  opacity: 1;
+}

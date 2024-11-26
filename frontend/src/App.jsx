@@ -7,6 +7,7 @@ import MathPractice from "./components/mathPractice";
 import { useParams } from "@solidjs/router";
 import QuestionPage from "./components/QuestionPage";
 import FormsLanding from "./components/FormsLanding";
+import AskQuestionPage from "./components/AskQuestionPage";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
       <Route path="/practice" component={<MathPractice />}></Route>
 
       <Route path="/questions" component={<FormsLanding />}></Route>
+
+      <Route path="/questions/ask" component={<AskQuestionPage />}></Route>
 
       <Route
         path="/questions/:id"

@@ -1,0 +1,14 @@
+.wrapper{
+    display: flex;
+    height: 100%;
+    padding-bottom: 30px;
+}
+
+.pageContent{
+    width: 100%;
+    height: 100%;
+    margin-left: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
