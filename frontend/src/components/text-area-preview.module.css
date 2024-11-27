@@ -1,0 +1,36 @@
+.header{
+    font-size: 2rem;
+    font-weight: 500;
+    color: white;
+}
+
+.bold{
+    font-weight: 900;
+    color: white;
+}
+
+.italic{
+    font-style: italic;
+    color: white;
+}
+
+.normalText{
+    color: white;
+}
+
+.error{
+    color: red;
+}
+
+.orderedList{
+
+}
+
+.unorderedList{
+
+}
+
+.table{
+
+}
+
