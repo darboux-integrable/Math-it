@@ -1,7 +1,7 @@
 .textAreaWrapper {
   position: relative;
   display: flex;
-  margin-top: 25px;
+  margin-top: 8px;
   background-color: var(--dark-1);
   border-radius: 10px;
   flex-direction: column;

@@ -1,6 +1,9 @@
 .preview{
     color: white;
+    margin-top: 20px;
+    max-width: 65ch;
     font-family: var(--text-font);
+    text-wrap: wrap;
 }
 
 .header{
@@ -96,6 +99,9 @@
     border-radius: 5px;
     overflow: hidden;
     max-width: fit-content;
+    margin-top: 10px;
+    padding-bottom: 2px;
+    overflow-x: auto;
 }
 
 .tableColumn{
@@ -107,7 +113,9 @@
     font-size: 1.5rem;
     font-family: var(--title-font);
     background-color: var(--dark-1);
-
+    text-align: center;
+    text-wrap: nowrap;
+    min-width: fit-content;
 }
 
 .tableHeader, .tableItem{

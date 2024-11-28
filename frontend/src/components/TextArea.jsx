@@ -16,12 +16,14 @@ import TextAreaPreview from "./TextAreaPreview";
 let timeoutFunction;
 
 function HeaderButton(props) {
-
   const addSentinelToText = () => {
     const startIndex = props.textArea.selectionStart;
     const endIndex = props.textArea.selectionEnd;
-    
-    const newText = props.textArea.value.substring(0,startIndex) + props.sentinel + props.textArea.value.substring(endIndex);
+
+    const newText =
+      props.textArea.value.substring(0, startIndex) +
+      props.sentinel +
+      props.textArea.value.substring(endIndex);
 
     props.setCurrentText(newText);
   };
@@ -47,11 +49,15 @@ function HeaderButton(props) {
       <img
         src={props.image}
         alt=""
-        className={styles.topSectionButtonImage}
+        className={`${styles.topSectionButtonImage} ${
+          !props.sentinel && props.about != "Help" && !props.togglePreviewVal // Set the markdown button to active by default
+            ? styles.activeDisplay
+            : " "
+        }`}
         onclick={(e) => {
           if (props.sentinel) {
             addSentinelToText();
-          } else if(props.about == "Help") {
+          } else if (props.about == "Help") {
             window.open("/help/textArea");
           } else {
             toggleDisplay(e);
@@ -65,7 +71,8 @@ function HeaderButton(props) {
         }}
         onmouseleave={() => {
           timeoutFunction = setTimeout(() => {
-            props.textArea.className = styles.textArea + " " + styles.notHovered;
+            props.textArea.className =
+              styles.textArea + " " + styles.notHovered;
           }, 750);
         }}
       />
