@@ -15,7 +15,7 @@ function Question({title, askedDate, views, upvotes, comments, questionBody, tag
                         <p className={styles.questionHeaderData}>Viewed {views} times</p>
                     </div>
                 </div>
-                <button className={styles.askButton}>Ask a Question</button>
+                <button className={styles.askButton} onclick={() => {location.replace("/questions/ask")}} >Ask a Question</button>
             </div>
             <div className={styles.questionBody}>
                 <Vote numberOfVotes={upvotes} />

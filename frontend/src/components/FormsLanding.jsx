@@ -101,7 +101,7 @@ function FormsLanding() {
           <div className={styles.formsHead}>
             <div className={styles.headTop}>
               <h1 className={styles.formsTitle}>All Questions</h1>
-              <button className={styles.askButton}>Ask Question</button>
+              <button className={styles.askButton} onclick={() => {location.replace("/questions/ask")}} >Ask Question</button>
             </div>
 
             <div className={styles.headBottom}>

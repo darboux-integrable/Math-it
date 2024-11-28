@@ -1,24 +1,37 @@
+import { createEffect, createSignal } from "solid-js";
 import styles from "./text-area-preview.module.css";
 
+// Removes all the digits from the string.
+// This is needed to identify tags that are nested with the same name.
+function removeDigits(string) {
+  let newString = "";
+
+  for (let i = 0; i < string.length; i++) {
+    if (isNaN(string[i])) newString += string[i];
+  }
+
+  return newString;
+}
 // Takes in the name of the tag and returns the HTML template for that tag.
 // Takes in the text value for that tag and adds it to the HTML template.
 // Before it adds it to the HTML template, it checks for any tags nested in the text.
 // These nested elements are accounted for and added the HTML template.
+
 function elementLookUp(tag, textValue) {
   let element;
 
   let nestedElements = compileText(textValue);
 
-	//console.log(textValue);
+  const rawTag = removeDigits(tag.toLowerCase());
 
-  switch (tag.toLowerCase()) {
+  switch (rawTag) {
     case "header":
       element = (
-        <header className={styles.header}>
+        <span className={styles.header}>
           {nestedElements.map((element) => {
             return element;
           })}
-        </header>
+        </span>
       );
       break;
     case "bold":
@@ -33,6 +46,15 @@ function elementLookUp(tag, textValue) {
     case "italic":
       element = (
         <span className={styles.italic}>
+          {nestedElements.map((element) => {
+            return element;
+          })}
+        </span>
+      );
+      break;
+    case "underline":
+      element = (
+        <span className={styles.underline}>
           {nestedElements.map((element) => {
             return element;
           })}
@@ -57,6 +79,15 @@ function elementLookUp(tag, textValue) {
         </div>
       );
       break;
+    case "listitem":
+      element = (
+        <div className={styles.listItem}>
+          {nestedElements.map((element) => {
+            return element;
+          })}
+        </div>
+      );
+      break;
     case "table":
       element = (
         <div className={styles.table}>
@@ -66,11 +97,40 @@ function elementLookUp(tag, textValue) {
         </div>
       );
       break;
-		case "linebreak":
-			element = (
-				<br />
-			);
-			break;
+    case "tcolumn":
+      element = (
+        <div className={styles.tableColumn}>
+          {nestedElements.map((element) => {
+            return element;
+          })}
+        </div>
+      );
+      break;
+    case "theader":
+      element = (
+        <div className={styles.tableHeader}>
+          {nestedElements.map((element) => {
+            return element;
+          })}
+        </div>
+      );
+      break;
+    case "titem":
+      element = (
+        <div className={styles.tableItem}>
+          {nestedElements.map((element) => {
+            return element;
+          })}
+        </div>
+      );
+      break;
+    case "newline":
+    case "linebreak":
+      element = <br />;
+      break;
+    case "horizontalline":
+      element = <div className={styles.horizontalLine}></div>;
+      break;
     default:
       element = (
         <span className={styles.normalText}>
@@ -79,7 +139,7 @@ function elementLookUp(tag, textValue) {
           })}
         </span>
       );
-			break;
+      break;
   }
 
   return element;
@@ -89,11 +149,12 @@ function elementLookUp(tag, textValue) {
 function loadError(elements) {
   elements.push(
     <span className={styles.error}>
-      Error Loading Preview. Make sure all tags are complete.
-			Also make sure there is no whitespace inside of the tags.
+      Error Loading Preview. Make sure all tags are complete. Also make sure
+      there is no whitespace inside of the tags.
     </span>
   );
 }
+
 // Compiles the variable string into its elements.
 // It returns an array of the elements in the order they need to be loaded
 function compileText(string) {
@@ -105,11 +166,12 @@ function compileText(string) {
 
   let stringCopy = string;
 
-	let count = 0;
-	const KILL_COUNT = 50;
+  // Incase the user creates an infinite loop, have a killcount to stop it.
+  let count = 0;
+  const KILL_COUNT = 50;
 
   while (stringCopy.indexOf("<") != -1 && count < KILL_COUNT) {
-		count++;
+    count++;
     const startIndex = stringCopy.indexOf("<");
 
     // Check for any text before the tag. This still should be included in the page. Just outside of any tag.
@@ -121,14 +183,14 @@ function compileText(string) {
         </span>
       );
     }
-		
+
     if (stringCopy[startIndex + 1] != "/") {
       // Find the end of the opening tag
       const openingTagEnd = stringCopy.indexOf(">");
 
-			// Check for error in the start index. 
+      // Check for error in the start index.
       if (openingTagEnd == -1) {
-				loadError();
+        loadError(elements);
         return elements;
       }
 
@@ -136,22 +198,21 @@ function compileText(string) {
       const tagName = stringCopy.substring(startIndex + 1, openingTagEnd);
       let trimmedTagName = tagName.trim();
 
-
       // Find the end of the tag.
       const tagEndIndex = stringCopy.indexOf("</" + trimmedTagName);
-			// Check for error in the end index. 
+      // Check for error in the end index.
       if (tagEndIndex == -1) {
-        loadError();
+        loadError(elements);
         return elements;
       }
 
       // Get the body of the tag by getting the text between the end of the start tag and start of ending tag.
       const tagBody = stringCopy.substring(openingTagEnd + 1, tagEndIndex);
-			console.log(tagName + "|" + trimmedTagName + "|", tagBody);
+      //console.log(tagName + "|" + trimmedTagName + "|", tagBody);
 
       const newElement = elementLookUp(trimmedTagName, tagBody);
       elements.push(newElement);
-       console.log(newElement, "\n");
+      //console.log(newElement, "\n");
 
       // Remove the tag we just found so we can search for a new tag.
       const newString = stringCopy.substring(tagEndIndex + 3 + tagName.length);
@@ -167,22 +228,38 @@ function compileText(string) {
     elements.push(<span className={styles.normalText}>{stringCopy}</span>);
   }
 
-	if(count == KILL_COUNT){
-		loadError(elements);
-	}
+  if (count == KILL_COUNT) {
+    loadError(elements);
+  }
 
   return elements;
 }
 
-function TextAreaPreview({ text }) {
-  const elements = compileText(text);
+function TextAreaPreview(props) {
 
-	// Return the list of elements
+  const [elements, setElements] = createSignal(compileText(props.getText()));
+
+  let container;
+
+  createEffect(() => { 
+    // Needed to remove old MathJax elements. 
+    while(container.firstChild){
+      container.removeChild(container.firstChild);
+    }
+    setElements(compileText(props.getText()));
+  });
+
+  // Return the list of elements
   return (
-    <div className="">
-      {elements.map((element) => {
-        return element;
+    <div ref={container} className={styles.preview}>
+      {elements().map((element) => {
+        // if(element.className != styles.mathTextItem)
+          return element;
       })}
+      {() => {
+        elements(); // Need this here so that every time the elements change, it runs the next line. (Mathjax.typeset();)
+        MathJax.typeset();
+      }}
     </div>
   );
 }

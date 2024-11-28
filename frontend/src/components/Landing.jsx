@@ -63,7 +63,9 @@ function Landing() {
             </h2>
           );
         })}
-        {() => {MathJax.Hub.Typeset();}}
+        {() => {
+          MathJax.typeset();
+        }}
       </div>
 
       <section className={styles.aboutSection}>
@@ -98,7 +100,6 @@ function Landing() {
             return <Quote quoteText={quote.quoteText} author={quote.author} />;
           })}
         </section>
-
       </section>
 
       <h1 className={styles.featuresTitle}>Features</h1>
