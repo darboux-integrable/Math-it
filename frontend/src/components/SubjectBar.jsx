@@ -2,7 +2,7 @@ import { createSignal } from "solid-js";
 import styles from "./subject-bar.module.css";
 import { Show } from "solid-js";
 
-function SubjectBar({ subject, delay, color1 }) {
+function SubjectBar({ subject, delay, color1, subjectsArray, setSubjectsArray}) {
   const [selected, setSelected] = createSignal(false);
 
   const [timePassed, setTimePassed] = createSignal(false);
@@ -12,8 +12,14 @@ function SubjectBar({ subject, delay, color1 }) {
   }, delay + 300);
 
   const toggleSelected = (e) => {
-    if (!selected()) setSelected(true);
-    else setSelected(false);
+    if (!selected()) {
+      setSelected(true)
+      setSubjectsArray([...subjectsArray(), subject])
+    }
+    else {
+      setSelected(false)
+      setSubjectsArray(subjectsArray().filter(subjectName => subjectName != subject))
+    };
   };
 
   return (

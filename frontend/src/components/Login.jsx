@@ -22,31 +22,7 @@ function Login() {
 
           <div className={styles.inputs}>
             <div className={styles.inputWrapper}>
-              <p className={styles.inputTitle}>First and Last Names:</p>
-              <div className={styles.nameInputs}>
-                <input
-                  value={firstName()}
-                  onInput={(e) => {
-                    setFirstName(e.target.value);
-                  }}
-                  type="text"
-                  className={`${styles.nameInput} ${styles.inputField}`}
-                  placeholder="First Name"
-                />
-                <input
-                  value={lastName()}
-                  onInput={(e) => {
-                    setLastName(e.target.value);
-                  }}
-                  type="text"
-                  className={`${styles.nameInput} ${styles.inputField}`}
-                  placeholder="Last Name"
-                />
-              </div>
-            </div>
-
-            <div className={styles.inputWrapper}>
-              <p className={styles.inputTitle}>Username or Email:</p>
+              <p className={styles.inputTitle}>Username:</p>
               <input
                 type="text"
                 value={usernameOrEmail()}
@@ -54,7 +30,7 @@ function Login() {
                   setUserNameOrEmail(e.target.value);
                 }}
                 className={`${styles.emailInput} ${styles.inputField}`}
-                placeholder="Username Or Email"
+                placeholder="Username"
               />
             </div>
 

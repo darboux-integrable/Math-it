@@ -8,6 +8,7 @@ import { useParams } from "@solidjs/router";
 import QuestionPage from "./components/QuestionPage";
 import FormsLanding from "./components/FormsLanding";
 import AskQuestionPage from "./components/AskQuestionPage";
+import ResourcesPage from "./components/ResourcesPage";
 import TextAreaHelpPage from "./components/TextAreaHelpPage";
 
 function App() {
@@ -34,6 +35,8 @@ function App() {
           return <QuestionPage id={params.id} />;
         }}
       ></Route>
+
+        <Route path="/resources" component={<ResourcesPage />}></Route>
 
         <Route path="/help/textArea" component={<TextAreaHelpPage />}></Route>
 

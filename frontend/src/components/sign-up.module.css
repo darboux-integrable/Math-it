@@ -54,26 +54,30 @@ body, html{
     position: relative;
     display: flex;
     flex-grow: 1;
-    padding-left: 40px;
     flex-direction: column;
-    gap: 30px;
+    padding-inline: 30px;
+    gap: 8px;
 }
 
 .inputWrapper{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .inputField{
-    width: 70%;
+    width: 100%;
     height: 35px;
     border-radius: 8px;
     border: none;
-    margin-top: 5px;
-    margin-left: 10px;
     background-color: var(--dark-2);
-    color: white;
     color: var(--light-green-1);
+    color: white;
+    text-align: center;
+}
+
+.inputField:active, .inputField:focus{
+    outline: var(--green-1) 2px solid;
 }
 
 .inputTitle{
@@ -81,6 +85,13 @@ body, html{
     position: relative;
     margin: 0;
     padding-bottom: 2px;
+}
+
+.namesInputs{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
 }
 
 .signUpButton{
@@ -211,6 +222,11 @@ body, html{
     animation: fade-in 300ms ease-in forwards;
 }
 
+.errorText{
+    color: red;
+    text-align: center;
+}
+
 /* Load the tutor section */
 .tutorWrapper{
     background-color: var(--dark-1);
@@ -222,15 +238,20 @@ body, html{
 .tutorTitle{
     font-family: var(--title-font);
     text-align: center;
+    margin: 0;
+    padding-top: 20px;
 }
 
 .tutorText{
     text-align: center;
+    margin: 0;
+    padding-bottom: 10px;
 }
 
 .topicsWrapper{
     overflow-y: auto;
-    width: 60%;
+    min-width: 60%;
+    width: fit-content;
     overflow-x: hidden;
     margin-inline: auto;
     margin-bottom: 20px;

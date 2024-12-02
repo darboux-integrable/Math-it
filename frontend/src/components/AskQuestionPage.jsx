@@ -2,9 +2,15 @@ import { createSignal, createEffect } from "solid-js";
 import styles from "./ask-question-page.module.css";
 import SideNavbar from "./SideNavbar";
 import TextArea from "./TextArea";
+import tags from "../json/tags.json";
+import TagListSelection from "./TagListSelection";
 
 function AskQuestionPage() {
   const [title, setTitle] = createSignal("");
+  const [tags, setTags] = createSignal([]);
+
+
+  // Effect to find the current tags after filtering the array of all tags down. 
 
   return (
     <div className={styles.wrapper}>
@@ -32,17 +38,25 @@ function AskQuestionPage() {
           </div>
 
           <div className={styles.detailsSection}>
-              <h3 className={styles.problemDetailsTitle}>
-                Describe and Detail Your Problem:
-              </h3>
-              <p className={styles.problemDetailsText}>
-                Write about things like the setting of the problem, what you have
-                tried to do inorder to solve it, etc...
-              </p>
-              <TextArea />
-              <button className={styles.postButton}>Post Question!</button>
+            <h3 className={styles.problemDetailsTitle}>
+              Describe and Detail Your Problem:
+            </h3>
+            <p className={styles.problemDetailsText}>
+              Write about things like the setting of the problem, what you have
+              tried to do inorder to solve it, etc...
+            </p>
+            <TextArea />
+          </div>
+
+          <div className={styles.tagsSection}>
+            <h3 className={styles.pagDetails}>Tags:</h3>
+            <p className={styles.tagsText}>
+              Enter Up To 5 Tags for Your Question to Be Identified By:
+            </p>
+            <TagListSelection></TagListSelection>
           </div>
         </div>
+        {/* <button className={styles.postButton}>Post Question!</button> */}
       </div>
     </div>
   );
