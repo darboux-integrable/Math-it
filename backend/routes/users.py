@@ -97,3 +97,6 @@ def create_new_user(user_body: User):
     # make inserted_id a string and not ObjectID to stop an Error
     return {"Success": "True", "user_id": str(new_user.inserted_id)}
     
+@user_router.patch("/user/{user_id}/profile_image")
+def update_user_image(imageLocation):
+    pass # TODO Still make the implementation of this endpoint.

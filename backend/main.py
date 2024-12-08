@@ -4,7 +4,6 @@ from typing import List, Optional
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 
 from routes.users import user_router
 from routes.assignments import assignments_router
