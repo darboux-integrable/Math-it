@@ -1,6 +1,10 @@
 import styles from "./vote.module.css";
 import triangleIcon from "../assets/triangle.svg";
 
+/**
+ * A simple UI component with an up arrow, down arrow and count. 
+ * It keeps track of the count variable and increments it accordingly
+ */
 function Vote({ numberOfVotes }) {
   return (
     <div className={styles.upvotesWrapper}>

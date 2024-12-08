@@ -3,22 +3,29 @@ import styles from "./subject-bar.module.css";
 import { Show } from "solid-js";
 
 function SubjectBar({ subject, delay, color1, subjectsArray, setSubjectsArray}) {
+  
+  // Used to toggle if the SubjectBar is selected
   const [selected, setSelected] = createSignal(false);
 
+  // Used to determine if the scaling animation is complete
   const [timePassed, setTimePassed] = createSignal(false);
-
+  
+  // The animation last 300ms and each SubjectBar has a delay. 
   setTimeout(() => {
     setTimePassed(true);
   }, delay + 300);
 
+  // Function to prefrom each time the SubjectBar is clicked 
   const toggleSelected = (e) => {
     if (!selected()) {
-      setSelected(true)
-      setSubjectsArray([...subjectsArray(), subject])
+      setSelected(true);
+      // Add the subject from this subjectBar to the array of all the selected subjects
+      setSubjectsArray([...subjectsArray(), subject]);
     }
     else {
-      setSelected(false)
-      setSubjectsArray(subjectsArray().filter(subjectName => subjectName != subject))
+      setSelected(false);
+      // Remove the subject from this subjectBar from the array of all the selected subjects.
+      setSubjectsArray(subjectsArray().filter(subjectName => subjectName != subject));
     };
   };
 

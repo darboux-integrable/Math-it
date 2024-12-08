@@ -4,7 +4,13 @@ import Navbar from "./Navbar";
 import eulerImage from "../assets/Leonhard_Euler.jpg";
 import Quote from "./Quote";
 import waves from "../assets/waves/grayWaves.svg";
+import shortenString from "../helpers/shortenText.js";
 
+/*
+ * This UI Component is an entire page. It is the page the user visits when they just logged in or signed up.
+ * Here they can find their assignments from their classes and also notifications from whatever activity they
+ * have been doing. It also has a small place at the bottom left of the page for a mathematician of the day.
+ */
 const UserLanding = () => {
   let user = {
     userName: "DarbouxIntegrable",
@@ -23,37 +29,37 @@ const UserLanding = () => {
         teacher: "Mr. Streets",
         dueDate: { month: "Sep", day: 10, time: "11:59PM" },
       },
-
     ],
     notifications: [
       {
-        type: "question",
-        title: "Your Question was Answered",
-        text: "User1212 replied to your post titled 'Help Understand Systems of linear equations'",
+        type: "grade",
+        title: "Test For Concavity Quiz",
+        maxGrade: 10,
+        actualGrade: 8,
+        teacher: "Mr. Miller",
+        timestamp: "8:29PM",
       },
       {
         type: "assignment",
-        title: "A New Assignment Was Posted",
-        text: "Mr. Miller Posted '1st and 2nd Derivative Test Quiz'.",
-        class: "Calculus AB",
-        dueDate: { month: "Sep", day: 10, time: "11:59PM" },
+        title: "U-Substitution Quiz",
+        teacher: "Mr. Miller",
+        timestamp: "7:30AM",
+        dueDate: "Feb. 12, 2025",
+        className: "AP Calculus AB",
       },
       {
-        type: "grade",
-        title: "A New Grade Was Posted",
-        text: "Mr. Miller Posted a new Grade for the assignment 'Test for concavity'",
-        score: { pointsGotten: 8, maxPoints: 10 },
+        type: "question",
+        title:
+          "You to complete looping integration by parts problems with transedential function (sin(ax) and cos(ax))?",
+        user: "DarbouxIntegrable",
+        timestamp: "4:59PM",
       },
       {
-        type: "grade",
-        title: "A New Grade Was Posted",
-        text: "Mr. Miller Posted a new Grade for the assignment 'Test for concavity'",
-        score: { pointsGotten: 8, maxPoints: 10 },
-      },{
-        type: "grade",
-        title: "A New Grade Was Posted",
-        text: "Mr. Miller Posted a new Grade for the assignment 'Test for concavity'",
-        score: { pointsGotten: 8, maxPoints: 10 },
+        type: "question",
+        title:
+          "You to complete looping integration by parts problems with transedential function (sin(ax) and cos(ax))?",
+        user: "DarbouxIntegrable",
+        timestamp: "4:59PM",
       },
     ],
   };
@@ -65,23 +71,38 @@ const UserLanding = () => {
         buttons={["Practice", "Classes", "Resources", "Post Questions"]}
       />
       <section className={styles.topSection}>
-        <div className={styles.leftContent}>
-          <div className={styles.userTitleWrapper}>
+          {/* <div className={styles.userTitleWrapper}>
             <h1 className={styles.userTitle}>
               Welcome Back <br />
             </h1>
             <h1 className={styles.usernameTitle}>{user.userName}</h1>
+          </div> */}
+
+       
+
+        {/* Notifications Section */}
+          <div className={styles.notificationBackground}>
+            <div className={styles.notificationsSection}>
+              <div className={styles.notificationsHeader}>
+                <h1 className={styles.notificationsTitle}>Notifications</h1>
+              </div>
+              <div className={styles.notificationsBody}>
+                {user.notifications.map(notification => {
+                  return getNotificationElement(notification);
+                })}
+              </div>
+            </div>
           </div>
-        </div>
 
         <div className={styles.assignmentsContainer}>
           <AssignmentList assignments={user.assignments} />
         </div>
       </section>
 
-        <img className={styles.waves} src={waves} alt="" />
+      <img className={styles.waves} src={waves} alt="" />
       <div className={styles.waveTransition}>
         <div className={styles.bottomSection}>
+          {/* Mathematician of th day Section */}
           <div className={styles.mathematicianBackground}>
             <div className={styles.mathematicianWrapper}>
               <div className={styles.mathematicianHeader}>
@@ -90,21 +111,21 @@ const UserLanding = () => {
               <div className={styles.mathematicianBody}>
                 <img className={styles.mathImage} src={eulerImage} alt="" />
                 <p className={styles.mathematicianAbout}>
-                  Lorem ipsum odor amet, consectetuer adipiscing elit. Mi sociosqu
-                  mollis imperdiet interdum penatibus ex tincidunt. Primis
-                  placerat in viverra, vivamus suscipit phasellus. Potenti aliquet
-                  efficitur vivamus congue nibh aliquam maximus? Vestibulum
-                  vulputate luctus libero dolor tempus nec. Commodo in varius
-                  fringilla rhoncus libero. Habitant egestas commodo ullamcorper
-                  ipsum vehicula taciti eros facilisis. Diam arcu id lacinia
-                  tristique elementum sapien. Lacus erat mauris efficitur maecenas
-                  hendrerit conubia turpis vel habitasse. Massa maximus fames in
-                  integer libero facilisis. Class elementum fusce finibus;
-                  interdum hac vel orci. Ex ante pulvinar tristique vitae
-                  curabitur ligula; arcu nec volutpat. Consectetur magnis
-                  hendrerit tempor dictum porttitor. Torquent sapien nascetur urna
-                  nec aliquet, a ridiculus fames. Nibh ridiculus sed sollicitudin
-        
+                  Lorem ipsum odor amet, consectetuer adipiscing elit. Mi
+                  sociosqu mollis imperdiet interdum penatibus ex tincidunt.
+                  Primis placerat in viverra, vivamus suscipit phasellus.
+                  Potenti aliquet efficitur vivamus congue nibh aliquam maximus?
+                  Vestibulum vulputate luctus libero dolor tempus nec. Commodo
+                  in varius fringilla rhoncus libero. Habitant egestas commodo
+                  ullamcorper ipsum vehicula taciti eros facilisis. Diam arcu id
+                  lacinia tristique elementum sapien. Lacus erat mauris
+                  efficitur maecenas hendrerit conubia turpis vel habitasse.
+                  Massa maximus fames in integer libero facilisis. Class
+                  elementum fusce finibus; interdum hac vel orci. Ex ante
+                  pulvinar tristique vitae curabitur ligula; arcu nec volutpat.
+                  Consectetur magnis hendrerit tempor dictum porttitor. Torquent
+                  sapien nascetur urna nec aliquet, a ridiculus fames. Nibh
+                  ridiculus sed sollicitudin
                 </p>
               </div>
               <div className={styles.mathematicianQuotes}>
@@ -112,91 +133,110 @@ const UserLanding = () => {
               </div>
             </div>
           </div>
-          <div className={styles.notificationsBackground}>
-            <div className={styles.notificationsWrapper}>
-              <div className={styles.notificationsTitleWrapper}>
-                <h1 className={styles.notificationsTitle}>Notifications</h1>
-                <div className={styles.titleDivideBar}></div>
-              </div>
-              <div className={styles.notifications}>
-                {user.notifications.map((notification) => {
-                  if (notification.type === "question") {
-                    return (
-                      <div className={styles.notification}>
-                        <div className={styles.notificationHeader}>
-                          <h2 className={styles.notificationTitle}>
-                            {notification.title}
-                          </h2>
-                          <button className={styles.viewPostButton}>View</button>
-                        </div>
-                        <div className={styles.notificationFooter}>
-                          <p className={styles.notificationText}>
-                            {notification.text}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  } else if (notification.type === "assignment") {
-                    return (
-                      <div className={styles.notification}>
-                        <div className={styles.notificatonHeader}>
-                          <h2 className={styles.notificationTitle}>
-                            {notification.title}
-                          </h2>
-                        </div>
-                        <div className={styles.notificationBody}>
-                          <p className={styles.notificationText}>
-                            {notification.text}
-                          </p>
-                        </div>
-                        <div className={styles.notificationFooter}>
-                          <p className={styles.notificationDueDate}>
-                            Due: {notification.dueDate.month}.{" "}
-                            {notification.dueDate.day} |{" "}
-                            {notification.dueDate.time}
-                          </p>
-                          <p className={styles.notificationClass}>
-                            Class: {notification.class}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  } else if (notification.type === "grade") {
-                    return (
-                      <div className={styles.notification}>
-                        <div className={styles.notificationHeader}></div>
-                        <div className={styles.notificationBody}>
-                          <div className={styles.notificationTextWrapper}>
-                            <h2 className={styles.notificationTitle}>
-                              {notification.title}
-                            </h2>
-                            <p className={styles.notificationText}>
-                              {notification.text}
-                            </p>
-                          </div>
-                          <div className={styles.notificationGradeWrapper}>
-                            <div className={styles.notificationGrade}>
-                              <p className={styles.numerator}>
-                                {notification.score.pointsGotten}
-                              </p>
-                              <div className={styles.gradeLine}></div>
-                              <p className={styles.denominator}>
-                                {notification.score.maxPoints}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  }
-                })}
-              </div>
-            </div>
-          </div>
+          {/* Notifications Section */}
+
         </div>
       </div>
     </>
   );
 };
+
+function getNotificationElement(notification){
+  const type = notification.type;
+
+  if (type === "grade")
+    return (
+      <GradeNotification
+        title={notification.title}
+        teacher={notification.teacher}
+        timestamp={notification.timestamp}
+        maxGrade={notification.maxGrade}
+        actualGrade={notification.actualGrade}
+      />
+    );
+  else if (type === "assignment")
+    return (
+      <AssignmentNotification
+        title={notification.title}
+        teacher={notification.teacher}
+        timestamp={notification.timestamp}
+        className={notification.className}
+        dueDate={notification.dueDate}
+      />
+    );
+  else if (type === "question")
+    return (
+      <QuestionNotification
+        title={notification.title}
+        user={notification.user}
+        timestamp={notification.timestamp}
+      />
+    );
+}
+
+function AssignmentNotification({title, teacher, timestamp, dueDate, className}){
+  
+  const text = `${teacher} posted a new assignment: "${title}"`;
+
+  return (
+    <div className={styles.notification}>
+      <div className={styles.notificationHeader}>
+        <h1 className={styles.notificationTitle}>New Assignment Posted</h1>
+        <p className={styles.notificationTimestamp}>{timestamp}</p>
+      </div>
+      <div className={styles.notificationBody}>
+        <div className={styles.notificationTop}>
+          <p className={styles.notificationText}>{shortenString(text, 75)}</p>
+        </div>
+        <div className={styles.notificationBottom}>
+          <p className={styles.dueDateText}>Due {dueDate}</p>
+          <p className={styles.classText}>{className}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GradeNotification({title, maxGrade, actualGrade, teacher, timestamp}){
+  
+  const text = `${teacher} posted a new grade for ${title}`;
+  
+  return (
+    <div className={styles.notification}>
+      <div className={styles.notificationHeader}>
+        <h2 className={styles.notificationTitle}>New Grade Posted</h2>
+        <p className={styles.notificationTimestamp}>{timestamp}</p>
+      </div>
+
+      <div className={styles.notificationBody}>
+        <div className={styles.gradeNotificationBody}>
+          <p className={styles.notificationText}>{shortenString(text, 75)}</p>
+          <div className={styles.gradeWrapper}>
+            <p className={styles.numerator}>{actualGrade}</p>
+            <div className={styles.fractionBar}></div>
+            <p className={styles.denominator}>{maxGrade}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function QuestionNotification({user, title, timestamp}){
+  
+  const text = `Your Question Titled: "${title}" was answered by ${user}`
+
+  return (
+    <div className={styles.notification}>
+      <div className={styles.notificationHeader}>
+        <h1 className={styles.notificationTitle}>Your Question Was Answered</h1>
+        <p className={styles.notificationTimestamp}>{timestamp}</p>
+      </div>
+      <div className={styles.notificationBody}>
+        <p className={styles.notificationText}>{shortenString(text, 150)}</p>
+      </div>
+    </div>
+  );
+}
 
 export default UserLanding;

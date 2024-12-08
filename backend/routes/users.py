@@ -1,13 +1,15 @@
 import os
-
 from typing import List, Optional
 
 import bcrypt
+from bson import ObjectId
 from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException
 import pymongo # Possibly remove later
 from pydantic import BaseModel
 from pymongo import MongoClient
+
+load_dotenv()
 
 class User(BaseModel):
     username: str
@@ -18,9 +20,8 @@ class User(BaseModel):
     account_type: str
     subjects: Optional[List[str]] = None
     classrooms: Optional[List[str]] = None
-
-
-load_dotenv()
+    assignments: Optional[List[object]] = []
+    notifications: Optional[List[object]] = []
 
 cluster = MongoClient(os.getenv("DATABASE_URI"))
 
@@ -57,8 +58,8 @@ def get_user(username: str, password: str):
 
 # Get user from Id
 @user_router.get("/{user_id}")
-def get_user_from_id(user_id: int):
-    user = usersCollection.find_one({"_id": user_id})
+def get_user_from_id(user_id: str):
+    user = usersCollection.find_one({"_id": ObjectId(user_id)})
 
     # If no user was found
     if not user:

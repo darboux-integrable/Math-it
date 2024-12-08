@@ -16,7 +16,6 @@ function removeDigits(string) {
 // Takes in the text value for that tag and adds it to the HTML template.
 // Before it adds it to the HTML template, it checks for any tags nested in the text.
 // These nested elements are accounted for and added the HTML template.
-
 function elementLookUp(tag, textValue) {
   let element;
 
@@ -235,6 +234,11 @@ function compileText(string) {
   return elements;
 }
 
+/**
+ * This UI component takes in a text value and loads a preview for that text.
+ * The text it takes in is actually a getter for some state that is changed by a text area.
+ * So the preview changes based on the value of the text area. 
+ */
 function TextAreaPreview(props) {
 
   const [elements, setElements] = createSignal(compileText(props.getText()));
@@ -246,6 +250,8 @@ function TextAreaPreview(props) {
     while(container.firstChild){
       container.removeChild(container.firstChild);
     }
+    
+    // Recompile the text everytime the getText changes. 
     setElements(compileText(props.getText()));
   });
 

@@ -170,6 +170,11 @@ html {
   filter: brightness(2);
 }
 
+.errorWrapper{
+  color: red;
+  text-align: center;
+}
+
 @keyframes up{
     0%{
         bottom: -20%;

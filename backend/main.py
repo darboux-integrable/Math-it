@@ -7,6 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from routes.users import user_router
+from routes.assignments import assignments_router
+from routes.notifications import notifications_router
 
 load_dotenv()
 
@@ -27,6 +29,8 @@ app.add_middleware(
 )
 
 app.include_router(user_router)
+app.include_router(notifications_router)
+app.include_router(assignments_router)
 
 @app.get("/")
 def home():
