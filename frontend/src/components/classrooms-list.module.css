@@ -1,0 +1,44 @@
+
+/* Bigger/Longer Card Styles  */
+.background{
+    padding: 20px;
+    padding-top: 10px;
+    border-radius: 15px;
+}
+
+.listTitle{
+    color: white;
+    font-family: var(--title-font);
+    text-align: center;
+}
+
+.currentClassesList{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: fit-content;
+    justify-content: center;
+}
+
+/* Tiny Cards Styles  */
+/*
+.background{
+    padding: 20px;
+    padding-top: 10px;
+    border-radius: 15px;
+    background-color: var(--dark-1);
+}
+
+.listTitle{
+    color: white;
+    font-family: var(--title-font);
+}
+
+.currentClassesList{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: fit-content;
+    justify-content: center;
+}
+    */

@@ -1,0 +1,20 @@
+.tagWrapper{
+    background-color: var(--dark-5);
+    border-radius: 4px;
+    padding-inline: 10px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.tagWrapper:hover{
+    filter: brightness(150%);
+}
+
+.tagText{
+    color: white;
+    margin: 0;
+    font-family: var(--text-font);
+}

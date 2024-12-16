@@ -1,0 +1,238 @@
+
+.topSection {
+  padding-inline: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  color: white;
+  background-color: var(--dark-2);
+  margin-top: 40px;
+}
+
+/*Notifications Section*/
+
+.notificationsHeader{
+    border-bottom: 3px solid var(--dark-2);
+    width: 90%;
+}
+
+.notificationsBody{
+    display: flex;
+    margin-top: 10px;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 10px;
+    max-height: 480px;
+}
+
+.notificationBackground{
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--dark-1);
+    box-shadow: 0px 0px 5px 2px black;
+    margin-left: 30px;
+    z-index: 2;
+}
+
+.notificationsSection{
+    background-color: var(--dark-1);
+    border: var(--dark-2) 5px solid;
+    border-radius: 16px; 
+    padding-inline: 30px;
+    height: calc(100% - 6px);
+    font-family: var(--text-font);
+
+}
+
+.notification{
+    color: white;
+    font-family: var(--text-font);
+    display: grid;
+    padding-inline: 10px;
+    padding-right: 25px;
+    border-radius: 10px;
+    width: 90%;
+    background-color: var(--dark-5);
+    padding-top: 5px;
+}
+
+.notificationTitle{
+    background-color: var(--dark-1);
+    padding: 10px;
+    padding-inline: 20px;
+    margin: 0;
+    border-radius: 5px;
+}
+
+.notificationHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 3px;
+    border-bottom: 3px solid var(--dark-2);
+}
+
+.notificationTimestamp{
+    background-color: var(--dark-1);
+    padding: 10px;
+    padding-inline: 20px;
+    border-radius: 5px;
+    margin: 0;
+}
+
+.notificationBody{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    padding-bottom: 5px;
+    font-family: var(--text-font);
+}
+
+.gradeNotificationBody{
+    display: flex;
+    justify-content: space-between;
+}
+
+.gradeWrapper{
+    display: flex;
+    background-color: var(--dark-1);
+    border-radius: 5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    width: fit-content;
+    height: 50px;
+}
+
+.numerator, .denominator{
+    margin: 0;
+}
+
+.fractionBar{
+    width: 60%;
+    height: 3px;
+    background-color: var(--dark-5);
+}
+
+.notificationTitle, .notificationsTitle{
+    font-family: var(--title-font);
+}
+
+.notificationsTitle{
+    margin: 0;
+    font-size: 2rem;
+    margin-top: 8px; 
+    margin-bottom: 3px;
+}
+
+.notificationBody{
+    max-height: 360px;
+}
+
+.notificationBottom{
+    display: flex;
+    justify-content: space-between;
+}
+
+.assignmentsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.userTitle {
+  /* font-family: "Playwrite AU VIC", cursive; */
+  font-family: var(--title-font);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 4rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.usernameTitle {
+  margin: 0;
+  position: relative;
+  font-size: 2rem;
+  margin-left: 10px;
+  font-family: "Playwrite AU VIC", cursive;
+  font-family: var(--title-font);
+}
+
+/* Math person of the week section */
+.mathImage{
+    margin: 10px;
+    float: left;
+    border-radius: 15px;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.mathematicianBackground{
+    width: 40%;
+    background-color: var(--dark-4);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.mathematicianQuotes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.mathematicianWrapper{
+    border: 4px solid var(--dark-2);
+    border-radius: 10px;
+    padding-inline: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.mathematicianTitle{
+    font-family: var(--title-font);
+    background-color: var(--dark-3);
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.bottomSection{
+    position: relative;
+    top: -5px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    background-color: var(--dark-1);
+    justify-content: space-around;
+    transform: translateY(-5px);
+}
+
+
+.waves{
+    background-color: var(--dark-2);
+}
+
+.bottomSection, .waves{
+    position: relative;
+}
+
+
+.waveTransition{
+    position: relative;
+    background-color: var(--dark-1);
+    z-index: 1;
+}
+
+@media (max-width: 1088px) {
+    .bottomSection{
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 15px;
+    }
+    .mathematicianBackground{
+        width: 60%;
+    }
+}
+

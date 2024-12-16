@@ -1,0 +1,64 @@
+{
+  "subjects": [
+    {
+      "subject": "Algebra",
+      "description": "The manipulation of equations and isolation of variables. The foundation of all higher-level math.",
+      "topics": ["Linear Equations", "Substitution", "Elimination"],
+      "color1": "#7f5539"
+    },
+    {
+      "subject": "College Algebra",
+      "description": "Builds more on top of your algebraic foundations adding things like logarithms and rational equations.",
+      "topics": ["Rational Equations", "Logarithms", "Exponentials"],
+      "color1": "#3c096c"
+    },
+    {
+      "subject": "Trigonometry",
+      "description": "The study of the relationships between the sides of a triangle and the triangle's angles.",
+      "topics": ["Unit Circle", "Trigonometric Identities", "Phase Shift"],
+      "color1": "#ff4800"
+    },
+    {
+      "subject": "Precalculus",
+      "description": "A combination of college algebra and trigonometry. Needed as a foundation for learnign Calculus.",
+      "topics": ["Rational Equations", "Logarithms", "Exponentials", "Unit Circle", "Trigonometric Identities", "Phase Shift"],
+      "color1": "#ffc4d6"
+    },
+    {
+      "subject": "Calculus 1",
+      "description": "Differential Calculus: Includes basic concepts like limits, differetniation, and rate of change. Also starts integral calculus.",
+      "topics": ["Chain Rule", "Product Rule", "Quotent Rule", "Power Rule"],
+      "color1": "#ff1f1f"
+    },
+    {
+      "subject": "Calculus 2",
+      "description": "Continue building your calculus knowledge learning now about integration techniques, series, and the calculus of parametric and polar functions.",
+      "topics": ["Integration By Parts", "Trigomonetric Substitution", "Partial Fractions", "Improper Integrals", "Limit Comparison Test", "Ratio Test", "Direct Comparison Test", "Root Test", "Nth Term Test", "Integral Test"],
+      "color1": "#3c8898"
+    },
+    {
+      "subject": "Calculus 3",
+      "description": "The Calculus of Multiple Variables including directional derivatives, partial derivates, multiple integration, and more.",
+      "topics": ["Partial Derivatives", "Multiple Integration", "Directional Derivatives", "The Jacobian", "Spherical Coordinates", "Cyclindrical Coordinates"],
+      "color1": "#40916c"
+    },
+    {
+      "subject": "Differential Equations",
+      "description": "Sometimes called calculus 4, it solves equations about the derivatives of unknown functions. It is used all the time in topics like physics.",
+      "topics": ["Wronskian", "Ordinary Differential Equations", "Seperatable Differential Equations", "Partial Differential Equations"],
+      "color1": "#aacc00"
+    },
+    {
+      "subject": "Linear Algebra",
+      "description": "The algebra of matrices, linear systems, linear transformations, and vector spaces. May require some calculus to understand some concepts.",
+      "topics": ["Matrix Multiplication", "Matrix Addition/Subtraction", "Systems of Equations", "Reduced Row Echelon Form", "LU Decomposition", "Inner Product Spaces", "Eigen Vectors"],
+      "color1": "#00b4d8"
+    },
+    {
+      "subject": "Statistics",
+      "description": "Make educated pridictions about what may happen learning about r, r-squared, LSRL, and more",
+      "topics": ["Coefficient of Correlation", "Ceoefficient of Determination", "Least Squares Regression Line", "Normal Distributions"],
+      "color1": "#77adee"
+    }
+  ]
+}

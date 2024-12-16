@@ -1,0 +1,167 @@
+.wrapper {
+  display: flex;
+  height: 100%;
+}
+
+.pageContent {
+  margin-left: 75px;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  color: white;
+}
+
+.formsWrapper {
+  padding-top: 30px;
+  width: 80%;
+}
+
+.formsHead {
+  border-bottom: var(--dark-4) 4px solid;
+}
+
+.headTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+  gap: 15px;
+}
+
+.formsTitle {
+  font-family: var(--title-font);
+  margin: 0;
+  padding-bottom: 5px;
+}
+
+.askButton {
+  background-color: var(--green-1);
+  color: white;
+  border-radius: 5px;
+  height: 35px;
+  font-size: 1.2rem;
+  padding-inline: 5px;
+  cursor: pointer;
+  transition: scale 150ms ease, background-color 150ms ease;
+  border: none;
+}
+
+.askButton:hover {
+  background-color: var(--green-2);
+  scale: 1.1;
+}
+
+.headBottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.questionsCountText {
+  font-family: var(--title-font);
+}
+
+.optionsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.filtersContainer {
+  overflow: hidden;
+  padding: 5px;
+  display: flex;
+  gap: 5px;
+  border-radius: 5px;
+  background-color: var(--dark-4);
+}
+
+.filterButton,
+.currentSubjectButton {
+  color: white;
+  font-family: var(--text-font);
+  background-color: var(--dark-4);
+  border: none;
+  cursor: pointer;
+  height: 35px;
+  border-radius: 5px;
+  transition: background-color 150ms ease-out;
+  padding-inline: 10px;
+  font-size: 1.2rem;
+}
+
+.activeFilter {
+  background-color: var(--green-1);
+  font-weight: 900;
+}
+
+.activeFilter:hover {
+  background-color: var(--green-1) !important;
+}
+
+.filterButton:hover {
+  background-color: var(--dark-3);
+}
+
+.currentSubjectButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 5px;
+  padding-inline: 15px;
+}
+
+.subjectFiltersWrapper {
+  text-align: center;
+  position: relative;
+  padding-inline: 10px;
+}
+
+.currentSubjectButton:hover ~ .subjectFilters,
+.subjectFilters:hover {
+  height: auto;
+}
+
+.subjectFilters {
+  height: 0px;
+  max-height: max(300px, 50vh);
+  overflow: hidden;
+  overflow-y: auto;
+  transition: height 200ms linear;
+  background-color: var(--dark-4);
+  color: white;
+  font-family: var(--text-font);
+  border-radius: 10px;
+  position: absolute;
+  top: 100%;
+  margin-top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.subjectFilter {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 200ms linear;
+  padding-inline: 10px;
+  gap: 15px;
+}
+
+.subjectFilter:hover {
+  background-color: var(--dark-3);
+}
+
+.subjectColor , .colorBox{
+  min-width: 10px;
+  min-height: 10px;
+  border-radius: 50%;
+}
+
+.formsBody{
+  padding-bottom: 40px;
+}

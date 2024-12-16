@@ -1,0 +1,190 @@
+body,
+html {
+  height: 100vh;
+}
+
+.contentWrapper {
+  position: relative;
+  top: 50vh;
+  transform: translateY(-50%);
+  background-color: var(--dark-1);
+  width: 60%;
+  height: 80%;
+  display: flex;
+  font-family: var(--text-font);
+  margin-inline: auto;
+  color: white;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.leftContent {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  min-width: 300px;
+  background-color: var(--dark-1);
+  flex-grow: 1;
+}
+
+.loginTitle {
+  text-align: center;
+  padding-top: 20px;
+  font-family: var(--title-font);
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  margin-inline: 30px;
+  gap: 20px;
+
+}
+
+.nameInputs {
+  display: flex;
+  gap: 10px;
+}
+
+.inputTitle{
+    margin: 0;
+    padding-bottom: 2px;
+}
+
+.inputField {
+    width: 100%;
+    height: 35px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 5px;
+  background-color: var(--dark-2);
+  color: white;
+  color: var(--light-green-1);
+}
+
+.loginButton {
+  position: relative;
+  min-width: 135px;
+  min-height: 35px;
+  align-self: center;
+  border-radius: 100px;
+  color: white;
+  background-image: linear-gradient(
+    45deg,
+    var(--green-1),
+    var(--light-green-1)
+  );
+  margin-bottom: 30px;
+  margin-top: 20px;
+  font-size: 1.7rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-inline: 50px;
+  border: none;
+  cursor: pointer;
+  transition: transform 150ms ease-in-out;
+}
+
+.loginButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-image: linear-gradient(
+    45deg,
+    var(--green-1),
+    var(--light-green-1)
+  );
+  filter: blur(0px);
+  transition: filter 150ms linear;
+  z-index: -1;
+}
+
+.loginButton:hover::before {
+  filter: blur(5px);
+}
+
+.loginButton:hover{
+    transform: scale(1.1);
+}
+
+.rightContent {
+  width: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.signUpTextWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signupText{
+    margin: 0;
+}
+
+.signUpButton{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    color: white;
+    font-family: var(--text-font);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 900;
+    background-repeat: no-repeat;
+    background-size: 0% 5px;
+    transition: background-size 150ms linear;
+    background-position-y: 100%;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+}
+
+.signUpButton:hover{
+    background-size: 100% 5px;
+
+}
+
+.mathUpCanvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--dark-1);
+}
+
+.mathItem {
+  position: absolute;
+  bottom: -20px;
+  animation: up 5000ms linear infinite;
+  color: var(--dark-2);
+  filter: brightness(2);
+}
+
+.errorWrapper{
+  color: red;
+  text-align: center;
+}
+
+@keyframes up{
+    0%{
+        bottom: -20%;
+        opacity: 1;
+    }
+    60%{
+        opacity: 1;
+    }
+    100%{
+        bottom: 100%;
+        opacity: 0;
+    }
+}

@@ -1,0 +1,93 @@
+.navbar{
+    position: fixed;
+    --section-width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 70px;
+    min-height: 100vh;
+    max-height: 100vh;
+    transition: width 400ms ease-out;
+    border-right: 3px solid var(--dark-4);
+    overflow: hidden;
+    background-color: var(--dark-2);
+    z-index: 100;
+}
+
+
+.navbar:hover{
+    width: calc(var(--section-width) + 85px);
+}
+
+.wrapper{
+    position: relative;
+}
+
+.navSection{
+    position: relative;
+    display: flex;
+    background-color: var(--dark-1);
+    align-items: center;
+    height: calc(100vh / 5 - 2px); /* Account for 2px gap: */
+    z-index: 3 !important;
+    background-color: var(--dark-1);
+    cursor: pointer;
+}
+
+.sectionBackground{
+    position: absolute;
+    top: -2px;
+    left: 0;
+    height: 10px;
+    width: 100%;
+    background-color: var(--dark-2);
+    padding-bottom: 4px;
+    animation: spin 1000ms linear infinite;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 200ms linear;
+    height: 100%;
+}
+
+@property --angle{
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+.navSection:hover + .sectionBackground{
+    opacity: 1;
+    background-image: repeating-conic-gradient(from var(--a), var(--green-1), var(--light-green-1), var(--green-1));
+    z-index: 2;
+}
+
+@keyframes spin{
+    from {
+        --a: 0deg;
+    }
+    to{
+        --a: 360deg;
+    }
+}
+
+.sectionIcon{
+    width: 50px;
+    height: 50px;
+    padding-inline: 10px;
+}
+
+.textSection{
+    min-width: var(--section-width);
+    padding-inline: 10px;
+    color: white;
+}
+
+.sectionTitle{
+    margin: 0;
+    font-family: var(--title-font);
+}
+
+.sectionText{
+    margin: 0;
+    font-family: var(--text-font);
+}

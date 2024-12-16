@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
+.quote {
+  position: relative;
+  background-color: var(--dark-3);
+  padding: 10px;
+  border-left: 10px solid var(--green-2);
+  color: white;
+  min-width: 250px;
+  min-height: 100px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  max-height: 150px;
+}
+
+.quoteText {
+  padding-top: 10px;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  font-size: 1.2rem;
+  max-width: 200px;
+  text-align: center;
+  width: 100%;
+}
+
+.author {
+  text-align: right;
+  margin: 0;
+  width: 100%;
+}
+
+.quoteBack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  font-size: 5rem;
+  z-index: 1;
+  color: var(--green-2);
+  font-family: "Passion One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  transform: rotateY(180deg);
+  margin-left: 10px;
+  opacity: 0.8;
+}

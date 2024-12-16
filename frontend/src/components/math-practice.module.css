@@ -1,0 +1,25 @@
+.wrapper{
+    display: flex;
+    height: 100%;
+}
+
+.pageContent{
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+
+}
+
+.subjectBoxes{
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.navbar{
+    display: none !important;
+}

@@ -1,0 +1,105 @@
+.assignmentBackground{
+    padding: 16px;
+    background-color: var(--dark-1);
+    max-width: 400px;
+    border-radius: 18px;
+    box-shadow: 0px 0px 5px 2px black;
+    z-index: 3;
+    height: fit-content;
+}
+
+.assignmentsWrapper{
+    background-color: var(--dark-1);
+    border-radius: 15px;
+    padding-inline: 20px;
+    position: relative;
+    border: 4px solid var(--dark-2);
+}
+
+.assignmentsTitle{
+    padding-bottom: 3px;
+    margin: 0;
+    padding-top: 10px;
+    font-family: var(--title-font);
+}
+
+
+.noAssignmentsText{
+    font-family: var(--text-font);
+}
+
+.titleBorder{
+    width: 90%;
+    height: 2px;
+    background-color: var(--dark-2);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.assignments{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+    gap: 10px;
+    max-height: 360px;
+    min-height: 360px;
+    min-width: 40ch;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-color: var(--dark-2) var(--dark-3);
+    overflow-x: hidden;
+}
+
+.assignment{
+    display: flex;
+    border-radius: 10px;
+    background-color: var(--dark-5);
+    padding-inline: 20px;
+    align-items: center;
+    font-family: var(--text-font);
+    gap: 20px;
+    padding: 10px;
+}
+
+.dueDateWrapper{
+    background-color: var(--dark-1);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px;
+    padding-inline: 12px;
+    border-radius: 5px;
+}
+
+.dueDateWrapper > p {
+    margin: 0;
+    text-align: center;
+}
+
+.divideBar{
+    width: 100%;
+    height: 2px;
+    background-color: var(--dark-2);
+}
+
+.rightContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.rightContentWrapper{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.rightContentWrapper > p{
+    margin: 0;
+}
+
+.assignmentTitle{
+    margin: 0;
+    font-family: var(--title-font);
+}

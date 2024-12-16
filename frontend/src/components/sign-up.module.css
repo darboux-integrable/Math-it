@@ -1,0 +1,284 @@
+body, html{ 
+    height: 100vh;
+}
+
+.contentWrapper{
+    position: relative;
+    top: 50vh;
+    transform: translateY(-50%);
+    background-color: var(--dark-1);
+    width: 60%;
+    height: 80%;
+    display: flex;
+    font-family: var(--text-font);
+    margin-inline: auto;
+    color: white;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.slideLeftContent{
+    display: flex;
+}
+
+.leftContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    width: 50%;
+    background-color: var(--dark-1);
+    overflow: hidden;
+    min-width: 300px;
+}
+
+.signUpWrapper{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.signUpWrapper::after{
+    content: '';
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+}
+
+.signUpTitle{
+    text-align: center;
+    padding-top: 20px;
+    font-family: var(--title-font);
+}
+
+.signUpInputs{
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding-inline: 30px;
+    gap: 8px;
+}
+
+.inputWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputField{
+    width: 100%;
+    height: 35px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--dark-2);
+    color: var(--light-green-1);
+    color: white;
+    text-align: center;
+}
+
+.inputField:active, .inputField:focus{
+    outline: var(--green-1) 2px solid;
+}
+
+.inputTitle{
+    font-family: var(--title-font);
+    position: relative;
+    margin: 0;
+    padding-bottom: 2px;
+}
+
+.namesInputs{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.signUpButton{
+    position: relative;
+    min-width: 135px;
+    min-height: 35px;
+    align-self: center;
+    border-radius: 100px;
+    color: white;
+    background-color: var(--green-1);
+    margin-bottom: 30px;
+    margin-top: 20px;
+    font-size: 1.7rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-inline: 50px;
+    border: none;
+    cursor: pointer;
+    transition: transform 150ms ease-in-out;
+}
+
+.signUpButton:hover{
+    transform: scale(1.1);
+}
+
+.sidebar{
+    width: 100%;
+    display: flex;
+    background-color: var(--dark-4);
+}
+
+.sidebar > button{
+    height: 40px;
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.activeButton{
+    background-color: var(--dark-1) !important;
+    border-top: none;
+}
+
+.rightContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.userImgWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    position: relative;
+}
+
+.userImg{
+    max-width: 500px;
+    width: 90%;
+    height: 90%;
+    margin-inline: 30px;
+    opacity: 0.1;
+}
+
+.loginLinkWrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.loginText{
+    margin: 0px;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+.loginButton{
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    padding-bottom: 5px;
+    background-repeat: no-repeat;
+    background-size: 0% 5px;
+    background-position-y: 100%;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+    transition: background-size 150ms linear;
+    cursor: pointer;
+}
+
+.loginButton:hover{
+    background-size: 100% 5px;
+}
+
+.fadeOut{
+    position: relative;
+    animation: fade-out 400ms ease-in forwards;
+}
+
+.fadeIn{
+    position: relative;
+    animation: fade-in 400ms ease-in forwards;
+}
+
+.errorText{
+    color: red;
+    text-align: center;
+}
+
+/* Load the tutor section */
+.tutorWrapper, .slideRightContent{
+    background-color: var(--dark-1);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tutorWrapper{
+    flex-grow: 1;
+}
+
+.tutorTitle{
+    font-family: var(--title-font);
+    text-align: center;
+    margin: 0;
+    padding-top: 20px;
+}
+
+.tutorText{
+    text-align: center;
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+.topicsWrapper{
+    overflow-y: auto;
+    min-width: 60%;
+    width: fit-content;
+    overflow-x: hidden;
+    margin-inline: auto;
+    margin-bottom: 20px;
+    display: grid;
+    border-radius: 10px;
+    flex-grow: 1;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+}
+
+.tutorButtons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@keyframes fade-in{
+    0%{
+        left: 100%;
+        opacity: 0;
+    }
+
+    100%{
+        left: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out{
+
+    0%{
+        left: 0px;
+        opacity: 1;
+    }
+    100%{
+        left: -100%;
+        opacity: 0;
+    }
+
+}

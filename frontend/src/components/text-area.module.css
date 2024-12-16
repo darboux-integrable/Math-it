@@ -1,0 +1,119 @@
+.textAreaWrapper {
+  position: relative;
+  display: flex;
+  margin-top: 8px;
+  background-color: var(--dark-1);
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+.topSection {
+  position: relative;
+  display: flex;
+  padding: 5px;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topSection::after {
+  content: "";
+  position: absolute;
+  width: 95%;
+  height: 3px;
+  background-color: var(--dark-5);
+  left: 2.5%;
+  top: 100%;
+  border-radius: 10px;
+}
+
+.topLeftContent {
+  display: flex;
+  gap: 20px;
+  padding-inline: 10px;
+  padding-top: 5px;
+}
+
+.topLeftContent > * {
+  display: flex;
+}
+
+.topSectionButtonWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.topSectionButtonImage:hover {
+  background-color: var(--dark-5);
+}
+
+.topSectionButtonImage {
+  width: 25px;
+  height: 25px;
+  transition: background-color 150ms;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.buttonAboutWrapper {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  text-wrap: nowrap;
+  width: auto;
+  color: white;
+  opacity: 0;
+  background-color: var(--dark-4);
+  font-family: var(--text-font);
+  transition-delay: 500ms;
+  transition-property: opacity, top;
+  transition-timing-function: ease-out;
+  transition-duration: 250ms;
+  border-radius: 5px;
+  padding-inline: 10px;
+}
+
+.topSectionButtonImage:hover ~ .buttonAboutWrapper {
+  opacity: 1;
+
+}
+
+.topRightContent{
+  display: flex;
+}
+
+.activeDisplay{
+  background-color: var(--green-1) !important;
+}
+
+.bottomSection {
+  width: 100%;
+}
+
+.textArea {
+  position: relative;
+  margin-top: 5px;
+  box-sizing: border-box;
+  min-width: 100%;
+  background-color: var(--dark-1);
+  color: white;
+  font-family: var(--text-font);
+  outline: none;
+  border: none;
+  padding-inline: 2.5%;
+  z-index: 2;
+}
+
+.hovered{
+  z-index: 0 !important;
+}
+
+.notHovered{
+  z-index: 2 !important;
+}

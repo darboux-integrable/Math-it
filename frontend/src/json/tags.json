@@ -1,0 +1,52 @@
+{
+  "tags": [
+    {
+      "name": "Homework",
+      "color": "#fff"
+    },
+    {
+      "name": "Theoretical",
+      "color": "#39FF14"
+    },
+    {
+      "name": "Algebra 1/2",
+      "color": "#7f5539"
+    },
+    {
+      "name": "College Algebra",
+      "color": "#3c096c"
+    },
+    {
+      "name": "Trionometry",
+      "color": "#ff4800"
+    },
+    {
+      "name": "Precalculus",
+      "color": "#ffc4d6"
+    },
+    {
+      "name": "Calculus 1",
+      "color": "#ff1f1f"
+    },
+    {
+      "name": "Calculus 2",
+      "color": "#3c8898"
+    },
+    {
+      "name": "Calculus 3",
+      "color": "#40916c"
+    },
+    {
+      "name": "Differential Equations",
+      "color": "#aacc00"
+    },
+    {
+      "name": "Linear Algebra",
+      "color": "#00b4d8"
+    },
+    {
+      "name": "Statistics",
+      "color": "#77adee"
+    }
+  ]
+}

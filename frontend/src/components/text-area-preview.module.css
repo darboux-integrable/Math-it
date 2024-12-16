@@ -1,0 +1,152 @@
+.preview{
+    color: white;
+    margin-top: 20px;
+    max-width: 65ch;
+    font-family: var(--text-font);
+    text-wrap: wrap;
+}
+
+.header{
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: var(--title-font);
+    color: white;
+}
+
+.bold{
+    font-weight: 900;
+}
+
+.italic{
+    font-style: italic;
+}
+
+.underline{
+    background-repeat: no-repeat;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+    background-size: 100% 2px;
+    background-position-y: 100%;
+}
+
+.normalText, .underline, .bold, .italic{
+    color: white;
+    font-family: var(--text-font);
+}
+
+.normalText{
+    color: white;
+    font-family: var(--text-font);
+}
+
+.error{
+    color: red;
+}
+
+.orderedList{
+    counter-reset: listNumber 0;
+}
+
+.orderedList > .listItem{
+    color: white;
+    position: relative;
+    font-family: var(--text-font);
+    margin-left: 10px;
+}
+
+.orderedList > .listItem::before{
+    counter-increment: listNumber;
+    content: counter(listNumber);
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-right: 10px;
+    color: var(--green-1);
+    font-family: var(--title-font);
+}
+
+.unorderedList{
+    position: relative;
+}
+
+.unorderedList > .listItem::before {
+    content: " as ";
+    font-size: 0.3rem;
+    position: relative;
+    left: -12px;
+    top: -5px;
+    color: transparent;
+    background-color: var(--green-1);
+    min-width: 6px;
+    margin-left: 23px;
+    min-height: 6px;
+    border-radius: 50%;
+}
+
+.unorderedList > .listItem{
+    color: white;
+    font-family: var(--text-font);
+}
+
+.listItem{
+    position: relative;
+}
+
+.table{
+    display: flex;
+    color: white;
+    font-family: var(--text-font);
+    border: 3px solid var(--dark-1);
+    border-radius: 5px;
+    overflow: hidden;
+    max-width: fit-content;
+    margin-top: 10px;
+    padding-bottom: 2px;
+    overflow-x: auto;
+}
+
+.tableColumn{
+    background-color: var(--dark-1);
+}
+
+.tableHeader{
+    padding-inline: 10px;
+    font-size: 1.5rem;
+    font-family: var(--title-font);
+    background-color: var(--dark-1);
+    text-align: center;
+    text-wrap: nowrap;
+    min-width: fit-content;
+}
+
+.tableHeader, .tableItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tableItem{
+    background-color: var(--dark-3);
+    border-radius: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-inline: 5px;
+    font-size: 1.2rem;
+    border: transparent 3px solid;
+    transition: border 200ms linear;
+}
+
+.tableItem:not(:last-of-type){
+    border-bottom: 3px solid var(--dark-1)
+}
+
+.tableColumn:not(:last-of-type){
+    border-right: 3px solid var(--dark-1);
+}
+
+.horizontalLine{
+    position: relative;
+    background-color: var(--dark-5);
+    width: 100%;
+    height: 4px;
+    border-radius: 10px;
+}

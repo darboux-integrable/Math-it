@@ -1,0 +1,30 @@
+.commentWrapper{
+    border-bottom: 2px solid var(--dark-5);
+}
+
+.commentBody{
+    display: flex;
+    font-family: var(--text-font);
+    gap: 10px;
+}
+
+.upvotesText{
+    color: var(--green-2);
+}
+
+.date{
+    margin-left: 5px;
+    font-weight: normal;
+}
+
+.user{
+    color: var(--green-2);
+    text-decoration: none;
+    transition: color 150ms linear, filter 150ms linear;
+
+}
+
+.user:hover{
+    color: var(--light-green-1);
+    filter: brightness(1.1);
+}
