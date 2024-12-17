@@ -1,20 +1,197 @@
 .wrapper{
     display: flex;
     height: 100%;
-    padding-bottom: 30px;
 }
 
 .pageContent{
     width: 100%;
+    min-height: 100vh;
     height: 100%;
     margin-left: 75px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .classroomsPageTitle{
     color: white;
     font-family: var(--title-font);
     font-size: 2rem;
+}
+
+.currentListContainer{
+    border-bottom: 3px solid var(--dark-4);
+}
+
+.teacherButtonsContainer{
+    padding-top: 10px;
+    padding-bottom: 30px;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    padding-left: 10px;
+}
+
+.teacherButton{
+    border-radius: 5px;
+    height: 35px;
+    background-color: transparent;
+    border: 2px solid;
+    transition: scale 150ms;
+    cursor: pointer;
+}
+
+.teacherButton:hover{
+    scale: 1.1;
+}
+
+.createClassroomButton{
+    color: var(--green-1);
+    border-color: var(--green-1);
+}
+
+.deleteClassroomButton{
+    --red: #CA0B00;
+    color: var(--red);
+    border-color: var(--red);
+}
+
+/* Add Classroom Section */
+.newClassroomWrapper{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--dark-1);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    opacity: 0;
+    animation: slide-in 200ms linear forwards;
+    animation-delay: 150ms;
+}
+
+.blanket{
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: fade-in 150ms linear forwards;
+}
+
+.newClassroomTitle{
+    font-family: var(--title-font);
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+    background-position-y: 100%;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+}
+
+.first3Inputs{
+    display: flex;
+    gap: 10px;
+}
+
+.titleAndTeacher{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputTitle{
+    font-family: var(--title-font);
+    margin: 0;
+    color: white;
+}
+
+.newClassInput, .createNewClassButton{
+    height: 40px;
+    width: 200px;
+    background-color: var(--dark-2);
+    color: white; 
+    font-family: var(--text-font);
+    border: 2px solid transparent;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 200ms linear;
+    color-scheme: dark;
+}
+
+.createNewClassButton{
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.newClassInput:focus, .createNewClassButton:hover{
+    border-color: var(--green-1);
+    outline: none;
+}
+
+.otherInputs{
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.createButtonWrapper{
+    padding-top: 10px;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.slideDown{
+    animation: slide-out 200ms linear !important;
+}
+
+.fadeOut{
+    animation: fade-out 200ms linear !important;
+}
+
+@keyframes fade-in{
+    from {
+        background-color: rgba(0,0,0,0);
+    }
+
+    to{
+        background-color: rgba(0,0,0,0.5);
+    }
+}
+
+@keyframes fade-out{
+    from{
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    to {
+        background-color: rgba(0,0,0,0);
+    }
+}
+
+@keyframes slide-in{
+    from {
+        translate: 0px -200px;
+        opacity: 0;
+    }
+
+    to {
+        translate: 0px 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes slide-out{
+    from{
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    to{
+        transform: translate(-50%, calc(-50% + 200px));
+        opacity: 0;
+    }
 }

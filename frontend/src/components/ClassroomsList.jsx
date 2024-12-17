@@ -5,12 +5,7 @@ import ClassroomCard from "./ClassroomCard";
 function ClassroomsList(props) {
   const classrooms = () => props.classrooms;
 
-  console.log(props)
-
-  const [showPastClasses, setShowPastClasses] = createSignal(false);
-
   return (
-    <div className={styles.background}>
       <div className={styles.content}>
         <h2 className={styles.listTitle}>Current Classes</h2>
         <div className={styles.currentClassesList}>
@@ -27,7 +22,6 @@ function ClassroomsList(props) {
             );
           })}
         </div>
-      </div>
     </div>
   );
 }

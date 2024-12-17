@@ -17,7 +17,7 @@ class Classroom(BaseModel):
     image: str
     start_date: str
     end_date: str
-    passed: bool
+    period: Optional[str]
 
 cluster = MongoClient(os.getenv("DATABASE_URI"))
 
@@ -66,13 +66,20 @@ def create_classroom(classroom_body: Classroom):
     classroom_dict["students"] = []
     classroom_dict["assignments"] = []
     classroom_dict["announcements"] = []
-                                                                    # Local Image Location
-    classroom_dict["image"] = rasberry_pi.add_image_to_raspberry_pi(classroom_dict["image"])
+    classroom_dict["passed"] = False
+    
+    image_data = classroom_dict['image'].split(',')[1]  # Remove the data:image/png;base64, prefix
+    image_bytes = base64.b64decode(image_data)
+
+    with open('./temp/uploaded_image.jpg', 'wb') as f:
+        f.write(image_bytes)
+          
+    classroom_dict["image"] = rasberry_pi.add_image_to_raspberry_pi("./temp/uploaded_image.jpg")
     
     classroom = classroom_collection.insert_one(classroom_dict)
     
     if not classroom:
-        raise HTTPException(status_code=500, detail="Error in making new classroom") 
+         raise HTTPException(status_code=500, detail="Error in making new classroom") 
     
     return {"Id" : str(classroom.inserted_id)}
 

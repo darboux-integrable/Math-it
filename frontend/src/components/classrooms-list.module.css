@@ -1,11 +1,5 @@
 
 /* Bigger/Longer Card Styles  */
-.background{
-    padding: 20px;
-    padding-top: 10px;
-    border-radius: 15px;
-}
-
 .listTitle{
     color: white;
     font-family: var(--title-font);
@@ -13,11 +7,19 @@
 }
 
 .currentClassesList{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
-    width: fit-content;
+    width: min-content;
     justify-content: center;
+    padding-bottom: 10px;
+    padding-inline: 15px;
+}
+
+@media (max-width: 1030px) {
+    .currentClassesList{
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Tiny Cards Styles  */
