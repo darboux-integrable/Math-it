@@ -7,6 +7,7 @@ import SubjectBar from "./SubjectBar";
 import { Show } from "solid-js";
 import subjectsJSON from "../json/subjects";
 import checkFilled from "../helpers/checkForFilledInputs.js";
+import { saveUserCookie } from "../helpers/userInSession.js";
 
 function SignUp() {
   let subjects = subjectsJSON.subjects;
@@ -92,7 +93,8 @@ function SignUp() {
       })
       .then((data) => {
         if (ok()) {
-          location.replace(`/users/landing/${data.user_id}`)
+          saveUserCookie(data.user_id);
+          location.replace(`/users/landing`)
         } else {
           // If ok from the request is false, then there was a problem, so load the error message from the request.
           setError(data.detail);

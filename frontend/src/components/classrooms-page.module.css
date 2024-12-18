@@ -144,6 +144,14 @@
     justify-content: center;
 }
 
+.errorMessage{
+    color: red;
+    text-align: center;
+    font-family: var(--text-font);
+    margin: 0;
+    margin-top: 5px;
+}
+
 .slideDown{
     animation: slide-out 200ms linear !important;
 }

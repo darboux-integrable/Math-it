@@ -29,6 +29,7 @@ function SideNavbar() {
       title: "Classrooms",
       icon: classroomIcon,
       text: "You can sign up for classes here. Here you can also find the classes you are currently enrolled in and access assignments.",
+      location: "/classrooms/landing"
     },
     {
       title: "Account Details",

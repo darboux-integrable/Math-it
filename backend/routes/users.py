@@ -8,7 +8,6 @@ from fastapi import APIRouter, HTTPException
 import pymongo # Possibly remove later
 from pydantic import BaseModel
 from pymongo import MongoClient
-from .classrooms import classroom_collection
 import rasberry_pi
 
 load_dotenv()
@@ -21,8 +20,8 @@ class User(BaseModel):
     password: str
     account_type: str
     img: Optional[str] = None
-    subjects: Optional[List[str]] = None
-    classrooms: Optional[List[str]] = None
+    subjects: Optional[List[str]] = []
+    classrooms: Optional[List[str]] = []
     assignments: Optional[List[object]] = []
 
 cluster = MongoClient(os.getenv("DATABASE_URI"))
@@ -115,18 +114,3 @@ def update_user_image(user_id: str, imageLocation: str):
         raise HTTPException(status_code=501, detail="something went wrong on the server.")
     
     return {"Success": "True", "Message": "User Image Updated"}
-
-# Adds the classroom to the user and the user to the classrooms students. 
-@user_router.patch("/classrooms")
-def addClassroom(user_id: str, classroom_id: str):
-    user = usersCollection.find_one_and_update({"_id": ObjectId(user_id)}, {"$push": {"classrooms": classroom_id}})
-    
-    classroom = classroom_collection.find_one_and_update({"_id": classroom_id}, {"$push": {"students": user_id}})
-    
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    
-    if not classroom:
-        raise HTTPException(status_code=404, detail="Classroom not found")
-    
-    return {"Success": "True", "Message": "Classroom Successfully Added"}

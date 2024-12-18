@@ -3,10 +3,9 @@ import { Show } from "solid-js";
 
 function ClassroomCard({teacher, imgSrc, endDate, startDate, title, passed}){
 
-
     const image = document.createElement("img");
     image.classList.add(styles.classImage)
-    image.src = imgSrc;
+    image.src = `/src/assets/temp/${imgSrc}.jpg`;
 
     return (
       <div className={styles.background}>

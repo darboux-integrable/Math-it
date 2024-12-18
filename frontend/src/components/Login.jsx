@@ -2,6 +2,7 @@ import { createSignal } from "solid-js";
 import styles from "./login.module.css";
 import propsJSON from "../json/landing.json";
 import checkFilled from "../helpers/checkForFilledInputs.js";
+import { saveUserCookie } from "../helpers/userInSession.js";
 
 function Login() {
   const mathStrings = propsJSON.mathStrings;
@@ -29,8 +30,8 @@ function Login() {
           setError(data.detail);
         } else {
           const id = data._id;
-
-          location.replace(`/users/landing/${id}`);
+          saveUserCookie(id);
+          location.replace(`/users/landing`);
         }
       });
   };

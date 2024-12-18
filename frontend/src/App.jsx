@@ -10,7 +10,7 @@ import FormsLanding from "./components/FormsLanding";
 import AskQuestionPage from "./components/AskQuestionPage";
 import ResourcesPage from "./components/ResourcesPage";
 import TextAreaHelpPage from "./components/TextAreaHelpPage";
-import ClassroomPage from "./components/ClassroomsPage";
+import ClassroomLandingPage from "./components/ClassroomsPage";
 
 function App() {
   return (
@@ -22,17 +22,14 @@ function App() {
       <Route path="/login" component={<Login />}></Route>
 
       <Route
-        path="/users/landing/:id"
-        component={() => {
-          const params = useParams();
-          return <UserLanding id={params.id} />;
-        }}
+        path="/users/landing/"
+        component={ <UserLanding />}
       ></Route>
 
-      <Route path="/classrooms/:id" component={() => {
-        const params = useParams();
-        return <ClassroomPage id={params.id} />
-      }}></Route>
+      <Route
+        path="/classrooms/landing/"
+        component={<ClassroomLandingPage /> }
+      ></Route>
 
       <Route path="/practice" component={<MathPractice />}></Route>
 
