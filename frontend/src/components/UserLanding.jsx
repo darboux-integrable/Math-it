@@ -5,7 +5,7 @@ import eulerImage from "../assets/Leonhard_Euler.jpg";
 import Quote from "./Quote";
 import waves from "../assets/waves/grayWaves.svg";
 import shortenString from "../helpers/shortenText.js";
-import { createSignal } from "solid-js";
+import { createSignal, onMount } from "solid-js";
 import { fetchUserFromCookie } from "../helpers/userInSession.js";
 
 /*

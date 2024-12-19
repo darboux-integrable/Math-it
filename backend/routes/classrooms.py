@@ -6,9 +6,9 @@ from fastapi import APIRouter, HTTPException
 import pymongo # Possibly remove later
 from pydantic import BaseModel
 from pymongo import MongoClient
+import gridfs
 from bson import ObjectId
 import base64
-import rasberry_pi
 from .users import usersCollection
 
 load_dotenv()
@@ -16,6 +16,7 @@ load_dotenv()
 class Classroom(BaseModel):
     teacher: str
     image: str
+    teacher_id: str
     start_date: str
     end_date: str
     title: str
@@ -24,6 +25,8 @@ class Classroom(BaseModel):
 cluster = MongoClient(os.getenv("DATABASE_URI"))
 
 database = cluster["MathIt"]
+
+fs = gridfs.GridFS(database)
 
 classroom_collection = database["classrooms"]
 
@@ -40,7 +43,6 @@ def get_classroom(classroom_id: str):
     if not classroom:
         raise HTTPException(status_code=404, detail="Classroom not found")
     
-    rasberry_pi.retrieve_image_from_raspberry_pi(classroom["image"])
     
     classroom["_id"] = str(classroom["_id"])
     return classroom
@@ -54,12 +56,28 @@ def get_all_classrooms_by_user(user_id: str):
     classrooms_array = []
     
     for classroom in classrooms: 
-        rasberry_pi.retrieve_image_from_raspberry_pi(classroom["image"])
-        
         classroom["_id"] = str(classroom["_id"])
         classrooms_array.append(classroom)
     
     return classrooms_array
+
+# Get all classes taught by a certain teacher 
+@classrooms_router.get("/taught_by/{teacher_id}")
+def get_all_classrooms_by_user(teacher_id: str):
+    classrooms = classroom_collection.find({"teacher_id": teacher_id})
+
+    if not classrooms:
+        raise HTTPException(status_code=404, detail="Classrooms not found")
+
+    classrooms_array = []
+
+    for classroom in classrooms:
+        classroom["image"] = base64.b64encode(classroom["image"]).decode('utf-8')
+        classroom["_id"] = str(classroom["_id"])
+        classrooms_array.append(classroom)
+        
+
+    return  classrooms_array
 
 # Create New Classroom
 @classrooms_router.post("/")
@@ -73,11 +91,8 @@ def create_classroom(classroom_body: Classroom):
     image_data = classroom_dict['image'].split(',')[1]  # Remove the data:image/png;base64, prefix
     image_bytes = base64.b64decode(image_data)
 
-    with open('./temp/uploaded_image.jpg', 'wb') as f:
-        f.write(image_bytes)
-          
-    classroom_dict["image"] = rasberry_pi.add_image_to_raspberry_pi("./temp/uploaded_image.jpg")
-    
+    classroom_dict["image"] = image_bytes
+
     classroom = classroom_collection.insert_one(classroom_dict)
     
     if not classroom:

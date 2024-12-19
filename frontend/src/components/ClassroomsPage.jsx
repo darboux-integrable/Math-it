@@ -13,7 +13,8 @@ function ClassroomLandingPage() {
 
   const [newClassroom, setNewClassroom] = createSignal(false);
   const [user, setUser] = createSignal({});
-  const [classrooms, setClassrooms] = createSignal([]);
+  const [classrooms, setClassrooms] = createSignal(false);
+  const [classesTaught, setClassesTaught] = createSignal(false);
   const [error, setError] = createSignal("");
 
   const [imgSrc, setImgSrc] = createSignal(imageIcon);
@@ -31,6 +32,7 @@ function ClassroomLandingPage() {
       },
       body: JSON.stringify({
         teacher: instructorName(),
+        teacher_id: user()._id,
         image: JSON.stringify(imgSrc()),
         start_date: startDate(),
         end_date: endDate(),
@@ -52,9 +54,19 @@ function ClassroomLandingPage() {
       });
   };
 
+  const getAllClassesTaught = () => {
+    fetch("http://127.0.0.1:5000/classrooms/taught_by/" + user()._id)
+      .then((res) => res.json())
+      .then((data) => {
+        setClassesTaught(data);
+        console.log(classesTaught());
+      });
+  };
+
   fetchUserFromCookie((data) => {
     setUser(data);
     getAllClassroomsByUser();
+    getAllClassesTaught();
   });
 
   return (
@@ -69,7 +81,10 @@ function ClassroomLandingPage() {
         <div>
           <div className={styles.currentListContainer}>
             <Show when={classrooms()}>
-              <ClassroomsList classrooms={classrooms()} />
+              <ClassroomsList
+                classrooms={classrooms()}
+                title="Enrolled Classes"
+              />
             </Show>
           </div>
           {/* Make it so only teachers can create and delete classrooms */}
@@ -90,6 +105,13 @@ function ClassroomLandingPage() {
                 Delete Existing Classroom
               </button> */}
             </div>
+          </Show>
+
+          <Show when={classesTaught()}>
+            <ClassroomsList
+              classrooms={classesTaught()}
+              title="Classes You Teach"
+            />
           </Show>
         </div>
 
@@ -178,9 +200,16 @@ function ClassroomLandingPage() {
                       title(),
                       period()
                     )
-                  )
+                  ) {
+                    newClassroomWrapper.className += " " + styles.slideDown;
+                    blanket.className += " " + styles.fadeOut;
+
+                    setTimeout(() => {
+                      setNewClassroom(false);
+                      setError("");
+                    }, 200);
                     createClassroom();
-                  else {
+                  } else {
                     setError("Not All input boxes are filled.");
                   }
                 }}

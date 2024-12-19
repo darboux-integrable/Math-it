@@ -1,17 +1,17 @@
-import { Router, Route } from "@solidjs/router";
+import { Router, Route, useParams } from "@solidjs/router";
 import Landing from "./components/Landing";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
-import UserLanding from "./components/UserLanding";
 import MathPractice from "./components/mathPractice";
-import { useParams } from "@solidjs/router";
 import QuestionPage from "./components/QuestionPage";
 import FormsLanding from "./components/FormsLanding";
 import AskQuestionPage from "./components/AskQuestionPage";
 import ResourcesPage from "./components/ResourcesPage";
 import TextAreaHelpPage from "./components/TextAreaHelpPage";
-import ClassroomLandingPage from "./components/ClassroomsPage";
+import { lazy } from "solid-js";
 
+const ClassroomLandingPage = lazy(() => import("./components/ClassroomsPage"))
+const UserLanding = lazy(() => import("./components/UserLanding"))
 function App() {
   return (
     <Router>
@@ -21,14 +21,11 @@ function App() {
 
       <Route path="/login" component={<Login />}></Route>
 
-      <Route
-        path="/users/landing/"
-        component={ <UserLanding />}
-      ></Route>
+      <Route path="/users/landing/" component={() => <UserLanding />}></Route>
 
       <Route
         path="/classrooms/landing/"
-        component={<ClassroomLandingPage /> }
+        component={() => <ClassroomLandingPage />}
       ></Route>
 
       <Route path="/practice" component={<MathPractice />}></Route>
@@ -37,13 +34,7 @@ function App() {
 
       <Route path="/questions/ask" component={<AskQuestionPage />}></Route>
 
-      <Route
-        path="/questions/:id"
-        component={() => {
-          const params = useParams();
-          return <QuestionPage id={params.id} />;
-        }}
-      ></Route>
+      <Route path="/questions/:id" component={() => <QuestionPage />}></Route>
 
       <Route path="/resources" component={<ResourcesPage />}></Route>
 

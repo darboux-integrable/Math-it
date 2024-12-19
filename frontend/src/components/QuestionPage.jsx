@@ -4,8 +4,13 @@ import Question from "./Question";
 import QuestionAnswer from "./QuestionAnswer";
 import downArrowIcon from "../assets/line-arrow.svg";
 import { createSignal } from "solid-js";
+import { useParams } from "@solidjs/router";
 
-function QuestionPage({ id }) {
+function QuestionPage() {
+  const params = useParams();
+
+  const id = params.id;
+
   const question = {
     title: "This is the title of my question",
     body: "Lorem ipsum odor amet, consectetuer adipiscing elit. Velit pretium nullam platea rhoncus maecenas mauris felis id. Iaculis fringilla phasellus natoque sodales praesent fermentum tristique vivamus. Etiam eleifend cursus volutpat senectus luctus libero bibendum. Maecenas praesent velit dignissim bibendum fusce. Litora tempor magnis varius pulvinar luctus. Senectus gravida dictum tincidunt ridiculus quis. Amet ac mauris pellentesque feugiat luctus ex! Orci malesuada erat; tempor nec maximus morbi.Nam arcu tincidunt sit lobortis facilisis leo. Lectus vestibulum class tristique amet tempus. Donec iaculis sagittis primis suscipit dignissim conubia vivamus. Pharetra faucibus porttitor taciti penatibus condimentum leo aliquam phasellus. In vulputate vel sagittis leo nisi turpis fames netus. Urna at facilisis, phasellus porta luctus magnis semper. Eros commodo aliquam lectus; scelerisque velit nulla. Feugiat ipsum nunc aenean leo dolor leo. Metus efficitur molestie sociosqu convallis nisi pulvinar et cursus. Cubilia nam dis, consectetur ipsum sollicitudin rhoncus vitae. Volutpat nullam amet orci netus habitant neque aliquet dictum. Placerat natoque cubilia lorem pharetra gravida, scelerisque neque.",

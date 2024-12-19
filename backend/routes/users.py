@@ -8,7 +8,6 @@ from fastapi import APIRouter, HTTPException
 import pymongo # Possibly remove later
 from pydantic import BaseModel
 from pymongo import MongoClient
-import rasberry_pi
 
 load_dotenv()
 
@@ -97,20 +96,3 @@ def create_new_user(user_body: User):
     
     # make inserted_id a string and not ObjectID to stop an Error
     return {"Success": "True", "user_id": str(new_user.inserted_id)}
-    
-@user_router.patch("/{user_id}/profile_image")
-def update_user_image(user_id: str, imageLocation: str):
-    user = usersCollection.find_one({"_id": ObjectId(user_id)})
-
-    # If the user has an old profile Image. 
-    if user["img"] != None:
-        rasberry_pi.remove_image_from_raspberry_pi(user["img"])
-
-    newImageLocation = rasberry_pi.add_image_to_raspberry_pi(imageLocation) or "No Image"
-
-    result = usersCollection.update_one({"_id": ObjectId(user_id)}, {"$set": {"img": newImageLocation}})
-
-    if not result:
-        raise HTTPException(status_code=501, detail="something went wrong on the server.")
-    
-    return {"Success": "True", "Message": "User Image Updated"}

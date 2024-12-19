@@ -7,15 +7,15 @@ function ClassroomsList(props) {
 
   return (
       <div className={styles.content}>
-        <h2 className={styles.listTitle}>Current Classes</h2>
+        <h2 className={styles.listTitle}>{props.title}</h2>
         <div className={styles.currentClassesList}>
           {classrooms().map((classroom) => {
             return (
               <ClassroomCard
                 imgSrc={classroom.image}
-                endDate={classroom.endDate}
+                endDate={classroom.end_date}
                 title={classroom.title}
-                startDate={classroom.startDate}
+                startDate={classroom.start_date}
                 teacher={classroom.teacher}
                 passed={classroom.passed}
               />
