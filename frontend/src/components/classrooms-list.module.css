@@ -11,9 +11,22 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     width: min-content;
+    width: 100%;
     justify-content: center;
     padding-bottom: 10px;
     padding-inline: 15px;
+}
+
+.currentClassesList:has(.noClassesText) {
+    grid-template-columns: 1fr;
+}
+
+.noClassesText{
+    text-align: center;
+    color: white;
+    font-size: 1.4rem;
+    margin: 0;
+    font-family: var(--text-font);
 }
 
 @media (max-width: 1030px) {

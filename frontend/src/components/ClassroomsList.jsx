@@ -9,7 +9,8 @@ function ClassroomsList(props) {
       <div className={styles.content}>
         <h2 className={styles.listTitle}>{props.title}</h2>
         <div className={styles.currentClassesList}>
-          {classrooms().map((classroom) => {
+          {
+          classrooms().length == 0 ? <p className={styles.noClassesText}>You are not currently enrolled in any classes</p> : classrooms().map((classroom) => {
             return (
               <ClassroomCard
                 imgSrc={classroom.image}

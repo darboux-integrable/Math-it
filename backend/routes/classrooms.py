@@ -56,6 +56,7 @@ def get_all_classrooms_by_user(user_id: str):
     classrooms_array = []
     
     for classroom in classrooms: 
+        classroom["image"] = base64.b64encode(classroom["image"]).decode('utf-8')
         classroom["_id"] = str(classroom["_id"])
         classrooms_array.append(classroom)
     
@@ -113,4 +114,6 @@ def addClassroom(user_id: str, classroom_id: str):
     if not classroom:
         raise HTTPException(status_code=404, detail="Classroom not found")
     
-    return {"Success": "True", "Message": "Classroom Successfully Added"}
+    classroom["image"] = base64.b64encode(classroom["image"]).decode('utf-8')
+    classroom["_id"] = str(classroom["_id"])
+    return {"Working"}

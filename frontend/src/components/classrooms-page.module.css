@@ -25,30 +25,29 @@
 }
 
 .teacherButtonsContainer{
-    padding-top: 10px;
     padding-bottom: 30px;
     width: 100%;
     display: flex;
     gap: 20px;
-    padding-left: 10px;
 }
 
-.teacherButton{
-    border-radius: 5px;
+
+.classroomButton:hover{
+    scale: 1.1;
+}
+
+.classroomButton{
+    margin-left: 10px;
+    margin-top: 10px;
+    color: var(--green-1);
+    border-color: var(--green-1);
+
+     border-radius: 5px;
     height: 35px;
     background-color: transparent;
     border: 2px solid;
     transition: scale 150ms;
     cursor: pointer;
-}
-
-.teacherButton:hover{
-    scale: 1.1;
-}
-
-.createClassroomButton{
-    color: var(--green-1);
-    border-color: var(--green-1);
 }
 
 .deleteClassroomButton{
@@ -116,7 +115,7 @@
     border: 2px solid transparent;
     border-radius: 5px;
     box-sizing: border-box;
-    transition: border-color 200ms linear;
+    transition: border-color 150ms linear, scale 150ms linear;
     color-scheme: dark;
 }
 
@@ -127,6 +126,7 @@
 
 .newClassInput:focus, .createNewClassButton:hover{
     border-color: var(--green-1);
+    scale: 1.05;
     outline: none;
 }
 
@@ -153,11 +153,11 @@
 }
 
 .slideDown{
-    animation: slide-out 200ms linear !important;
+    animation: slide-out 200ms linear forwards !important;
 }
 
 .fadeOut{
-    animation: fade-out 200ms linear !important;
+    animation: fade-out 200ms linear forwards !important;
 }
 
 @keyframes fade-in{
@@ -202,4 +202,77 @@
         transform: translate(-50%, calc(-50% + 200px));
         opacity: 0;
     }
+}
+
+/* Join Classroom Section */
+.joinClassroomContainer{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--dark-1);
+    color: white;
+    font-family: var(--text-font);
+    padding-inline: 50px;
+    padding-top: 30px;
+    border: 4px solid var(--dark-4);
+    padding-bottom: 30px;
+    border-radius: 10px;
+    animation: slide-in 250ms forwards;
+}
+
+.joinTitle{
+    margin: 0;
+    font-family: var(--title-font);
+}
+
+.joinLabel{
+    padding-bottom: 3px;
+    width: fit-content;
+    padding-inline: 10px;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1), var(--purple-1));
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+    background-position-y: 100%;
+}
+
+.joinInput{
+    width: 100%;
+    background-color: var(--dark-2);
+    color: white;
+    height: 50px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    font-size: xx-large;
+    border: 2px solid var(--dark-4);
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+.joinButtons{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.joinButton{
+    background-color: var(--dark-2);
+    border-radius: 5px;
+    flex-grow: 1;
+    color: white;
+    font-size: x-large;
+    border: 2px solid var(--dark-4);
+    height: 40px;
+    margin: 0;
+    cursor: pointer;
+    transition: scale 150ms ease-out, border-color 150ms ease-out;
+}
+
+.joinButton:hover{
+    scale: 1.05;
+    border-color: var(--green-1);
 }

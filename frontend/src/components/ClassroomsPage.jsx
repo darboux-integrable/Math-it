@@ -9,6 +9,7 @@ import { fetchUserFromCookie } from "../helpers/userInSession.js";
 
 function ClassroomLandingPage() {
   let newClassroomWrapper;
+  let joinClassroomWrapper;
   let blanket;
 
   const [newClassroom, setNewClassroom] = createSignal(false);
@@ -23,6 +24,9 @@ function ClassroomLandingPage() {
   const [period, setPeriod] = createSignal("");
   const [startDate, setStartDate] = createSignal("");
   const [endDate, setEndDate] = createSignal("");
+
+  const [classroomId, setClassroomID] = createSignal("");
+  const [joinClassroom, setJoinClassroom] = createSignal(false);
 
   const createClassroom = () => {
     fetch("http://127.0.0.1:5000/classrooms", {
@@ -54,12 +58,39 @@ function ClassroomLandingPage() {
       });
   };
 
+  const addStudentToClass = () => {
+    fetch(
+      `http://127.0.0.1:5000/classrooms/add_student?user_id=${
+        user()._id
+      }&classroom_id=${encodeURIComponent(classroomId())}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        location.reload();
+      })
+      .catch((err) => {
+        setError("No Classroom Found with that Code");
+      });
+  };
+  const checkIfAlreadyEnrolled = (classId) => {
+    for (let i = 0; i < classrooms().length; i++) {
+      if (classrooms()[i]._id == classId) {
+        return true;
+      }
+    }
+    return false;
+  };
   const getAllClassesTaught = () => {
     fetch("http://127.0.0.1:5000/classrooms/taught_by/" + user()._id)
       .then((res) => res.json())
       .then((data) => {
         setClassesTaught(data);
-        console.log(classesTaught());
       });
   };
 
@@ -73,7 +104,7 @@ function ClassroomLandingPage() {
     <div className={styles.wrapper}>
       <SideNavbar />
       <div className={styles.pageContent}>
-        <Show when={newClassroom()}>
+        <Show when={newClassroom() || joinClassroom()}>
           <div ref={blanket} className={styles.blanket}></div>
         </Show>
         <h1 className={styles.classroomsPageTitle}>Your Classrooms</h1>
@@ -87,11 +118,28 @@ function ClassroomLandingPage() {
               />
             </Show>
           </div>
+          <button
+            className={styles.classroomButton}
+            onclick={() => {
+              setJoinClassroom(true);
+            }}
+          >
+            Join An Existing Class
+          </button>
+
           {/* Make it so only teachers can create and delete classrooms */}
           <Show when={user() && user().account_type == "educator"}>
+            <div className={styles.currentListContainer}>
+              <Show when={classesTaught()}>
+                <ClassroomsList
+                  classrooms={classesTaught()}
+                  title="Classes You Teach"
+                />
+              </Show>
+            </div>
             <div className={styles.teacherButtonsContainer}>
               <button
-                className={`${styles.createClassroomButton} ${styles.teacherButton}`}
+                className={styles.classroomButton}
                 onclick={() => {
                   setNewClassroom(true);
                 }}
@@ -105,13 +153,6 @@ function ClassroomLandingPage() {
                 Delete Existing Classroom
               </button> */}
             </div>
-          </Show>
-
-          <Show when={classesTaught()}>
-            <ClassroomsList
-              classrooms={classesTaught()}
-              title="Classes You Teach"
-            />
           </Show>
         </div>
 
@@ -237,6 +278,59 @@ function ClassroomLandingPage() {
                 <p className={styles.errorMessage}>{error()}</p>
               </Show>
             </div>
+          </div>
+        </Show>
+        <Show when={joinClassroom()}>
+          <div
+            ref={joinClassroomWrapper}
+            className={styles.joinClassroomContainer}
+          >
+            <h1 className={styles.joinTitle}>Join An Existing Class</h1>
+            <p className={styles.joinLabel}>Class Code</p>
+            <input
+              type="text"
+              className={styles.joinInput}
+              value={classroomId()}
+              onInput={(e) => setClassroomID(e.target.value)}
+            />
+            <div className={styles.joinButtons}>
+              <button
+                className={styles.joinButton}
+                onclick={() => {
+                  if (!checkFilled(classroomId())) {
+                    setError("Please Enter Class Code");
+                  } else if (checkIfAlreadyEnrolled(classroomId())) {
+                    setError("You are Already Enrolled In This Class");
+                  } else {
+                    joinClassroomWrapper.className += " " + styles.slideDown;
+                    blanket.className += " " + styles.fadeOut;
+                    setTimeout(() => {
+                      setJoinClassroom(false);
+                    }, 200);
+                    setError("");
+                    addStudentToClass();
+                  }
+                }}
+              >
+                Done
+              </button>
+              <button
+                className={styles.joinButton}
+                onclick={() => {
+                  joinClassroomWrapper.className += " " + styles.slideDown;
+                  blanket.className += " " + styles.fadeOut;
+                  setTimeout(() => {
+                    setJoinClassroom(false);
+                  }, 200);
+                  setError("");
+                }}
+              >
+                Back
+              </button>
+            </div>
+            <Show when={error() != ""}>
+              <p className={styles.errorMessage}>{error()}</p>
+            </Show>
           </div>
         </Show>
       </div>
