@@ -1,0 +1,30 @@
+
+.announcement{
+    background-color: var(--dark-2);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.header{
+    font-family: var(--title-font);
+    display: flex;
+    justify-content: space-between;
+}
+
+.announcementTitle{
+    margin: 0;
+}
+
+.closeImage{
+    width: 25px;
+    height: 25px;
+}
+
+.body{
+    font-family: var(--text-font);
+    color: #ddd;
+}
+
+.announcementDate{
+    text-align: end;
+}

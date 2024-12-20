@@ -35,4 +35,4 @@ function fetchUserFromCookie(ifSuccessful) {
     .catch((err) => {});
 }
 
-export { saveUserCookie, fetchUserFromCookie };
+export { saveUserCookie, fetchUserFromCookie, getCookieValue};
