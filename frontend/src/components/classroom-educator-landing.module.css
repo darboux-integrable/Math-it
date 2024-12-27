@@ -1,0 +1,120 @@
+.topContent{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 30px;
+}
+
+.courseImage{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.classImage{
+    width: calc(100% - 2 * 50px);
+    height: 100%;
+    box-shadow: 0px 0px 5px 2px black;
+    max-height: 300px;
+    border-radius: 15px;
+}
+
+.courseTitle{
+    position: absolute;
+    bottom: 0;
+    color: white;
+    font-family: var(--title-font);
+}
+
+.teacherWelcome{
+    color: white;
+    font-family: var(--title-font);
+    font-size: 2.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-style: italic;
+}
+
+.welcomeText{
+    margin: 0;
+    text-align: start;
+}
+
+.teacherNameTitle{
+    margin: 0;
+    text-align: center;
+}
+
+.bottomContent{
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    width: 100;
+    padding-right: 50px;
+    padding-top: 20px;
+}
+
+.announcementsBackground{
+    margin-left: 50px;
+    box-shadow: 0px 0px 5px 2px black;
+    max-width: 650px;
+    --padding-inline: 20px;
+    width: calc(100% - 100px - 2 * var(--padding-inline));
+    background-color: var(--dark-1);
+    padding-inline: var(--padding-inline);
+    padding-top: 25px;
+    border-radius: 16px;
+    padding-bottom: 25px;
+    min-width: fit-content;
+}
+
+.announcementsSection{
+    border: 4px solid var(--dark-2);
+    border-radius: 12px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.newAnnouncementTitle, .previousAnnouncementsTitle{
+    color: white;
+    font-family: var(--title-font);
+    font-size: 2rem;
+    border-bottom: 5px solid var(--dark-2);
+    width: 80%;
+    margin-bottom: 0px;
+}
+
+.createAnnouncementWrapper{
+    border-top: 3px solid var(--dark-2);
+    width: 95%;
+    padding-top: 7px;
+}
+
+.createAnnouncementButton{
+    color: white;
+    background-color: var(--green-1);
+    text-align: center;
+    border: none;
+    width: auto;
+    padding-inline: 15px;
+    height: 35px;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-family: var(--text-font);
+    cursor: pointer;
+    transition: scale 150ms linear;
+}
+
+.createAnnouncementButton:hover{
+    scale: 1.1;
+}
+
+.previousAnnouncements{
+    padding-left: 15px;
+    color: white;
+    font-family: var(--text-font);
+    padding-bottom: 20px;
+}
+

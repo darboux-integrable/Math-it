@@ -15,14 +15,15 @@ function Navbar({ buttons, bg }) {
         </div>
 
       <div className={styles.navButtons}>
-        {buttons.map((buttonText) => {
+        {buttons.map((button) => {
           return (
             <button
               className={`${styles.navButton} ${
-                buttonText === "Login" ? styles.loginButton : ""
+                button.text === "Login" ? styles.loginButton : ""
               }`}
+              onclick={() => {location.replace(button.location)}}
             >
-              {buttonText}
+              {button.text}
             </button>
           );
         })}

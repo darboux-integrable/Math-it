@@ -13,8 +13,9 @@ import tableIcon from "../assets/table-icon.svg";
 import { createSignal, Show } from "solid-js";
 import TextAreaPreview from "./TextAreaPreview";
 
+let timeoutFunction; // Must stay as a global variable 
+
 function HeaderButton(props) {
-  let timeoutFunction;
 
   const addSentinelToText = () => {
     const startIndex = props.textArea.selectionStart;

@@ -3,7 +3,7 @@
     {
       "subject": "Algebra",
       "description": "The manipulation of equations and isolation of variables. The foundation of all higher-level math.",
-      "topics": ["Linear Equations", "Substitution", "Elimination"],
+      "topics": ["Linear Functions","Systems of Linear Equations", "Absolute Value Equations", "Quadratic Equations", "Difference of Two Squares", "Factored Quadratics"],
       "color1": "#7f5539"
     },
     {

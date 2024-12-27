@@ -12,7 +12,9 @@ import PageNotFoundPage from "./components/PageNotFound";
 import { lazy } from "solid-js";
 
 const ClassroomStudentPage = lazy(() => import("./components/ClassroomStudentLanding"))
-const ClassroomLandingPage = lazy(() => import("./components/ClassroomsPage"))
+const ClassroomEducatorPage = lazy(() => import("./components/ClassroomEducatorLanding"))
+const ClassroomsLandingPage = lazy(() => import("./components/ClassroomsPage"))
+const ClassroomStudentAssignmentPage = lazy(() => import("./components/StudentAssignmentsPage"))
 const UserLanding = lazy(() => import("./components/UserLanding"))
 function App() {
   return (
@@ -32,12 +34,19 @@ function App() {
 
       <Route
         path="/classrooms/landing/"
-        component={() => <ClassroomLandingPage />}
+        component={() => <ClassroomsLandingPage />}
       ></Route>
+
+      <Route path="/classrooms/educator/:id" component={() => <ClassroomEducatorPage />}></Route>
 
       <Route
         path="/classrooms/:id"
         component={() => <ClassroomStudentPage />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/assignments"
+        component={() => <ClassroomStudentAssignmentPage />}
       ></Route>
 
       <Route path="/practice" component={<MathPractice />}></Route>
@@ -51,6 +60,9 @@ function App() {
       <Route path="/resources" component={<ResourcesPage />}></Route>
 
       <Route path="/help/textArea" component={<TextAreaHelpPage />}></Route>
+
+      {/* This must stay as the last Route */}
+      <Route path={"/:otherPage"} component={<PageNotFoundPage />}></Route>
     </Router>
   );
 }

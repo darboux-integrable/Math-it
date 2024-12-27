@@ -6,7 +6,6 @@ import { saveUserCookie } from "../helpers/userInSession.js";
 
 function Login() {
   const mathStrings = propsJSON.mathStrings;
-
   const [username, setUsername] = createSignal("");
 
   const [password, setPassword] = createSignal("");
@@ -17,15 +16,15 @@ function Login() {
   const loginUser = () => {
     const usernameEncoded = encodeURIComponent(username());
     const passwordEncoded = encodeURIComponent(password());
-
     fetch(
       `http://127.0.0.1:5000/users?username=${usernameEncoded}&password=${passwordEncoded}`
     )
-      .then((res) => {
+    .then((res) => {
         setOk(res.ok);
         return res.json();
       })
       .then((data) => {
+        console.log(data)
         if (!ok()) {
           setError(data.detail);
         } else {
@@ -95,7 +94,7 @@ function Login() {
           <div className={styles.signUpTextWrapper}>
             <p className={styles.signupText}>Don't Have an Account?</p>
 
-            <button className={styles.signUpButton}>Sign Up</button>
+            <button className={styles.signUpButton} onclick={() => {location.replace("/signup")}}>Sign Up</button>
           </div>
         </div>
       </div>

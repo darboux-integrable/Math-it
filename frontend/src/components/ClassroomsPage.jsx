@@ -115,6 +115,7 @@ function ClassroomLandingPage() {
               <ClassroomsList
                 classrooms={classrooms()}
                 title="Enrolled Classes"
+                type="learner"
               />
             </Show>
           </div>
@@ -134,6 +135,7 @@ function ClassroomLandingPage() {
                 <ClassroomsList
                   classrooms={classesTaught()}
                   title="Classes You Teach"
+                  type="educator"
                 />
               </Show>
             </div>
@@ -301,7 +303,7 @@ function ClassroomLandingPage() {
                     setError("Please Enter Class Code");
                   } else if (checkIfAlreadyEnrolled(classroomId())) {
                     setError("You are Already Enrolled In This Class");
-                  } else {
+                  } else if(error() == ""){
                     joinClassroomWrapper.className += " " + styles.slideDown;
                     blanket.className += " " + styles.fadeOut;
                     setTimeout(() => {

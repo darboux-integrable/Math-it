@@ -1,10 +1,10 @@
 import styles from "./classroom-card.module.css"
 import { Show } from "solid-js";
 
-function ClassroomCard({teacher, imgSrc, endDate, startDate, title, passed}){
-
+function ClassroomCard({teacher, imgSrc, endDate, startDate, title, passed, locationString}){
+  
     return (
-      <div className={styles.background}>
+      <div className={styles.background} onclick={() => {location.replace(locationString)}}>
         <div className={`${styles.content} ${passed ? styles.passed : ""}`}>
           <div className={styles.topContent}>
             <img

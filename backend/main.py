@@ -9,6 +9,7 @@ from routes.users import user_router
 from routes.assignments import assignments_router
 from routes.notifications import notifications_router
 from routes.classrooms import classrooms_router
+from routes.math_router import math_router
 
 load_dotenv()
 
@@ -32,15 +33,9 @@ app.include_router(user_router)
 app.include_router(notifications_router)
 app.include_router(assignments_router)
 app.include_router(classrooms_router)
+app.include_router(math_router)
 
 @app.get("/")
 def home():
     return {"Success": "True"}
  
-
-# post = {
-#     "name": "Adam Evans",
-#     "password": "Ujthnje8"
-# }
-
-# collection.insert_one(post)

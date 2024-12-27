@@ -5,6 +5,8 @@ import ClassroomCard from "./ClassroomCard";
 function ClassroomsList(props) {
   const classrooms = () => props.classrooms;
 
+  const location_base = props.type == "educator" ? "/classrooms/educator/" : "/classrooms/";
+
   return (
       <div className={styles.content}>
         <h2 className={styles.listTitle}>{props.title}</h2>
@@ -19,6 +21,7 @@ function ClassroomsList(props) {
                 startDate={classroom.start_date}
                 teacher={classroom.teacher}
                 passed={classroom.passed}
+                locationString = {location_base + classroom._id}
               />
             );
           })}

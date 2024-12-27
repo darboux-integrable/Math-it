@@ -6,8 +6,8 @@ from fastapi import APIRouter, HTTPException
 import pymongo # Possibly remove later
 from pydantic import BaseModel
 from pymongo import MongoClient
-import gridfs
 from bson import ObjectId
+import json
 import base64
 from .users import usersCollection
 
@@ -26,8 +26,6 @@ cluster = MongoClient(os.getenv("DATABASE_URI"))
 
 database = cluster["MathIt"]
 
-fs = gridfs.GridFS(database)
-
 classroom_collection = database["classrooms"]
 
 classrooms_router = APIRouter(
@@ -44,6 +42,7 @@ def get_classroom(classroom_id: str):
         raise HTTPException(status_code=404, detail="Classroom not found")
     
     
+    classroom["image"] = base64.b64encode(classroom["image"]).decode('utf-8')
     classroom["_id"] = str(classroom["_id"])
     return classroom
 
@@ -85,11 +84,11 @@ def get_all_classrooms_by_user(teacher_id: str):
 def create_classroom(classroom_body: Classroom):    
     classroom_dict = classroom_body.model_dump()
     classroom_dict["students"] = []
-    classroom_dict["assignments"] = []
     classroom_dict["announcements"] = []
+    
     classroom_dict["passed"] = False
     
-    image_data = classroom_dict['image'].split(',')[1]  # Remove the data:image/png;base64, prefix
+    image_data = classroom_dict['image'].split(',')[1] # Remove the data:image/png;base64, prefix
     image_bytes = base64.b64decode(image_data)
 
     classroom_dict["image"] = image_bytes
@@ -98,6 +97,12 @@ def create_classroom(classroom_body: Classroom):
     
     if not classroom:
          raise HTTPException(status_code=500, detail="Error in making new classroom") 
+
+    assignments_list_collection.insert_one({
+        "class_id": str(classroom.inserted_id),
+        "lists" : [
+            {"category": "No Category", "assignments": []}
+        ]})
     
     return {"Id" : str(classroom.inserted_id)}
 

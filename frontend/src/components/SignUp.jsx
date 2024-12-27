@@ -33,6 +33,7 @@ function SignUp() {
   const [loadTutor, setLoadTutor] = createSignal(false);
   let slideLeftContent;
   let slideRightContent;
+
   const loadTutorSection = () => {
     slideLeftContent.className = slideLeftContent.className.replace(
       styles.fadeIn,
@@ -240,7 +241,7 @@ function SignUp() {
 
               <div class={`${styles.loginLinkWrapper}`}>
                 <p class={styles.loginText}>Already have an Account?</p>
-                <button className={styles.loginButton}>Login</button>
+                <button className={styles.loginButton} onclick={() => {location.replace("/login")}}>Login</button>
               </div>
             </div>
           </div>
