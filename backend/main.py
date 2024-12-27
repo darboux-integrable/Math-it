@@ -10,6 +10,7 @@ from routes.assignments import assignments_router
 from routes.notifications import notifications_router
 from routes.classrooms import classrooms_router
 from routes.math_router import math_router
+from routes.announcements import announcements_router
 
 load_dotenv()
 
@@ -31,6 +32,7 @@ app.add_middleware(
 
 app.include_router(user_router)
 app.include_router(notifications_router)
+app.include_router(announcements_router)
 app.include_router(assignments_router)
 app.include_router(classrooms_router)
 app.include_router(math_router)

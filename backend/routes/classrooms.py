@@ -83,8 +83,8 @@ def get_all_classrooms_by_user(teacher_id: str):
 @classrooms_router.post("/")
 def create_classroom(classroom_body: Classroom):    
     classroom_dict = classroom_body.model_dump()
-    classroom_dict["students"] = []
-    classroom_dict["announcements"] = []
+    classroom_dict["students"] = ""
+    classroom_dict["announcements"] = ""
     
     classroom_dict["passed"] = False
     
@@ -98,12 +98,6 @@ def create_classroom(classroom_body: Classroom):
     if not classroom:
          raise HTTPException(status_code=500, detail="Error in making new classroom") 
 
-    assignments_list_collection.insert_one({
-        "class_id": str(classroom.inserted_id),
-        "lists" : [
-            {"category": "No Category", "assignments": []}
-        ]})
-    
     return {"Id" : str(classroom.inserted_id)}
 
 # Adds the classroom to the user and the user to the classrooms students. 

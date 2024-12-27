@@ -230,7 +230,6 @@ function compileText(string) {
   if (count == KILL_COUNT) {
     loadError(elements);
   }
-
   return elements;
 }
 
@@ -259,7 +258,6 @@ function TextAreaPreview(props) {
   return (
     <div ref={container} className={styles.preview}>
       {elements().map((element) => {
-        // if(element.className != styles.mathTextItem)
           return element;
       })}
       {() => {
@@ -271,3 +269,4 @@ function TextAreaPreview(props) {
 }
 
 export default TextAreaPreview;
+export {compileText}

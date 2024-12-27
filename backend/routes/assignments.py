@@ -17,13 +17,13 @@ class Assignment(BaseModel):
     period: str
     teacher: str
     due_date: datetime
-    recipients: Optional[str]
 
 cluster = MongoClient(os.getenv("DATABASE_URI"))
 
 database = cluster["MathIt"]
 
 assignments_collection = database["assignments"]
+assignments_grades_collection = database["assignmentGrades"]
 
 assignments_router = APIRouter(
     prefix="/assignments",
@@ -44,6 +44,10 @@ def get_assignment(assignment_id: int):
 @assignments_router.post("/")
 def create_assignment(assignment_body: Assignment):
     assignment_dict = assignment_body.model_dump()
+
+    assignment_grades = assignments_grades_collection.insert_one({"grades": []})
+
+    assignment_dict["grades_id"] = str(assignment_grades.inserted_id)
 
     assignment = assignments_collection.insert_one(assignment_dict)
 

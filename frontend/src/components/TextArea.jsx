@@ -85,8 +85,7 @@ function HeaderButton(props) {
   );
 }
 
-function TextArea() {
-  const [currentText, setCurrentText] = createSignal("");
+function TextArea({currentText, setCurrentText}) {
 
   const [togglePreview, setTogglePreview] = createSignal(false);
 

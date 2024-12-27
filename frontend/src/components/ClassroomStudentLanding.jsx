@@ -23,11 +23,18 @@ function ClassroomStudentLanding({}) {
   fetch("http://127.0.0.1:5000/classrooms/" + classroomId)
     .then((res) => res.json())
     .then((data) => {
-      setAnnouncements(data.announcements);
       setImgSrc("data:image/jpeg;base64," + data.image);
       setClassTitle(data.title);
     })
     .catch((err) => setError("Error: Could not fetch this class"));
+
+
+  fetch(`http://127.0.0.1:5000/announcements?classroom_id=${classroomId}`)
+    .then((res) => res.json())
+    .then((announcementsArray) => {
+      setAnnouncements(announcementsArray);
+    });
+
 
   fetch(`http://127.0.0.1:5000/assignments/not_passed/{${classroomId}`)
     .then((res) => res.json())
@@ -79,11 +86,15 @@ function ClassroomStudentLanding({}) {
                           <Announcement
                             title={announcement.title}
                             text={announcement.text}
-                            postDate={announcement.postDate}
+                            postDate={announcement.post_date}
                           />
                         );
                       })}
                 </Show>
+                {() => {
+                  announcements();
+                  MathJax.typeset();
+                }}
               </div>
             </div>
           </div>

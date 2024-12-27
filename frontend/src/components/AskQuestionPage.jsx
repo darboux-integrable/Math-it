@@ -9,6 +9,7 @@ function AskQuestionPage() {
   const [title, setTitle] = createSignal("");
   const [tags, setTags] = createSignal([]);
 
+  const [questionText, setQuestionText] = createSignal("");
 
   // Effect to find the current tags after filtering the array of all tags down. 
 
@@ -45,7 +46,7 @@ function AskQuestionPage() {
               Write about things like the setting of the problem, what you have
               tried to do inorder to solve it, etc...
             </p>
-            <TextArea />
+            <TextArea currentText={questionText} setCurrentText={setQuestionText}/>
           </div>
 
           <div className={styles.tagsSection}>

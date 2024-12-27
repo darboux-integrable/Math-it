@@ -11,6 +11,9 @@ function ClassroomEducatorLandingPage() {
 
   const classroomId = params.id;
 
+  const [newAnnouncementText, setNewAnnouncementText] = createSignal("");
+  const [newAnnouncementTitle, setNewAnnouncementTitle] = createSignal("");
+
   const [announcements, setAnnouncements] = createSignal([]);
   const [imgSrc, setImgSrc] = createSignal("");
   const [classTitle, setClassTitle] = createSignal("");
@@ -20,12 +23,36 @@ function ClassroomEducatorLandingPage() {
   fetch("http://127.0.0.1:5000/classrooms/" + classroomId)
     .then((res) => res.json())
     .then((data) => {
-      setAnnouncements(data.announcements);
       setImgSrc("data:image/jpeg;base64," + data.image);
       setClassTitle(data.title);
       setTeacherTitle(data.teacher);
     })
     .catch((err) => setError("Error: Could not fetch this class"));
+
+  fetch(`http://127.0.0.1:5000/announcements?classroom_id=${classroomId}`)
+    .then((res) => res.json())
+    .then((announcementsArray) => {
+      setAnnouncements(announcementsArray);
+    });
+
+  const createAnnouncement = () => {
+    fetch("http://127.0.0.1:5000/announcements", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: newAnnouncementTitle(),
+        text: newAnnouncementText(),
+        post_date: String(Date.now()),
+        classroom_id: classroomId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        location.reload();
+      });
+  };
   return (
     <>
       <Navbar
@@ -70,9 +97,17 @@ function ClassroomEducatorLandingPage() {
           <div className={styles.announcementsSection}>
             <div className={styles.newAnnouncementWrapper}>
               <h2 className={styles.newAnnouncementTitle}>New Announcement</h2>
-              <TextArea />
+              <input type="text" className={styles.newAnnouncementTitleInput} placeholder="Enter Announcement Title" value={newAnnouncementTitle()} oninput={(e) => {setNewAnnouncementTitle(e.target.value)}}/>
+
+              <TextArea
+                currentText={newAnnouncementText}
+                setCurrentText={setNewAnnouncementText}
+              />
               <div className={styles.createAnnouncementWrapper}>
-                <button className={styles.createAnnouncementButton}>
+                <button
+                  className={styles.createAnnouncementButton}
+                  onclick={() => createAnnouncement()}
+                >
                   Create!
                 </button>
               </div>
@@ -89,16 +124,24 @@ function ClassroomEducatorLandingPage() {
                         <Announcement
                           title={announcement.title}
                           text={announcement.text}
-                          postDate={announcement.postDate}
+                          postDate={announcement.post_date}
                         />
                       );
                     })}
+                {/* Need this the announcements() line so the mathjax fires. IDFK why */}
+                {/* I think it is because MathJax.typeset is firing b4 the announcements load */}
+                {/* and having the announcements() line tells SolidJS to rerun the code block */}
+                {/* and thus, the MathJax.typeset is fired again and it all works */}
+                {() => {
+                  announcements();
+                  MathJax.typeset();
+                }}
               </div>
             </div>
           </div>
         </div>
 
-       <NotificationArea notifications={notifications} />
+        <NotificationArea notifications={notifications} />
       </div>
     </>
   );
