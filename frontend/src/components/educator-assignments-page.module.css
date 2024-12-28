@@ -1,0 +1,127 @@
+.mainContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.pageTitleWrapper{
+    width: 80%;
+}
+
+.accordion{
+    width: 80%;
+}
+
+.assignmentsPageTitle{
+    color: white;
+    font-family: var(--title-font);
+    font-size: 2rem;
+    text-align: left;
+}
+
+.assignentSection{
+    width: 100%;
+}
+
+.assignmentTitleWrapper{
+    display: flex;
+
+    justify-content: space-between;
+    background-color: var(--dark-1);
+    padding-inline: 30px;
+    color: white;
+    align-items: center;
+    border: 3px solid var(--dark-4);
+    box-sizing: border-box;
+}
+
+.assignmentTitle{
+    font-family: var(--title-font);
+}
+
+.downArrow{
+    width: 30px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    height: 30px;
+    transition: background-color 150ms linear, transform 150ms linear;
+}
+
+.downArrow:hover{
+    background-color: var(--dark-2);
+}
+
+
+.assignmentStudents{
+    color: white;
+    transition: height 200ms linear;
+    overflow: hidden;
+    font-family: var(--text-font);
+}
+
+.close{
+    height: 0px;
+}
+
+.upArrow{
+    transform: rotateZ(180deg);
+}
+
+.studentTable{
+    position: relative;
+    width: calc(100% - 40px);
+    left: 20px;
+    border-collapse: collapse;
+    border-inline: 3px solid var(--dark-4);
+}
+
+.tableHeading{
+    font-family: var(--title-font);
+    border-bottom: 3px solid var(--dark-4);
+    background-color: var(--dark-1);
+    height: 35px;
+    font-size: 1.25rem;
+}
+
+.studentRow{
+    box-sizing: border-box;
+    height: 30px;
+    background-color: var(--dark-3);
+}
+
+.evenRow{
+    background-color: var(--dark-5);
+}
+
+.studentData{
+    text-align: center;
+}
+
+.assignentSection:last-child > .assignmentStudents > .studentTable{
+    border-bottom: 3px solid var(--dark-4);
+}
+
+.createNewAssignmentWrapper{
+    width: 80%;
+}
+
+.createNewAssignment{
+    margin-top: 10px;
+    background-color: var(--green-1);
+    color: white;
+    outline: none;
+    border: none;
+    font-size: 1.3rem;
+    height: 45px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--text-font);
+    transition: scale 150ms ease-out;
+}
+
+.createNewAssignment:hover{
+    scale: 1.1;
+}

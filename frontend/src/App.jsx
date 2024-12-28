@@ -15,11 +15,15 @@ const ClassroomStudentPage = lazy(() => import("./components/ClassroomStudentLan
 const ClassroomEducatorPage = lazy(() => import("./components/ClassroomEducatorLanding"))
 const ClassroomsLandingPage = lazy(() => import("./components/ClassroomsPage"))
 const ClassroomStudentAssignmentPage = lazy(() => import("./components/StudentAssignmentsPage"))
+const EducatorAssignmentPage = lazy(() => import("./components/EducatorAssignmentsPage"))
+const AddAssignmentPage = lazy(() => import("./components/AddAssignmentPage"))
 const UserLanding = lazy(() => import("./components/UserLanding"))
 function App() {
+
   return (
     <Router>
-      <Route path="/" component={<Landing />}></Route>
+      <Route path="/" component={<Landing />}
+      ></Route>
 
       <Route path="/signup" component={<SignUp />}></Route>
 
@@ -37,7 +41,20 @@ function App() {
         component={() => <ClassroomsLandingPage />}
       ></Route>
 
-      <Route path="/classrooms/educator/:id" component={() => <ClassroomEducatorPage />}></Route>
+      <Route
+        path="/classrooms/:id/educator"
+        component={() => <ClassroomEducatorPage />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/educator/assignments"
+        component={() => <EducatorAssignmentPage />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/educator/assignments/add"
+        component={() => <AddAssignmentPage />}
+      ></Route>
 
       <Route
         path="/classrooms/:id"
