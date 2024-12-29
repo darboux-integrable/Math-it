@@ -31,10 +31,20 @@
   gap: 20px;
 }
 
-.assignmentInfoSection{
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 50px;
+.basicInfo{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.basicInfo > .assignmentInfo{
+  flex-grow: 1;
+}
+
+.assignmentInfoSection {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
 }
 
 .assignmentInfoTitle {
@@ -47,13 +57,15 @@
 .assignmentInfoInput {
   font-family: var(--text-font);
   height: 35px;
-  width: 50%;
-  min-width: 300px;
+
+  min-width: 300px; color-scheme: dark;
+  width: 100%;
   background-color: var(--dark-1);
   color: white;
   border: none;
-  padding-left: 10px;
   border-radius: 5px;
+  margin: 0;
+  padding: 0;
 }
 
 .textAreaPadding {
@@ -71,7 +83,10 @@
   gap: 15px;
 }
 
-.problemButton, .addAssignmentButton, .previewAssignmentButton{
+.problemButton,
+.addAssignmentButton,
+.previewAssignmentButton,
+.generateProblemSetButton {
   min-width: 150px;
   height: 40px;
   color: white;
@@ -83,16 +98,17 @@
   background-color: var(--dark-2);
   font-size: 1.2rem;
   padding-inline: 10px;
+  font-family: var(--text-font);
   background-color: var(--green-1);
   width: fit-content;
-  
 }
 
 .problemButton:hover {
   scale: 1.1;
 }
 
-.generateProblemsTitle, .makeYourOwnProblemTitle{
+.generateProblemsTitle,
+.makeYourOwnProblemTitle {
   font-family: var(--title-font);
   background-repeat: no-repeat;
   background-position-y: 100%;
@@ -105,10 +121,10 @@
   width: fit-content;
 }
 
-.topicCounterWrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.topicCounterWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .increaseCount,
@@ -118,80 +134,134 @@
   cursor: pointer;
 }
 
-.increaseCount{
-    transform: rotateZ(180deg);
+.increaseCount {
+  transform: rotateZ(180deg);
 }
 
-.topicNameWrapper{
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: large;
+.topicNameWrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
 }
 
-.topicName{
-    text-align: center;
+.topicName {
+  text-align: center;
 }
 
-.topicButtons{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    justify-content: center;
-    gap: 10px;
+.topicButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  gap: 10px;
 }
 
-.problemTopicWrapper{
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    background-color: var(--dark-1);
-    font-family: var(--text-font);
-    border-radius: 5px;
-    opacity: 0;
-    animation: fade-in 250ms linear forwards;
+@media (max-width: 980px) {
+  .topicButtons {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .topicButtons {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 625px) {
+  .topicButtons {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.problemTopicWrapper {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: var(--dark-1);
+  font-family: var(--text-font);
+  border-radius: 5px;
+  opacity: 0;
+  animation: fade-in 250ms linear forwards;
 }
 
 @keyframes fade-in {
-    from {
-        opacity: 0;
-        scale: 0;
-    }
+  from {
+    opacity: 0;
+    scale: 0;
+  }
 
-    to{
-        opacity: 1;
-        scale: 1;
-    }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
 }
 
-.ownProblemNotice{
-    font-family: var(--text-font);
+.ownProblemNotice {
+  font-family: var(--text-font);
 }
 
-.ownProblemWrapper{
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.ownProblemWrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.bottomButtons{
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 3px solid var(--dark-1);
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
+.bottomButtons {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 3px solid var(--dark-1);
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
 }
 
-.addAssignmentButton, .previewAssignmentButton{
-    cursor: pointer;
-    transition: scale 150ms linear;
-    min-width: 150px;
-    width: 200px;
+.generateProblemSetButton{
+  margin-top: 10px;
 }
 
-.addAssignmentButton:hover, .previewAssignmentButton:hover{
-    scale: 1.1;
+.addAssignmentButton,
+.previewAssignmentButton,
+.generateProblemSetButton {
+  cursor: pointer;
+  transition: scale 150ms linear;
+  min-width: 150px;
+  text-wrap: wrap;
+}
+
+.addAssignmentButton:hover,
+.previewAssignmentButton:hover,
+.generateProblemSetButton:hover {
+  scale: 1.1;
+}
+
+.generatedQuestionsWrapper{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: var(--dark-1);
+  border-radius: 15px;
+}
+
+.yourOwnQuestionsWrapper{
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.questionWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.yourOwnQuestionWrapper{
+  background-color: var(--dark-1);
+  color: white;
+  font-family: var(--text-font);
+  padding: 10px;
+  padding-inline: 30px;
+  border-radius: 15px;
 }

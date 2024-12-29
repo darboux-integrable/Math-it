@@ -3,61 +3,111 @@
     {
       "subject": "Algebra",
       "description": "The manipulation of equations and isolation of variables. The foundation of all higher-level math.",
-      "topics": ["Linear Functions","Systems of Linear Equations", "Absolute Value Equations", "Quadratic Equations", "Difference of Two Squares", "Factored Quadratics"],
+      "topics": [
+        { "id": 1, "name": "Linear Functions" },
+        { "id": 2, "name": "Systems of Linear Equations" },
+        { "id": 3, "name": "Factored Quadratics" },
+        { "id": 4, "name": "Quadratic Equations" },
+        { "id": 5, "name": "Difference of Two Squares" },
+        { "id": 6, "name": "Absolute Value Equations" }
+      ],
       "color1": "#7f5539"
     },
     {
       "subject": "College Algebra",
       "description": "Builds more on top of your algebraic foundations adding things like logarithms and rational equations.",
-      "topics": ["Rational Equations", "Logarithms", "Exponentials"],
+      "topics": [
+        { "id": 7, "name": "Logarithms" },
+        { "id": 8, "name": "Exponentials" },
+        { "id": 9, "name": "Rational Equations" }
+      ],
       "color1": "#3c096c"
     },
     {
       "subject": "Trigonometry",
       "description": "The study of the relationships between the sides of a triangle and the triangle's angles.",
-      "topics": ["Unit Circle", "Trigonometric Identities", "Phase Shift"],
+      "topics": [
+        { "id": 10, "name": "Unit Circle" },
+        { "id": 11, "name": "Trigonometric Identities" },
+        { "id": 12, "name": "Phase Shift" }
+      ],
       "color1": "#ff4800"
-    },
-    {
-      "subject": "Precalculus",
-      "description": "A combination of college algebra and trigonometry. Needed as a foundation for learnign Calculus.",
-      "topics": ["Rational Equations", "Logarithms", "Exponentials", "Unit Circle", "Trigonometric Identities", "Phase Shift"],
-      "color1": "#ffc4d6"
     },
     {
       "subject": "Calculus 1",
       "description": "Differential Calculus: Includes basic concepts like limits, differetniation, and rate of change. Also starts integral calculus.",
-      "topics": ["Chain Rule", "Product Rule", "Quotent Rule", "Power Rule"],
+      "topics": [
+        { "id": 13, "name": "Chain Rule" },
+        { "id": 14, "name": "Product Rule" },
+        { "id": 15, "name": "Quotent Rule" },
+        { "id": 16, "name": "Power Rule" }
+      ],
       "color1": "#ff1f1f"
     },
     {
       "subject": "Calculus 2",
       "description": "Continue building your calculus knowledge learning now about integration techniques, series, and the calculus of parametric and polar functions.",
-      "topics": ["Integration By Parts", "Trigomonetric Substitution", "Partial Fractions", "Improper Integrals", "Limit Comparison Test", "Ratio Test", "Direct Comparison Test", "Root Test", "Nth Term Test", "Integral Test"],
+      "topics": [
+        {"id": 17, "name": "Integration By Parts"},
+        {"id": 18, "name": "Trigomonetric Substitution"},
+        {"id": 19, "name": "Partial Fractions"},
+        {"id": 20, "name": "Improper Integrals"},
+        {"id": 21, "name": "Limit Comparison Test"},
+        {"id": 22, "name": "Ratio Test"},
+        {"id": 23, "name": "Direct Comparison Test"},
+        {"id": 24, "name": "Root Test"},
+        {"id": 25, "name": "Nth Term Test"},
+        {"id": 26, "name": "Integral Test"}
+      ],
       "color1": "#3c8898"
     },
     {
       "subject": "Calculus 3",
       "description": "The Calculus of Multiple Variables including directional derivatives, partial derivates, multiple integration, and more.",
-      "topics": ["Partial Derivatives", "Multiple Integration", "Directional Derivatives", "The Jacobian", "Spherical Coordinates", "Cyclindrical Coordinates"],
+      "topics": [
+        {"id": 27, "name": "Partial Derivatives"},
+        {"id": 28, "name": "Multiple Integrals"},
+        {"id": 29, "name": "Directional Derivatives"},
+        {"id": 30, "name": "The Jacobian"},
+        {"id": 31, "name": "Spherical Coordinates"},
+        {"id": 32, "name": "Cyclindrical Coordinates"}
+      ],
       "color1": "#40916c"
     },
     {
       "subject": "Differential Equations",
       "description": "Sometimes called calculus 4, it solves equations about the derivatives of unknown functions. It is used all the time in topics like physics.",
-      "topics": ["Wronskian", "Ordinary Differential Equations", "Seperatable Differential Equations", "Partial Differential Equations"],
+      "topics": [
+        {"id": 33, "name": "Wronskian"},
+        {"id": 34, "name": "Ordinary Differential Equations"},
+        {"id": 35, "name": "Seperatable Differential Equations"},
+        {"id": 36, "name": "Partial Differential Equations"}
+      ],
       "color1": "#aacc00"
     },
     {
       "subject": "Linear Algebra",
       "description": "The algebra of matrices, linear systems, linear transformations, and vector spaces. May require some calculus to understand some concepts.",
-      "topics": ["Matrix Multiplication", "Matrix Addition/Subtraction", "Systems of Equations", "Reduced Row Echelon Form", "LU Decomposition", "Inner Product Spaces", "Eigen Vectors"],
+      "topics": [
+        {"id": 37, "name": "Matrix Multiplication"},
+        {"id": 38, "name": "Matrix Addition/Subtraction"},
+        {"id": 39, "name": "Systems of Equations"},
+        {"id": 40, "name": "Reduced Row Echelon Form"},
+        {"id": 41, "name": "LU Decomposition"},
+        {"id": 42, "name": "Inner Product Spaces"},
+        {"id": 43, "name": "Eigen Vectors"}
+      ],
       "color1": "#00b4d8"
     },
     {
       "subject": "Statistics",
       "description": "Make educated pridictions about what may happen learning about r, r-squared, LSRL, and more",
-      "topics": ["Coefficient of Correlation", "Ceoefficient of Determination", "Least Squares Regression Line", "Normal Distributions"],
+      "topics": [
+        {"id": 44, "name": "Coefficient of Correlation"},
+        {"id": 45, "name": "Ceoefficient of Determination"},
+        {"id": 46, "name": "Least Squares Regression Line"},
+        {"id": 47, "name": "Normal Distributions"}
+      ],
       "color1": "#77adee"
     }
   ]

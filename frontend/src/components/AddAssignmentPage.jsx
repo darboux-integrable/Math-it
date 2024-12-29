@@ -5,31 +5,120 @@ import TextArea from "./TextArea";
 import { createSignal, Show } from "solid-js";
 import subjectsJSON from "../json/subjects.json";
 import downArrow from "../assets/downArrow.svg";
+import { compileText } from "./TextAreaPreview";
 
 function AddAssignmentPage() {
-  const subjects = subjectsJSON.subjects;
   
-  let topics = []
-  subjects.forEach(subject => {
-    subject.topics.forEach(topic => {
-        const [count, setCount] = createSignal(0);
-        topics.push({name: topic, color: subject.color1, count, setCount})
-    })
-  })
-
   const params = useParams();
 
   const classroomId = params.id;
 
-  const [yourOwnProblems, setYourOwnProblems] = createSignal([]);
-  const [currentProblemText, setCurrentProblemText] = createSignal("");
+  let classroom;
 
+  fetch(`http://127.0.0.1:5000/classrooms/${classroomId}`)
+  .then(res => res.json())
+  .then(data => {
+    classroom = data;
+  })
+
+  const subjects = subjectsJSON.subjects;
+
+  let topics = [];
+  subjects.forEach((subject) => {
+    subject.topics.forEach((topic) => {
+      const [count, setCount] = createSignal(0);
+      topics.push({
+        name: topic.name,
+        color: subject.color1,
+        count,
+        setCount,
+        id: topic.id,
+      });
+    });
+  });
+
+  const [assignmentDueDate, setAssignmentDueDate] = createSignal("");
   const [assignmentDescription, setAssignmentDescription] = createSignal("");
   const [assignmentTitle, setAssignmentTitle] = createSignal("");
+
+  const [assignmentPoints, setAssignmentPoints] = createSignal(10);
 
   const [toggleGenerateProblems, setToggleGenerateProblems] =
     createSignal(false);
   const [toggleYourOwnProblems, setToggleYourOwnProblems] = createSignal(false);
+  const [toggleLoadPreview, setToggleLoadPreview] = createSignal(false);
+
+  const [generatedEquations, setGeneratedEquations] = createSignal([]);
+
+  const [yourOwnProblems, setYourOwnProblems] = createSignal([]);
+  const [currentProblemText, setCurrentProblemText] = createSignal("");
+
+  const createAssignment = () => {
+    fetch(`http://127.0.0.1:5000/assignments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/JSON"
+      },
+      body: JSON.stringify({
+        title: assignmentTitle(),
+        class_id: classroomId,
+        period: classroom.period,
+        teacher: classroom.teacher,
+        due_date: assignmentDueDate(),
+        total_points: "" + String(assignmentPoints()),
+        questions: [...generatedEquations().map(question => question.mathjax), ...yourOwnProblems()],
+        student_ids: classroom.students
+      })
+    }).then(res => res.json())
+    .then(data => {
+      console.log(data);
+      sendNotification()
+    })
+  }
+
+  const sendNotification = () => {
+    fetch(`http://127.0.0.1:5000/notifications`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/JSON"
+      },
+      body: JSON.stringify({
+        type: "assignment",
+        title: assignmentTitle(),
+        timestamp: String(Date.now()),
+        recipients: classroom.students,
+        class_name: classroom.title,
+        teacher: classroom.teacher,
+        due_date: assignmentDueDate()
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+    })
+  }
+
+  const generateProblemSet = () => {
+    const selectedTopics = topics.filter((topic) => topic.count() > 0);
+
+    const selectedIds = selectedTopics.map((topic) => topic.id);
+    const problemNumbers = selectedTopics.map((topic) => topic.count());
+
+    fetch("http://127.0.0.1:5000/math/problem_set", {
+      method: "POST",
+      headers: {
+        "Content-type": "Application/JSON",
+      },
+      body: JSON.stringify({
+        topic_ids: selectedIds,
+        question_numbers: problemNumbers,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setGeneratedEquations(data);
+      });
+  };
 
   return (
     <>
@@ -65,17 +154,43 @@ function AddAssignmentPage() {
         </div>
 
         <div className={styles.assignmentInfoWrapper}>
-          <div className={styles.assignmentInfo}>
-            <p className={styles.assignmentInfoTitle}>Title</p>
-            <input
-              type="text"
-              className={styles.assignmentInfoInput}
-              placeholder="Enter Assignment title"
-              oninput={(e) => {
-                setAssignmentTitle(e.target.value);
-              }}
-              value={assignmentTitle()}
-            />
+          <div className={styles.basicInfo}>
+            <div className={styles.assignmentInfo}>
+              <p className={styles.assignmentInfoTitle}>Title</p>
+              <input
+                type="text"
+                className={styles.assignmentInfoInput}
+                placeholder="Enter Assignment title"
+                oninput={(e) => {
+                  setAssignmentTitle(e.target.value);
+                }}
+                value={assignmentTitle()}
+              />
+            </div>
+            <div className={styles.assignmentInfo}>
+              <p className={styles.assignmentInfoTitle}>Due Date</p>
+              <input
+                type="date"
+                className={styles.assignmentInfoInput}
+                placeholder="Enter Assignment Due Date"
+                oninput={(e) => {
+                  setAssignmentDueDate(e.target.value);
+                }}
+                value={assignmentDueDate()}
+              />
+            </div>
+            <div className={styles.assignmentInfo}>
+              <p className={styles.assignmentInfoTitle}>Total Points</p>
+              <input
+                type="number"
+                className={styles.assignmentInfoInput}
+                placeholder="Enter the number of points for the assignment"
+                oninput={(e) => {
+                  setAssignmentPoints(e.target.value);
+                }}
+                value={assignmentPoints()}
+              />
+            </div>
           </div>
 
           <div className={styles.assignmentInfo}>
@@ -149,6 +264,14 @@ function AddAssignmentPage() {
                     );
                   })}
                 </div>
+                <button
+                  className={styles.generateProblemSetButton}
+                  onclick={() => {
+                    generateProblemSet();
+                  }}
+                >
+                  Generate Problems
+                </button>
               </div>
             </Show>
 
@@ -167,23 +290,69 @@ function AddAssignmentPage() {
                   </div>
                 </div>
 
-                <div className={styles.ownProblemNotice}>
-                  Problems Created by you, the educator, will not auto grade.
-                  They must be graded individually by you.
-                </div>
-
-                <button className={styles.problemButton}>Add Problem</button>
+                <button
+                  className={styles.problemButton}
+                  onclick={() => {
+                    setYourOwnProblems([
+                      ...yourOwnProblems(),
+                      currentProblemText(),
+                    ]);
+                    setCurrentProblemText("");
+                  }}
+                >
+                  Add Problem
+                </button>
               </div>
             </Show>
 
             <div className={styles.bottomButtons}>
-                <button className={styles.previewAssignmentButton}>
-                  Preview Assignment
-                </button>
-                <button className={styles.addAssignmentButton}>
-                  Create Assignment
-                </button>
+              <button
+                className={styles.previewAssignmentButton}
+                onclick={() => {
+                  setToggleLoadPreview(!toggleLoadPreview());
+                }}
+              >
+                Preview Problems
+              </button>
+
+              <Show when={toggleLoadPreview()}>
+                <div className={styles.generatedQuestionsWrapper}>
+                  {generatedEquations().map((equation) => {
+                    return (
+                      <div className={styles.questionWrapper}>
+                        <p className={styles.mathEquationText}>
+                          {equation.mathjax}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className={styles.yourOwnQuestionsWrapper}>
+                  {yourOwnProblems().map((problem) => {
+                    return (
+                      <div className={styles.yourOwnQuestionWrapper}>
+                        <p className={styles.mathEquationText}>
+                          {compileText(problem)}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </Show>
+
+              <div className={styles.ownProblemNotice}>
+                Please note that all problems must be graded by you the
+                educator, no problems will auto grade.
+              </div>
+              <button className={styles.addAssignmentButton} onclick={() => createAssignment()}>
+                Create Assignment
+              </button>
             </div>
+            {() => {
+              toggleLoadPreview();
+              generatedEquations();
+              MathJax.typeset();
+            }}
           </div>
         </div>
       </div>

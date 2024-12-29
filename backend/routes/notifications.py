@@ -11,14 +11,14 @@ from bson import ObjectId
 from .users import usersCollection
 
 load_dotenv()
-
+# type must be assignment, grade, or question
 class Notification(BaseModel):
     type: str
     title: str
     timestamp: str
     recipients: List[str]
-    max_grade: Optional[int] = None
-    actual_grade: Optional[int] = None
+    max_grade: Optional[str] = None
+    actual_grade: Optional[str] = None
     teacher: Optional[str] = None
     due_date: Optional[str] = None
     class_name: Optional[str] = None
@@ -49,19 +49,18 @@ def get_notification(notification_id: str):
 @notifications_router.post("/")
 def create_notification(notification_body: Notification):
     notification_dict = notification_body.model_dump()
-    
     notification = notifications_collection.insert_one(notification_dict)
     
     for recipient in notification_dict["recipients"]:
-        user = usersCollection.find_one_and_update({"username": recipient}, {"$push": {"notifications": str(notification.inserted_id)}})
+        user = usersCollection.find_one_and_update({"_id": ObjectId(recipient)}, {"$push": {"notifications": str(notification.inserted_id)}})
         
     
     return {"Success": "True", "Id": str(notification.inserted_id)}
 
-@notifications_router.get("/all_notifications/{username}")
-def get_all_notifications(username: str):
+@notifications_router.get("/all_notifications/{user_id}")
+def get_all_notifications(user_id: str):
     
-    notifications = notifications_collection.find({"recipients": {"$in": [username]}})
+    notifications = notifications_collection.find({"recipients": {"$in": [user_id]}})
     
     notifications_array = []
     

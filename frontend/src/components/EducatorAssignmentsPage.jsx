@@ -37,7 +37,7 @@ function EducatorAssignmentPage() {
       students: [
         {
           name: "Student 1",
-          completed: true,
+          completed: false,
           actual_grade: 9,
           max_grade: 10,
         },

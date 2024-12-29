@@ -16,14 +16,17 @@ class Assignment(BaseModel):
     class_id: str
     period: str
     teacher: str
-    due_date: datetime
+    due_date: str
+    total_points: str
+    questions: List[str]
+    student_ids: List[str]
 
 cluster = MongoClient(os.getenv("DATABASE_URI"))
 
 database = cluster["MathIt"]
 
 assignments_collection = database["assignments"]
-assignments_grades_collection = database["assignmentGrades"]
+assignments_student_details_collection = database["assignmentsStudentDetails"]
 
 assignments_router = APIRouter(
     prefix="/assignments",
@@ -45,9 +48,25 @@ def get_assignment(assignment_id: int):
 def create_assignment(assignment_body: Assignment):
     assignment_dict = assignment_body.model_dump()
 
-    assignment_grades = assignments_grades_collection.insert_one({"grades": []})
+    students_array = []
 
-    assignment_dict["grades_id"] = str(assignment_grades.inserted_id)
+    for student_id in assignment_dict["student_ids"]:
+        students_array.append({
+            "id": student_id,
+            "answers": [],
+            "points_earned": "-",
+            "max_points": assignment_dict["total_points"],
+            "completed": False
+        })
+        
+    student_details = assignments_student_details_collection.insert_one({
+        "questions": assignment_dict["questions"],
+        "students": students_array
+    })
+    
+    del assignment_dict["questions"]
+
+    assignment_dict["student_details"] = str(student_details.inserted_id)
 
     assignment = assignments_collection.insert_one(assignment_dict)
 
@@ -55,7 +74,7 @@ def create_assignment(assignment_body: Assignment):
 
 @assignments_router.get("/not_passed/{classroom_id}")
 def get_all_nonpassed_assignments(classroom_id: str):
-    date_format="%Y-%m-%d"
+    date_format="%m-%d-%Y"
     
     assignments = assignments_collection.find({"class_id": classroom_id})
     

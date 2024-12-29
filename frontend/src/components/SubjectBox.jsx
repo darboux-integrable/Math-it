@@ -17,7 +17,7 @@ function SubjectBox({ title, description, topics, color }) {
             <p className={styles.shortDescription}>{description}</p>
             <div className={styles.topicsWrapper}>
               {topics.map((topic) => {
-                return <button className={styles.topicTitle}>{topic}</button>;
+                return <button className={styles.topicTitle}>{topic.name}</button>;
               })}
             </div>
           </div>

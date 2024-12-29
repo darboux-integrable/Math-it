@@ -18,16 +18,16 @@ const UserLanding = () => {
   const [notifications, setNotifications] = createSignal([]);
   const [assignments, setAssignments] = createSignal([]);
 
-  const loadNotifications = (username) => {
-    fetch(`http://127.0.0.1:5000/notifications/all_notifications/${username}`)
+  const loadNotifications = (id) => {
+    fetch(`http://127.0.0.1:5000/notifications/all_notifications/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setNotifications(data);
       });
   };
 
-  const loadAssignments = (username) => {
-    fetch(`http://127.0.0.1:5000/assignments/all_assignments/users/${username}`)
+  const loadAssignments = (id) => {
+    fetch(`http://127.0.0.1:5000/assignments/all_assignments/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setAssignments(data);
@@ -36,8 +36,8 @@ const UserLanding = () => {
 
   fetchUserFromCookie((userData) => {
     setUser(userData);
-    loadNotifications(user().username);
-    loadAssignments(user().username);
+    loadNotifications(user()._id);
+    loadAssignments(user()._id);
   });
 
   return (
