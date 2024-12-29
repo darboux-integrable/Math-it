@@ -6,9 +6,10 @@ import { createSignal, Show } from "solid-js";
 import subjectsJSON from "../json/subjects.json";
 import downArrow from "../assets/downArrow.svg";
 import { compileText } from "./TextAreaPreview";
+import { formateTime, formateDate } from "../helpers/dateFormatter";
+import checkFilled from "../helpers/checkForFilledInputs.js";
 
 function AddAssignmentPage() {
-  
   const params = useParams();
 
   const classroomId = params.id;
@@ -16,10 +17,10 @@ function AddAssignmentPage() {
   let classroom;
 
   fetch(`http://127.0.0.1:5000/classrooms/${classroomId}`)
-  .then(res => res.json())
-  .then(data => {
-    classroom = data;
-  })
+    .then((res) => res.json())
+    .then((data) => {
+      classroom = data;
+    });
 
   const subjects = subjectsJSON.subjects;
 
@@ -37,7 +38,10 @@ function AddAssignmentPage() {
     });
   });
 
+  const [error, setError] = createSignal("");
+
   const [assignmentDueDate, setAssignmentDueDate] = createSignal("");
+  const [assignmentDueTime, setAssignmentDueTime] = createSignal("");
   const [assignmentDescription, setAssignmentDescription] = createSignal("");
   const [assignmentTitle, setAssignmentTitle] = createSignal("");
 
@@ -54,10 +58,14 @@ function AddAssignmentPage() {
   const [currentProblemText, setCurrentProblemText] = createSignal("");
 
   const createAssignment = () => {
+    const timeSplit = assignmentDueTime().split(":");
+    const hours = timeSplit[0];
+    const minutes = timeSplit[1];
+
     fetch(`http://127.0.0.1:5000/assignments`, {
       method: "POST",
       headers: {
-        "Content-Type": "Application/JSON"
+        "Content-Type": "Application/JSON",
       },
       body: JSON.stringify({
         title: assignmentTitle(),
@@ -65,38 +73,48 @@ function AddAssignmentPage() {
         period: classroom.period,
         teacher: classroom.teacher,
         due_date: assignmentDueDate(),
+        due_time: formateTime(hours, minutes),
         total_points: "" + String(assignmentPoints()),
-        questions: [...generatedEquations().map(question => question.mathjax), ...yourOwnProblems()],
-        student_ids: classroom.students
-      })
-    }).then(res => res.json())
-    .then(data => {
-      console.log(data);
-      sendNotification()
+        questions: [
+          ...generatedEquations().map((question) => question.mathjax),
+          ...yourOwnProblems(),
+        ],
+        student_ids: classroom.students,
+      }),
     })
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        sendNotification();
+      });
+  };
 
   const sendNotification = () => {
+    const date = new Date();
+    const minutes = date.getMinutes();
+
+    const minutesFormat = minutes < 10 ? "0" + minutes : minutes;
+
     fetch(`http://127.0.0.1:5000/notifications`, {
       method: "POST",
       headers: {
-        "Content-Type": "Application/JSON"
+        "Content-Type": "Application/JSON",
       },
       body: JSON.stringify({
         type: "assignment",
         title: assignmentTitle(),
-        timestamp: String(Date.now()),
+        timestamp: formateTime(date.getHours(), minutesFormat),
         recipients: classroom.students,
         class_name: classroom.title,
         teacher: classroom.teacher,
-        due_date: assignmentDueDate()
-      })
+        due_date: formateDate(assignmentDueDate()),
+      }),
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-    })
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
 
   const generateProblemSet = () => {
     const selectedTopics = topics.filter((topic) => topic.count() > 0);
@@ -168,6 +186,18 @@ function AddAssignmentPage() {
               />
             </div>
             <div className={styles.assignmentInfo}>
+              <p className={styles.assignmentInfoTitle}>Total Points</p>
+              <input
+                type="number"
+                className={styles.assignmentInfoInput}
+                placeholder="Enter the number of points for the assignment"
+                oninput={(e) => {
+                  setAssignmentPoints(e.target.value);
+                }}
+                value={assignmentPoints()}
+              />
+            </div>
+            <div className={styles.assignmentInfo}>
               <p className={styles.assignmentInfoTitle}>Due Date</p>
               <input
                 type="date"
@@ -180,15 +210,15 @@ function AddAssignmentPage() {
               />
             </div>
             <div className={styles.assignmentInfo}>
-              <p className={styles.assignmentInfoTitle}>Total Points</p>
+              <p className={styles.assignmentInfoTitle}>Due Time</p>
               <input
-                type="number"
+                type="time"
                 className={styles.assignmentInfoInput}
-                placeholder="Enter the number of points for the assignment"
+                placeholder="Enter Assignment Due Time"
                 oninput={(e) => {
-                  setAssignmentPoints(e.target.value);
+                  setAssignmentDueTime(e.target.value);
                 }}
-                value={assignmentPoints()}
+                value={assignmentDueTime()}
               />
             </div>
           </div>
@@ -293,15 +323,24 @@ function AddAssignmentPage() {
                 <button
                   className={styles.problemButton}
                   onclick={() => {
-                    setYourOwnProblems([
-                      ...yourOwnProblems(),
-                      currentProblemText(),
-                    ]);
-                    setCurrentProblemText("");
+                    if(checkFilled(currentProblemText())){
+                      setYourOwnProblems([
+                        ...yourOwnProblems(),
+                        currentProblemText(),
+                      ]);
+                      setCurrentProblemText("");
+                    } else {
+                      setError("Please enter a question.")
+                    }
+
                   }}
                 >
                   Add Problem
                 </button>
+
+                <Show when={error() == "Please enter a question."}>
+                  <p className={styles.error}>{error()}</p>
+                </Show>
               </div>
             </Show>
 
@@ -344,10 +383,33 @@ function AddAssignmentPage() {
                 Please note that all problems must be graded by you the
                 educator, no problems will auto grade.
               </div>
-              <button className={styles.addAssignmentButton} onclick={() => createAssignment()}>
+              <button
+                className={styles.addAssignmentButton}
+                onclick={() => {
+                  if (
+                    checkFilled(
+                      assignmentTitle(),
+                      String(assignmentPoints()),
+                      assignmentDueDate(),
+                      assignmentDueTime(),
+                      assignmentDescription()
+                    ) &&
+                    (generatedEquations().length > 0 ||
+                      yourOwnProblems().length > 0)
+                  ) {
+                    createAssignment();
+                  } else {
+                    setError("Error: Not all inputs have been filled. Please fill in the empty inputs.")
+                  }
+                }}
+              >
                 Create Assignment
               </button>
             </div>
+                <Show when={error() == "Error: Not all inputs have been filled. Please fill in the empty inputs."}>
+                  <p className={styles.error}>{error()}</p>
+                </Show>
+
             {() => {
               toggleLoadPreview();
               generatedEquations();

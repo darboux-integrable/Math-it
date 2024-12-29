@@ -73,7 +73,7 @@ def generate_differnce_of_two_squares():
     
     solved = solve(equation, x)
     
-    return {"problem": str(equation), "answer": str(solved)}
+    return {"mathjax": "$$" + str(equation).replace("**", "^").replace("*", "") + "=0$$"}
     
 def generate_absolute_value_equation():
     x = Symbol("x")

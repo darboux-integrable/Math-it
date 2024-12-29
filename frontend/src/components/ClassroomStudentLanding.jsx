@@ -36,9 +36,10 @@ function ClassroomStudentLanding({}) {
     });
 
 
-  fetch(`http://127.0.0.1:5000/assignments/not_passed/{${classroomId}`)
+  fetch(`http://127.0.0.1:5000/assignments/not_passed/classroom/${classroomId}`)
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       setAssignments(data);
     });
     
@@ -99,7 +100,7 @@ function ClassroomStudentLanding({}) {
             </div>
           </div>
           <div className={styles.assignmentsWrapper}>
-            <AssignmentList assignments={assignments()} />
+            <AssignmentList assignments={assignments} />
           </div>
         </main>
       </div>

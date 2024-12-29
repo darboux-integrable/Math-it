@@ -17,6 +17,7 @@ class Assignment(BaseModel):
     period: str
     teacher: str
     due_date: str
+    due_time: str
     total_points: str
     questions: List[str]
     student_ids: List[str]
@@ -72,9 +73,9 @@ def create_assignment(assignment_body: Assignment):
 
     return {"Success": "True", "ID": str(assignment.inserted_id)}
 
-@assignments_router.get("/not_passed/{classroom_id}")
-def get_all_nonpassed_assignments(classroom_id: str):
-    date_format="%m-%d-%Y"
+@assignments_router.get("/not_passed/classroom/{classroom_id}")
+def get_all_nonpassed_assignments_by_class(classroom_id: str):
+    date_format="%Y-%m-%d"
     
     assignments = assignments_collection.find({"class_id": classroom_id})
     
@@ -89,6 +90,24 @@ def get_all_nonpassed_assignments(classroom_id: str):
             assignments_not_passed.append(assignment)
     
     return assignments_not_passed 
+
+@assignments_router.get("/not_passed/user/{user_id}")
+def get_all_nonpassed_assignments_by_student(user_id: str):
+    date_format="%Y-%m-%d"
+    
+    assignments = assignments_collection.find({"student_ids": {"$in": [user_id]}})
+    
+    assignments_not_passed = []
+    
+    for assignment in assignments:
+        date_obj = datetime.strptime(assignment["due_date"], date_format).date()
+        today = datetime.now().date()
+        
+        if date_obj >= today:
+            assignment["_id"] = str(assignment["_id"])
+            assignments_not_passed.append(assignment)
+    
+    return assignments_not_passed
 
 @assignments_router.get("/all_assignments/users/{username}")
 def get_all_assignments(username: str):

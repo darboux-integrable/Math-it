@@ -27,7 +27,7 @@ const UserLanding = () => {
   };
 
   const loadAssignments = (id) => {
-    fetch(`http://127.0.0.1:5000/assignments/all_assignments/users/${id}`)
+    fetch(`http://127.0.0.1:5000/assignments/not_passed/user/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setAssignments(data);
@@ -47,19 +47,17 @@ const UserLanding = () => {
         buttons={[
           { text: "Practice", location: "/practice" },
           { text: "Classes", location: "/classrooms/landing" },
-          {text: "Resources", location: "/resources"},
-          {text: "Post Questions", location: "/questions"}
+          { text: "Resources", location: "/resources" },
+          { text: "Post Questions", location: "/questions" },
         ]}
       />
       <Show when={user()}>
         <section className={styles.topSection}>
           {/* Notifications Section */}
-            <NotificationArea notifications={notifications}/>
+          <NotificationArea notifications={notifications} />
 
           <div className={styles.assignmentsContainer}>
-            <Show when={assignments()}>
-              <AssignmentList assignments={assignments()} />
-            </Show>
+            <AssignmentList assignments={assignments} />
           </div>
         </section>
 

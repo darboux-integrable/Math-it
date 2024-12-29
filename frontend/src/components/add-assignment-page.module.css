@@ -265,3 +265,8 @@
   padding-inline: 30px;
   border-radius: 15px;
 }
+
+.error{
+  color: red;
+  font-family: var(--text-font);
+}

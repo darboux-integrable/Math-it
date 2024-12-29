@@ -1,5 +1,6 @@
 import styles from "./assignment-list.module.css";
 import { Show } from "solid-js";
+import { getMonth } from "../helpers/dateFormatter.js";
 
 /**
  * This UI Component takes in a list of assignments and takes out a formatted display of them. 
@@ -14,21 +15,23 @@ function AssignmentList({ assignments }) {
           <div className={styles.titleBorder}></div>
         </div>
         <div className={styles.assignments}>
-          <Show when={assignments.length > 0}>
-            {assignments.map((assignment) => {
+          <Show when={assignments().length > 0}>
+            {assignments().map((assignment) => {
+              const dateSplit = assignment.due_date.split("-");
+
               return (
                 <div className={styles.assignment}>
                   <div className={styles.dueDateWrapper}>
                     <p className={styles.monthText}>
-                      {assignment.dueDate.month}
+                      {getMonth(parseInt(dateSplit[1]))}
                     </p>
                     <div className={styles.divideBar}></div>
-                    <p className={styles.dayText}>{assignment.dueDate.day}</p>
+                    <p className={styles.dayText}>{dateSplit[2]}</p>
                   </div>
                   <div className={styles.rightContent}>
                     <div className={styles.rightContentWrapper}>
                       <p className={styles.timeText}>
-                        {assignment.dueDate.time}
+                        {assignment.due_time}
                       </p>
                       <p className={styles.periodText}>
                         {assignment.period} | {assignment.teacher}
@@ -48,7 +51,7 @@ function AssignmentList({ assignments }) {
             })}
           </Show>
           {/* Display a message for when there are no assignments. */}
-          <Show when={assignments.length == 0}>
+          <Show when={assignments().length == 0}>
             <p className={styles.noAssignmentsText}>
               You currently do not have any assignments.
             </p>
