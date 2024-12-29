@@ -72,6 +72,7 @@ function AddAssignmentPage() {
         class_id: classroomId,
         period: classroom.period,
         teacher: classroom.teacher,
+        description: assignmentDescription(),
         due_date: assignmentDueDate(),
         due_time: formateTime(hours, minutes),
         total_points: "" + String(assignmentPoints()),

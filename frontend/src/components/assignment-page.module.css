@@ -1,0 +1,106 @@
+.pageContent{
+    min-width: 600px;
+    position: relative;
+    width: 70%;
+    left: 15%;
+    color: white;
+}
+
+.pageTitle{
+    font-family: var(--title-font);
+    background-repeat: no-repeat;
+    background-position-y: 100%;
+    background-size: 100% 5px;
+    width: fit-content;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+}
+
+.questionContainer{
+    background-color: var(--dark-1);
+    border-radius: 10px;
+    padding-bottom: 30px;
+    font-family: var(--text-font);
+    text-align: center;
+}
+
+.questionTitle, .answerTitle{
+    font-family: var(--title-font);
+    margin-left: 10px;
+    padding-inline: 5px;
+    padding-bottom: 3px;
+    padding-top: 10px;
+    background-repeat: no-repeat;
+    background-position-y: 100%;
+    background-size: 100% 5px;
+    width: fit-content;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+}
+
+.answerTitle{
+    margin: 0;
+}
+
+.answerSection{
+    background-color: var(--dark-1);
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.questionsNavWrapper{
+    display: flex;
+    padding-top: 10px;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 3px solid var(--dark-5);
+}
+
+.questionsNav{
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.questionNavButton, .submitButton{
+    min-width: 35px;
+    min-height: 35px;
+    color: white;
+    font-family: var(--text-font);
+    background-color: var(--green-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    padding-inline: 10px;
+    transition: all 150ms linear;
+}
+
+.submitButton{
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    width: 100px;
+}
+
+.questionNavButton:hover, .submitButton:hover{
+    background-color: var(--green-2);
+}
+
+.submitButton:hover{
+    scale: 1.1;
+}
+
+.forwardButton, .backButton{
+    animation: fade-in 250ms ease-out forwards;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }
+}

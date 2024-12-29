@@ -11,19 +11,30 @@ import TextAreaHelpPage from "./components/TextAreaHelpPage";
 import PageNotFoundPage from "./components/PageNotFound";
 import { lazy } from "solid-js";
 
-const ClassroomStudentPage = lazy(() => import("./components/ClassroomStudentLanding"))
-const ClassroomEducatorPage = lazy(() => import("./components/ClassroomEducatorLanding"))
-const ClassroomsLandingPage = lazy(() => import("./components/ClassroomsPage"))
-const ClassroomStudentAssignmentPage = lazy(() => import("./components/StudentAssignmentsPage"))
-const EducatorAssignmentPage = lazy(() => import("./components/EducatorAssignmentsPage"))
-const AddAssignmentPage = lazy(() => import("./components/AddAssignmentPage"))
-const UserLanding = lazy(() => import("./components/UserLanding"))
-function App() {
+const ClassroomStudentPage = lazy(() =>
+  import("./components/ClassroomStudentLanding")
+);
+const ClassroomEducatorPage = lazy(() =>
+  import("./components/ClassroomEducatorLanding")
+);
+const ClassroomsLandingPage = lazy(() => import("./components/ClassroomsPage"));
+const ClassroomStudentAssignmentPage = lazy(() =>
+  import("./components/StudentAssignmentsPage")
+);
+const EducatorAssignmentPage = lazy(() =>
+  import("./components/EducatorAssignmentsPage")
+);
+const AddAssignmentPage = lazy(() => import("./components/AddAssignmentPage"));
+const AssignmentDetailsPage = lazy(() =>
+  import("./components/AssignmentDetailsPage")
+);
+const AssignmentPage = lazy(() => import("./components/AssignmentPage"));
+const UserLanding = lazy(() => import("./components/UserLanding"));
 
+function App() {
   return (
     <Router>
-      <Route path="/" component={<Landing />}
-      ></Route>
+      <Route path="/" component={<Landing />}></Route>
 
       <Route path="/signup" component={<SignUp />}></Route>
 
@@ -64,6 +75,16 @@ function App() {
       <Route
         path="/classrooms/:id/assignments"
         component={() => <ClassroomStudentAssignmentPage />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/assignments/:assignmentId"
+        component={() => <AssignmentPage />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/assignments/:assignmentId/description"
+        component={() => <AssignmentDetailsPage />}
       ></Route>
 
       <Route path="/practice" component={<MathPractice />}></Route>

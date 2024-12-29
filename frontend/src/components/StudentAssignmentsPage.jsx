@@ -11,6 +11,15 @@ function StudentAssignmentPage() {
 
   const [assignmentLists, setAssignmentList] = createSignal([]);
 
+  fetch(
+    `http://127.0.0.1:5000/assignments/assignment_list/student/${classroomId}?student_id=${userId}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      setAssignmentList(data);
+      
+    });
+
   return (
     <>
       <Navbar
@@ -28,26 +37,48 @@ function StudentAssignmentPage() {
           { text: "Grades", location: `/classrooms/${classroomId}/grades` },
         ]}
       />
-      <div className={styles.assignmentsHeader}>
-        <h1 className={styles.assignmentsTitle}>Assignments</h1>
-        <select>
-          <option value="10">10 Per Page</option>
-          <option value="20">20 Per Page</option>
-          <option value="50">50 Per Page</option>
-          <option value="100">100 Per Page</option>
-        </select>
-      </div>
-
-      <div className={styles.assignmentsTableWrapper}>
-        <table className={styles.assignmentsTable}>
-          <thead>
-            <tr>
-              <th>Assignment</th>
-              <th>Completion Status</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-        </table>
+      <div className={styles.mainContent}>
+        <div className={styles.assignmentsHeader}>
+          <h1 className={styles.assignmentsTitle}>Assignments</h1>
+        </div>
+        <div className={styles.assignmentsTableWrapper}>
+          <table className={styles.assignmentsTable}>
+            <thead className={styles.tableHead}>
+              <tr>
+                <th className={styles.tableHeader}>Assignment</th>
+                <th className={styles.tableHeader}>Completion Status</th>
+                <th className={styles.tableHeader}>Score</th>
+              </tr>
+            </thead>
+            <tbody className={styles.tableBody}>
+              {assignmentLists().map((assignment) => {
+                return (
+                  <tr
+                    className={`${styles.assignmentRow} ${
+                      (assignmentLists().indexOf(assignment) % 2) == 1
+                        ? styles.evenRow
+                        : ""
+                    }`}
+                    onclick={() => {location.replace(
+                      `/classrooms/${classroomId}/assignments/${assignment.assignment_id}/description`
+                    );}}
+                  >
+                    <td className={styles.assignmentData}>
+                      {assignment.title}
+                    </td>
+                    <td className={styles.assignmentData}>
+                      {assignment.student.completed ? "Yes" : "No"}
+                    </td>
+                    <td className={styles.assignmentData}>
+                      {assignment.student.points_earned} /{" "}
+                      {assignment.student.max_points}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

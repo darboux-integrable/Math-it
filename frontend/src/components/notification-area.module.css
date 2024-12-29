@@ -7,10 +7,10 @@
     display: flex;
     margin-top: 10px;
     flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
+
     gap: 10px;
     max-height: 480px;
+    
 }
 
 .notificationBackground{
@@ -23,8 +23,6 @@
     margin-left: 30px;
     height: 100%;
     max-height: 500px;
-    overflow-y: auto;
-    overflow-x: hidden;
     z-index: 2;
 }
 
@@ -36,6 +34,8 @@
     height: calc(100% - 6px);
     font-family: var(--text-font);
     min-height: 300px;
+        overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .notification{

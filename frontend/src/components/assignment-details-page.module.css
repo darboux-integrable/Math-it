@@ -1,0 +1,77 @@
+.page{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+}
+
+.pageContent{
+    margin-left: 50px;
+    width: 90%;
+    min-width: 600px;
+    color: white;
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 50px;
+}
+
+.assignmentTitle{
+    font-family: var(--title-font);
+    background-repeat: no-repeat;
+    background-position-y: 100%;
+    padding-bottom: 5px;
+    width: fit-content;
+    background-size: 100% 5px;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+}
+
+.assignmentDescription{
+    max-width: 65ch;
+    font-family: var(--text-font);
+}
+
+.dueDate{
+    font-family: var(--text-font);
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.startButtonWrapper{
+    display: flex;
+    gap: 15px;
+    font-family: var(--title-font);
+    align-items: center;
+    padding-top: 10px;
+    border-top: 3px solid var(--dark-1);
+}
+
+.completedTitle{
+    margin: 0;
+}
+
+.startButton{
+    width: 150px;
+    height: 40px;
+    color: white;
+    font-family: var(--text-font);
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--green-1);
+    transition: scale 150ms ease-out;
+}
+
+.startButton:not(:disabled){
+    cursor: pointer;
+}
+
+.startButton:not(:disabled):hover{
+    scale: 1.1;
+}
+
+.startButton:disabled{
+    filter: grayscale(0.5);
+}

@@ -1,0 +1,88 @@
+.mainContent{
+    color: white;
+    font-family: var(--text-font);
+    position: relative;
+    width: 80%;
+    left: 10%;
+}
+
+.assignmentsHeader{
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    font-family: var(--title-font);
+    align-items: center;
+}
+
+.numberOfQuestionsInput:focus{
+    outline: 2px solid var(--green-1);
+}
+
+.assignmentsTable{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableHead{
+    height: 40px;
+    background-color: var(--dark-1);
+    border: 3px solid var(--dark-4);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.tableHeader:not(:last-child){
+    border-right: 3px solid var(--dark-4);
+}
+
+.tableHeader{
+    font-family: var(--title-font);
+    font-size: 1.2rem;
+}
+
+.tableBody{
+    border: 3px solid var(--dark-4);
+    overflow: hidden;
+}
+
+.assignmentRow{
+    padding-inline: 10px;
+    background-color: var(--dark-3);
+    height: 35px;
+    transition: filter 150ms linear;
+    cursor: pointer;
+}
+
+.assignmentRow:hover{
+    filter: brightness(0.8);
+}
+
+.evenRow{
+    background-color: var(--dark-2);
+}
+
+.evenRow:hover{
+    filter: brightness(1.2) !important;
+}
+
+.assignmentData:not(:first-child){
+    text-align: center;
+}
+
+.assignmentData:not(:last-child){
+    border-right: 3px solid rgba(0,0,0,0.3);
+}
+
+.assignmentData:first-child{
+    padding-left: 20px;
+    width: 100%;
+}
+
+.assignmentData:nth-child(2){
+    min-width: 150px;
+}
+
+
+.assignmentData:nth-child(3){
+    min-width: 100px;
+}

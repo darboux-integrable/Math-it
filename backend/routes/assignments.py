@@ -19,10 +19,14 @@ class Assignment(BaseModel):
     teacher: str
     due_date: str
     due_time: str
+    description: str
     total_points: str
     questions: List[str]
     student_ids: List[str]
-
+    
+class Answers(BaseModel):
+    answers: List[str]
+    
 cluster = MongoClient(os.getenv("DATABASE_URI"))
 
 database = cluster["MathIt"]
@@ -37,7 +41,7 @@ assignments_router = APIRouter(
 
 # Get Assignment by Id
 @assignments_router.get("/{assignment_id}")
-def get_assignment(assignment_id: int):
+def get_assignment(assignment_id: str):
 
     assignment = assignments_collection.find_one({"_id": ObjectId(assignment_id)})
 
@@ -155,4 +159,76 @@ def get_assignment_list_for_class(classroom_id: str):
     
     return assignemnts_list
         
+# Get Assignment List For a student in a classroom
+@assignments_router.get("/assignment_list/student/{classroom_id}")
+def get_assignment_list_for_student(classroom_id: str, student_id: str):
     
+    assignments = assignments_collection.find({"$and":[{"student_ids": {"$in": [student_id]}}, {"class_id": classroom_id}]})
+    
+    assignments_list = []
+
+    for assignment in assignments:
+        assignment_details = assignments_student_details_collection.find_one({"_id": ObjectId(assignment["student_details"])})
+        
+        if not assignment_details:
+            raise HTTPException(status_code=404, detail="Could not find assignment details")    
+    
+        for student in assignment_details["students"]:
+            if student["id"] == student_id:
+                assignments_list.append({"title": assignment["title"], "student": student, "assignment_id": str(assignment["_id"])})
+                
+    return assignments_list
+
+# See if student has completed an assignment
+@assignments_router.get("/check_completed/{assignment_id}")
+def check_if_student_completed_assignment(assignment_id: str, student_id: str):
+    assignment = assignments_collection.find_one({"_id": ObjectId(assignment_id)})
+    
+    if not assignment:
+        raise HTTPException(status_code=404, detail="Assignment not found")
+    
+    assignment_details = assignments_student_details_collection.find_one({"_id": ObjectId(assignment["student_details"])})
+    
+    target_student = False
+    for student in assignment_details["students"]:
+        if student["id"] == student_id:
+            target_student = student
+            
+    if not target_student:
+        raise HTTPException(status_code=404, detail="Student was not found")        
+    
+    return {"completed": target_student["completed"]}
+    
+# Get list of questions and assignment title from the assignment Id. 
+@assignments_router.get("/assignment_questions/{assignment_id}")
+def get_assignment_questions_by_id(assignment_id: str):
+    assignment = assignments_collection.find_one({"_id": ObjectId(assignment_id)})
+    
+    if not assignment:
+        raise HTTPException(status_code=404, detail="Assignment Not Found")
+
+    assignment_details = assignments_student_details_collection.find_one({"_id": ObjectId(assignment["student_details"])})
+
+    return {"title": assignment["title"], "questions": assignment_details["questions"]}
+
+
+
+@assignments_router.patch("/submit/{assignment_id}")
+def submit_assignment(answers: Answers, assignment_id: str, student_id: str):
+    assignment = assignments_collection.find_one({"_id": ObjectId(assignment_id)})
+    
+    if not assignment: 
+        raise HTTPException(status_code=404, detail="Assignment Not Found")
+    
+    assignment_details = assignments_student_details_collection.find_one({"_id": ObjectId(assignment["student_details"])})
+    
+    for student in assignment_details["students"]:
+        if student["id"] == student_id:
+            student["completed"] = True
+            student["answers"] = answers.model_dump()["answers"]
+    
+    assignments_student_details_collection.update_one({"_id": ObjectId(assignment["student_details"])}, {"$set": {"students": assignment_details["students"]}})
+    
+    return {"Success": "True", "Message": "Assignment Submitted!"}
+
+        
