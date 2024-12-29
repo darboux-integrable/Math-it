@@ -15,7 +15,7 @@ const months = [
 
 function getMonth(monthAsInt) {
   // Months start as 1 so substract 1 to get the index.
-  return months[monthAsInt - 1];
+  return months[monthAsInt];
 }
 
 // Date string is formatted YYYY-MM-DD

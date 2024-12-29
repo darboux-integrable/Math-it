@@ -18,7 +18,6 @@ function AssignmentList({ assignments }) {
           <Show when={assignments().length > 0}>
             {assignments().map((assignment) => {
               const dateSplit = assignment.due_date.split("-");
-
               return (
                 <div className={styles.assignment}>
                   <div className={styles.dueDateWrapper}>

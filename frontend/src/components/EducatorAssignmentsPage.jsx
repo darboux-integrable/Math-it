@@ -8,77 +8,17 @@ function EducatorAssignmentPage() {
   const params = useParams();
   const classroomId = params.id;
 
-  const assignments = [
-    {
-      title: "Assignment 1",
-      students: [
-        {
-          name: "Student 1",
-          completed: true,
-          actual_grade: 9,
-          max_grade: 10,
-        },
-        {
-          name: "Student 1",
-          completed: true,
-          actual_grade: 9,
-          max_grade: 10,
-        },
-        {
-          name: "Student 1",
-          completed: true,
-          actual_grade: 9,
-          max_grade: 10,
-        },
-      ],
-    },
-    {
-      title: "Assignment 1",
-      students: [
-        {
-          name: "Student 1",
-          completed: false,
-          actual_grade: 9,
-          max_grade: 10,
-        },
-        {
-          name: "Student 1",
-          completed: true,
-          actual_grade: 9,
-          max_grade: 10,
-        },
-        {
-          name: "Student 1",
-          completed: true,
-          actual_grade: 9,
-          max_grade: 10,
-        },
-      ],
-    },
-    {
-      title: "Assignment 1",
-      students: [
-        {
-          name: "Student 1",
-          completed: true,
-          actual_grade: 9,
-          max_grade: 10,
-        },
-        {
-          name: "Student 1",
-          completed: true,
-          actual_grade: 9,
-          max_grade: 10,
-        },
-        {
-          name: "Student 1",
-          completed: true,
-          actual_grade: 9,
-          max_grade: 10,
-        },
-      ],
-    },
-  ];
+  const [assignments, setAssignments] = createSignal(false);
+
+  fetch("http://127.0.0.1:5000/assignments/assignment_list/" + classroomId)
+    .then((res) => res.json())
+    .then((data) => {
+      setAssignments(
+        data.map((dataPiece) => {
+          return { title: dataPiece.title, students: dataPiece.details.students };
+        })
+      );
+    });
 
   return (
     <>
@@ -109,17 +49,19 @@ function EducatorAssignmentPage() {
       />
 
       <div className={styles.mainContent}>
-        <div className={styles.pageTitleWrapper}>
+        <div className={styles.pagesTitleWrapper}>
           <h1 className={styles.assignmentsPageTitle}>Assignments</h1>
         </div>
-
-        <div className={styles.accordion}>
-            {assignments.map((assignment) => {
+        <Show when={assignments()}>
+          <div className={styles.accordion}>
+            {assignments().map((assignment) => {
               const [toggleOpen, setToggleOpen] = createSignal(false);
               return (
                 <div className={styles.assignentSection}>
                   <div className={styles.assignmentTitleWrapper}>
-                    <h2 className={styles.assignmentTitle}>{assignment.title}</h2>
+                    <h2 className={styles.assignmentTitle}>
+                      {assignment.title}
+                    </h2>
                     <img
                       onclick={() => {
                         setToggleOpen(!toggleOpen());
@@ -140,7 +82,9 @@ function EducatorAssignmentPage() {
                       <thead>
                         <tr>
                           <th className={styles.tableHeading}>Student</th>
-                          <th className={styles.tableHeading}>Completion Status</th>
+                          <th className={styles.tableHeading}>
+                            Completion Status
+                          </th>
                           <th className={styles.tableHeading}>Grade</th>
                         </tr>
                       </thead>
@@ -149,19 +93,25 @@ function EducatorAssignmentPage() {
                           return (
                             <tr
                               className={`${styles.studentRow} ${
-                                (assignment.students.indexOf(student) + 1) % 2 == 0
+                                (assignment.students.indexOf(student) + 1) %
+                                  2 ==
+                                0
                                   ? styles.evenRow
                                   : ""
                               }`}
                             >
-                              <td className={styles.studentData}>{student.name}</td>
+                              <td className={styles.studentData}>
+                                {student.name}
+                              </td>
                               <td className={styles.studentData}>
                                 {student.completed ? "Yes" : "No"}
                               </td>
                               <td className={styles.studentData}>
                                 {student.completed
-                                  ? student.actual_grade + "/" + student.max_grade
-                                  : "-/" + student.max_grade}
+                                  ? student.points_earned +
+                                    "/" +
+                                    student.max_grade
+                                  : "-/" + student.max_points}
                               </td>
                             </tr>
                           );
@@ -172,9 +122,19 @@ function EducatorAssignmentPage() {
                 </div>
               );
             })}
-        </div>
+          </div>
+        </Show>
         <div className={styles.createNewAssignmentWrapper}>
-          <button className={styles.createNewAssignment} onclick={() => {location.replace(`/classrooms/${classroomId}/educator/assignments/add`)}}>New Assignment</button>
+          <button
+            className={styles.createNewAssignment}
+            onclick={() => {
+              location.replace(
+                `/classrooms/${classroomId}/educator/assignments/add`
+              );
+            }}
+          >
+            New Assignment
+          </button>
         </div>
       </div>
     </>

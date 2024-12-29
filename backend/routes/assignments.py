@@ -8,6 +8,7 @@ from datetime import datetime
 from pydantic import BaseModel
 from pymongo import MongoClient
 from bson import ObjectId
+from .users import usersCollection
 
 load_dotenv()
 
@@ -34,6 +35,7 @@ assignments_router = APIRouter(
     tags=["assignments"]
 )
 
+# Get Assignment by Id
 @assignments_router.get("/{assignment_id}")
 def get_assignment(assignment_id: int):
 
@@ -45,6 +47,7 @@ def get_assignment(assignment_id: int):
     assignment["_id"] = str(assignment["_id"])
     return assignment
 
+# Create a new Assignment 
 @assignments_router.post("/")
 def create_assignment(assignment_body: Assignment):
     assignment_dict = assignment_body.model_dump()
@@ -52,8 +55,11 @@ def create_assignment(assignment_body: Assignment):
     students_array = []
 
     for student_id in assignment_dict["student_ids"]:
+        student = usersCollection.find_one({"_id": ObjectId(student_id)})
+        
         students_array.append({
             "id": student_id,
+            "name": student["first_name"] + " " + student["last_name"],
             "answers": [],
             "points_earned": "-",
             "max_points": assignment_dict["total_points"],
@@ -73,6 +79,7 @@ def create_assignment(assignment_body: Assignment):
 
     return {"Success": "True", "ID": str(assignment.inserted_id)}
 
+# Get all the assignments that have not passed by the classroom. 
 @assignments_router.get("/not_passed/classroom/{classroom_id}")
 def get_all_nonpassed_assignments_by_class(classroom_id: str):
     date_format="%Y-%m-%d"
@@ -91,6 +98,7 @@ def get_all_nonpassed_assignments_by_class(classroom_id: str):
     
     return assignments_not_passed 
 
+# Get all assignments that have not passed by the user. 
 @assignments_router.get("/not_passed/user/{user_id}")
 def get_all_nonpassed_assignments_by_student(user_id: str):
     date_format="%Y-%m-%d"
@@ -109,6 +117,7 @@ def get_all_nonpassed_assignments_by_student(user_id: str):
     
     return assignments_not_passed
 
+# Get all the assignments a user has. 
 @assignments_router.get("/all_assignments/users/{username}")
 def get_all_assignments(username: str):
     
@@ -121,3 +130,29 @@ def get_all_assignments(username: str):
         assignments_array.append(assignment)
     
     return assignments_array
+
+# Get Assignment List of Students for Educators.
+@assignments_router.get("/assignment_list/{classroom_id}")
+def get_assignment_list_for_class(classroom_id: str):
+    
+    assignments = assignments_collection.find({"class_id": classroom_id})
+    
+    assignemnts_list = []
+    
+    for assignment in assignments:
+        
+        assignment_details = assignments_student_details_collection.find_one({"_id": ObjectId(assignment["student_details"])})
+        
+        if not assignment_details: 
+            raise HTTPException(status_code=404, detail="Could not find the details for this assignment")
+        
+        assignment_details["_id"] = str(assignment_details["_id"])
+        
+        assignemnts_list.append({
+            "title": assignment["title"],
+            "details": assignment_details
+        })
+    
+    return assignemnts_list
+        
+    

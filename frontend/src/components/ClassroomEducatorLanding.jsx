@@ -5,6 +5,7 @@ import TextArea from "./TextArea";
 import NotificationArea from "./NotificationArea";
 import { createSignal } from "solid-js";
 import Announcement from "./Announcement";
+import { formateDate } from "../helpers/dateFormatter.js";
 
 function ClassroomEducatorLandingPage() {
   const params = useParams();
@@ -36,6 +37,13 @@ function ClassroomEducatorLandingPage() {
     });
 
   const createAnnouncement = () => {
+    const date = new Date();
+
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const day = date.getDate();
+
+
     fetch("http://127.0.0.1:5000/announcements", {
       method: "POST",
       headers: {
@@ -44,7 +52,7 @@ function ClassroomEducatorLandingPage() {
       body: JSON.stringify({
         title: newAnnouncementTitle(),
         text: newAnnouncementText(),
-        post_date: String(Date.now()),
+        post_date: formateDate(`${year}-${month}-${day}`),
         classroom_id: classroomId,
       }),
     })

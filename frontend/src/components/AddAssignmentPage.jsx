@@ -112,7 +112,7 @@ function AddAssignmentPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        location.reload();
       });
   };
 
