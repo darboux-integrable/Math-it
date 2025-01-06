@@ -1,0 +1,7 @@
+.questionsNavWrapper{
+    display: flex;
+    padding-top: 10px;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 3px solid var(--dark-5);
+}

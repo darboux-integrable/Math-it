@@ -4,7 +4,7 @@ import { useParams } from "@solidjs/router";
 import downArrow from "../assets/downArrow.svg";
 import { createSignal } from "solid-js";
 
-function EducatorAssignmentPage() {
+function EducatorAssignmentsPage() {
   const params = useParams();
   const classroomId = params.id;
 
@@ -15,7 +15,11 @@ function EducatorAssignmentPage() {
     .then((data) => {
       setAssignments(
         data.map((dataPiece) => {
-          return { title: dataPiece.title, students: dataPiece.details.students };
+          return {
+            title: dataPiece.title,
+            id: dataPiece.id,
+            students: dataPiece.details.students,
+          };
         })
       );
     });
@@ -27,10 +31,6 @@ function EducatorAssignmentPage() {
           {
             text: "Course Home",
             location: `/classrooms/${classroomId}/educator/`,
-          },
-          {
-            text: "Student Progress",
-            location: `/classrooms/${classroomId}/educator/studentProgress`,
           },
           {
             text: "Assignments",
@@ -98,20 +98,23 @@ function EducatorAssignmentPage() {
                                 0
                                   ? styles.evenRow
                                   : ""
-                              }`}
+                              } ${student.completed ? styles.completed : ""}`}
+                              onclick={() => {
+                                location.replace(
+                                  `/classrooms/${classroomId}/educator/assignments/${assignment.id}/${student.id}`
+                                );
+                              }}
                             >
                               <td className={styles.studentData}>
                                 {student.name}
                               </td>
                               <td className={styles.studentData}>
-                                {student.completed ? "Yes" : "No"}
+                                {student.completed
+                                  ? "Completed"
+                                  : "Not Completed"}
                               </td>
                               <td className={styles.studentData}>
-                                {student.completed
-                                  ? student.points_earned +
-                                    "/" +
-                                    student.max_grade
-                                  : "-/" + student.max_points}
+                                {student.points_earned} / {student.max_points}
                               </td>
                             </tr>
                           );
@@ -141,4 +144,4 @@ function EducatorAssignmentPage() {
   );
 }
 
-export default EducatorAssignmentPage;
+export default EducatorAssignmentsPage;

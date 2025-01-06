@@ -66,10 +66,6 @@ function ClassroomEducatorLandingPage() {
       <Navbar
         buttons={[
           {
-            text: "Student Progress",
-            location: `/classrooms/${classroomId}/educator/studentProgress`,
-          },
-          {
             text: "Assignments",
             location: `/classrooms/${classroomId}/educator/assignments`,
           },

@@ -252,6 +252,7 @@ function TextAreaPreview(props) {
     
     // Recompile the text everytime the getText changes. 
     setElements(compileText(props.getText()));
+
   });
 
   // Return the list of elements

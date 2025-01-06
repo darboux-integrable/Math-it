@@ -1,9 +1,10 @@
-import { createSignal, createEffect } from "solid-js";
+import { createSignal, createEffect, createResource } from "solid-js";
 import styles from "./assignment-page.module.css";
 import { useParams } from "@solidjs/router";
 import TextArea from "./TextArea";
-import TextAreaPreview from "./TextAreaPreview";
+import TextAreaPreview, { compileText } from "./TextAreaPreview";
 import { getCookieValue } from "../helpers/userInSession";
+import NumberNavbar from "./NumberNavbar";
 
 function AssignmentPage() {
   const params = useParams();
@@ -18,8 +19,9 @@ function AssignmentPage() {
   const [currentQuestionText, setCurrentQuestionText] = createSignal("");
   const [currentAnswerText, setCurrentAnswerText] = createSignal("");
   const [assignmentTitle, setAssignmentTitle] = createSignal("");
-  const [questions, setQuestions] = createSignal([]);
   let answers = [];
+
+  let prevQuestionIndex = 0;
 
   let questionText;
 
@@ -34,21 +36,49 @@ function AssignmentPage() {
         );
     });
 
-  fetch(
-    `http://127.0.0.1:5000/assignments/assignment_questions/${assignmentId}`
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      setAssignmentTitle(data.title);
-      setQuestions(data.questions);
-      setCurrentQuestionText(questions()[0]);
-      setLargestQuestionIndex(Math.min(questions().length, 5));
+  const [questions, { refetch }] = createResource(async () => {
+    let questionsTemp;
 
-      // Load Blank Answers
-      for (let i = 0; i < questions().length; i++) {
-        answers.push("");
-      }
-    });
+    const response = await fetch(
+      `http://127.0.0.1:5000/assignments/assignment_questions/${assignmentId}`
+    );
+
+    const data = await response.json();
+
+    questionsTemp = data.questions;
+    setAssignmentTitle(data.title);
+    setCurrentQuestionText(questionsTemp[0]);
+    setLargestQuestionIndex(Math.min(data.questions.length, 5));
+
+    // Load Blank Answers
+    for (let i = 0; i < questionsTemp.length; i++) {
+      answers.push("");
+    }
+
+    /* I have no clue why I need to include this line. But I do. */
+    /* For some reason, the inital value is not loaded in the textAreaPreview. */
+    /* So I have to change it and then set it back to the original inital value. */
+    /* IDFK why but this solved the problem */
+    /* It also only works if the reset is delayed */
+    /* again, IDFK why */
+    setQuestionIndex(1);
+    setTimeout(() => {
+      setQuestionIndex(0);
+    }, 10);
+
+    return questionsTemp;
+  });
+
+  createEffect(() => {
+    if (questions()) {
+      setCurrentQuestionText(questions()[questionIndex()]);
+      answers[prevQuestionIndex] = currentAnswerText();
+
+      setCurrentAnswerText(answers[questionIndex()]);
+
+      prevQuestionIndex = questionIndex();
+    }
+  });
 
   const submitQuiz = () => {
     fetch(
@@ -88,56 +118,14 @@ function AssignmentPage() {
             setCurrentText={setCurrentAnswerText}
           />
           <div className={styles.questionsNavWrapper}>
-            <div className={styles.questionsNav}>
-              <Show when={smallestQuestionIndex() != 0}>
-                <div
-                  className={`${styles.questionNavButton} ${styles.backButton}`}
-                  onclick={() => {
-                    setLargestQuestionIndex(largestQuestionIndex() - 1);
-                    setSmallestQuestionIndex(smallestQuestionIndex() - 1);
-                  }}
-                >
-                  Back
-                </div>
-              </Show>
-              {() => {
-                let navButtons = [];
-                for (
-                  let i = smallestQuestionIndex();
-                  i < largestQuestionIndex();
-                  i++
-                ) {
-                  navButtons.push(
-                    <div
-                      className={styles.questionNavButton}
-                      onclick={(e) => {
-                        const index = parseInt(e.target.innerText) - 1;
-
-                        answers[questionIndex()] = currentAnswerText();
-
-                        setCurrentAnswerText(answers[index]);
-                        setCurrentQuestionText(questions()[index]);
-                        setQuestionIndex(index);
-                      }}
-                    >
-                      {i + 1}
-                    </div>
-                  );
-                }
-                return navButtons;
-              }}
-              <Show when={largestQuestionIndex() != questions().length}>
-                <div
-                  className={`${styles.questionNavButton} ${styles.forwardButton}`}
-                  onclick={() => {
-                    setLargestQuestionIndex(largestQuestionIndex() + 1);
-                    setSmallestQuestionIndex(smallestQuestionIndex() + 1);
-                  }}
-                >
-                  Forward
-                </div>
-              </Show>
-            </div>
+            <NumberNavbar
+              smallestIndex={smallestQuestionIndex}
+              setSmallestIndex={setSmallestQuestionIndex}
+              largestIndex={largestQuestionIndex}
+              setLargestIndex={setLargestQuestionIndex}
+              setCurrentIndex={setQuestionIndex}
+              maxLength={questions().length}
+            />
             <button
               className={styles.submitButton}
               onclick={() => {

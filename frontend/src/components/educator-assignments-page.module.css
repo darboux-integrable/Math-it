@@ -125,3 +125,16 @@
 .createNewAssignment:hover{
     scale: 1.1;
 }
+
+.completed{
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out;
+}
+
+.completed:not(.evenRow):hover{
+    background-color: var(--dark-5);
+}
+
+.completed.evenRow:hover{
+    background-color: var(--dark-4);
+}

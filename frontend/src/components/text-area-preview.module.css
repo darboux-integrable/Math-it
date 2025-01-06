@@ -1,6 +1,5 @@
 .preview{
     color: white;
-    margin-top: 20px;
     max-width: 65ch;
     font-family: var(--text-font);
     text-wrap: wrap;

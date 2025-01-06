@@ -83,8 +83,8 @@ def get_all_classrooms_by_user(teacher_id: str):
 @classrooms_router.post("/")
 def create_classroom(classroom_body: Classroom):    
     classroom_dict = classroom_body.model_dump()
-    classroom_dict["students"] = ""
-    classroom_dict["announcements"] = ""
+    classroom_dict["students"] = []
+    classroom_dict["announcements"] = []
     
     classroom_dict["passed"] = False
     

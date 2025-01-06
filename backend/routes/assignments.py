@@ -151,9 +151,10 @@ def get_assignment_list_for_class(classroom_id: str):
             raise HTTPException(status_code=404, detail="Could not find the details for this assignment")
         
         assignment_details["_id"] = str(assignment_details["_id"])
-        
+        print(assignment["_id"])
         assignemnts_list.append({
             "title": assignment["title"],
+            "id": str(assignment["_id"]),
             "details": assignment_details
         })
     
@@ -211,8 +212,7 @@ def get_assignment_questions_by_id(assignment_id: str):
 
     return {"title": assignment["title"], "questions": assignment_details["questions"]}
 
-
-
+# Submit Student Answers
 @assignments_router.patch("/submit/{assignment_id}")
 def submit_assignment(answers: Answers, assignment_id: str, student_id: str):
     assignment = assignments_collection.find_one({"_id": ObjectId(assignment_id)})
@@ -230,5 +230,28 @@ def submit_assignment(answers: Answers, assignment_id: str, student_id: str):
     assignments_student_details_collection.update_one({"_id": ObjectId(assignment["student_details"])}, {"$set": {"students": assignment_details["students"]}})
     
     return {"Success": "True", "Message": "Assignment Submitted!"}
+
+# Get Student Answers for an assignment
+@assignments_router.get("/{assignment_id}/answers")
+def get_student_answers_to_assignment(assignment_id: str, student_id: str):
+    assignment = assignments_collection.find_one({"_id": ObjectId(assignment_id)})
+    
+    if not assignment:
+        raise HTTPException(status_code=404, detail="Assignment not found")
+    
+    assignment_details = assignments_student_details_collection.find_one({"_id": ObjectId(assignment["student_details"])})
+    
+    for student in assignment_details["students"]:
+        if student["id"] == student_id:
+            return {
+                    "title": assignment["title"], 
+                    "name": student["name"],
+                    "questions": assignment_details["questions"],
+                    "answers": student["answers"],
+                    "max_points": student["max_points"]
+                }
+        
+    raise HTTPException(status_code=404, detail="No Student found for this assignment")
+
 
         

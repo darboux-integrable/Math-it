@@ -21,8 +21,11 @@ const ClassroomsLandingPage = lazy(() => import("./components/ClassroomsPage"));
 const ClassroomStudentAssignmentPage = lazy(() =>
   import("./components/StudentAssignmentsPage")
 );
-const EducatorAssignmentPage = lazy(() =>
+const EducatorAssignmentsPage = lazy(() =>
   import("./components/EducatorAssignmentsPage")
+);
+const EducatorAssignmentPage = lazy(() =>
+  import("./components/EducatorAssignmentPage")
 );
 const AddAssignmentPage = lazy(() => import("./components/AddAssignmentPage"));
 const AssignmentDetailsPage = lazy(() =>
@@ -59,6 +62,12 @@ function App() {
 
       <Route
         path="/classrooms/:id/educator/assignments"
+        component={() => <EducatorAssignmentsPage />}
+      ></Route>
+
+      {/* Pulls up a page for the educator to see what the student put for their answers for an asssignment */}
+      <Route
+        path={"/classrooms/:id/educator/assignments/:assignmentId/:studentId"}
         component={() => <EducatorAssignmentPage />}
       ></Route>
 
