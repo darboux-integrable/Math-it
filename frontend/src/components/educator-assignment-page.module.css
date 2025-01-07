@@ -1,7 +1,118 @@
+.pageContent{
+    position: relative;
+    width: 70%;
+    left: 15%;
+    color: white;
+    min-width: 600px;
+}
+
+.assignmentTitle{
+    padding-top: 10px;
+}
+
+.assignment{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.questionTitle, .answerTitle, .assignmentTitle{
+    font-family: var(--title-font);
+    background-repeat: no-repeat;
+    background-size: 100% 5px;
+    background-position-y: 100%;
+    width: fit-content;
+    padding-inline: 5px;
+    padding-bottom: 3px;
+    margin: 0;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+}
+
+.answerTitle{
+    margin-bottom: 5px;
+}
+
+.questionTextWrappper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.questionWrapper, .bottomContent{
+    background-color: var(--dark-1);
+    font-family: var(--text-font);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.answerWrapper{
+    min-height: 150px;
+}
+
 .questionsNavWrapper{
     display: flex;
+    flex-direction: column;
     padding-top: 10px;
-    justify-content: flex-end;
+    align-items: flex-end;
     gap: 10px;
     border-top: 3px solid var(--dark-5);
+}
+
+.navBottom{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.pointsEarnedInput, .submitButton{
+    height: 35px;
+}
+
+.pointsEarnedInput{
+    background-color: var(--dark-2);
+    color: white;
+    padding-left: 10px;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    transition: border-color 150ms linear;
+}
+
+.pointsEarnedInput:focus{
+    border-color: var(--green-1);
+}
+
+.divideLine, .totalPointsText{
+    font-weight: 100;
+}
+
+.submitButton{
+    background-color: var(--green-1);
+    color: white;
+    font-family: var(--text-font);
+    border: none;
+    border-radius: 5px;
+    padding-inline: 20px;
+    font-size: 1.20rem;
+    cursor: pointer;
+    transition: scale 150ms ease-out;
+}
+
+.submitButton:hover{
+    scale: 1.05;
+}
+
+.gradeInput{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.errorText{
+    color: red;
+    text-align: center;
+    font-weight: 500;
 }

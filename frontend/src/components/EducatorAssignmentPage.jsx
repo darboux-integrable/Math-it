@@ -13,7 +13,7 @@ function EducatorAssignmentPage() {
   const assignmentId = params.assignmentId;
 
   const [totalPoints, setTotalPoints] = createSignal(0);
-  const [pointsEarned, setPointsEarned] = createSignal("-");
+  const [pointsEarned, setPointsEarned] = createSignal("");
 
   let assignmentTitle;
   let studentName;
@@ -24,6 +24,10 @@ function EducatorAssignmentPage() {
 
   const [currentQuestion, setCurrentQuestion] = createSignal("");
   const [currentAnswer, setCurrentAnswer] = createSignal("");
+
+  const [error, setError] = createSignal("");
+
+  let assignmentDetailsId;
 
   const [assignment, { refetch }] = createResource(async () => {
     let assignment;
@@ -40,6 +44,7 @@ function EducatorAssignmentPage() {
     setLargestQuestionIndex(Math.min(5, data.questions.length));
     setCurrentAnswer(data.answers[0]);
     setCurrentQuestion(data.questions[0]);
+    assignmentDetailsId = data.details_id;
     assignment = { questions: data.questions, answers: data.answers };
 
     /* I have no clue why I need to include this line. But I do. */
@@ -56,13 +61,28 @@ function EducatorAssignmentPage() {
     return assignment;
   });
 
-  let temp = true;
+  const updateGrade = () => {
+    fetch(`http://127.0.0.1:5000/assignments/grade/${assignmentDetailsId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        grade_earned: pointsEarned(),
+        student_id: studentId
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        location.replace(`/classrooms/${classroomId}/educator/assignments`);
+      })
+      .catch((err) => {
+        setError(err);
+      });
+  }
 
   createEffect(() => {
     if (assignment()) {
-      if (temp) {
-      }
-
       setCurrentQuestion(assignment().questions[currentQuestionIndex()]);
       setCurrentAnswer(assignment().answers[currentQuestionIndex()]);
     }
@@ -93,26 +113,69 @@ function EducatorAssignmentPage() {
       />
 
       <div className={styles.pageContent}>
-        <h1 className={styles.assignmentTitle}>{assignmentTitle}</h1>
-
         <Show when={assignment()}>
-          <div className={styles.questionWrapper}>
-            <h2 className={styles.questionTitle}>Question: </h2>
-            <TextAreaPreview getText={currentQuestion} />
-          </div>
-          <div className={styles.answerWrapper}>
-            <h2 className={styles.answerTitle}>{studentName}'s Answer:</h2>
-            <TextAreaPreview getText={currentAnswer} />
-          </div>
-          <div className={styles.questionsNavWrapper}>
-            <NumberNavbar
-              smallestIndex={smallestQuestionIndex}
-              setSmallestIndex={setSmallestQuestionIndex}
-              largestIndex={largestQuestionIndex}
-              setLargestIndex={setLargestQuestionIndex}
-              setCurrentIndex={setCurrentQuestionIndex}
-              maxLength={assignment().answers.length || 0}
-            />
+          <h1 className={styles.assignmentTitle}>{assignmentTitle}</h1>
+          <div className={styles.assignment}>
+            <div className={styles.questionWrapper}>
+              <h2 className={styles.questionTitle}>Question: </h2>
+              <div className={styles.questionTextWrappper}>
+                <TextAreaPreview getText={currentQuestion} />
+              </div>
+            </div>
+            <div className={styles.bottomContent}>
+              <div className={styles.answerWrapper}>
+                <h2 className={styles.answerTitle}>{studentName}'s Answer:</h2>
+                <TextAreaPreview getText={currentAnswer} />
+              </div>
+              <div className={styles.questionsNavWrapper}>
+                <div className={styles.navTop}>
+                  <NumberNavbar
+                    smallestIndex={smallestQuestionIndex}
+                    setSmallestIndex={setSmallestQuestionIndex}
+                    largestIndex={largestQuestionIndex}
+                    setLargestIndex={setLargestQuestionIndex}
+                    setCurrentIndex={setCurrentQuestionIndex}
+                    maxLength={assignment().answers.length || 0}
+                  />
+                </div>
+                <div className={styles.navBottom}>
+                  <div className={styles.gradeInput}>
+                    <input
+                      className={styles.pointsEarnedInput}
+                      type="text"
+                      placeholder="-----"
+                      value={pointsEarned()}
+                      oninput={(e) => {
+                        if (!isNaN(e.target.value)) {
+                          setPointsEarned(e.target.value);
+                          setError("");
+                        } else {
+                          setError("Grade is not a valid number.");
+                        }
+                      }}
+                    />
+                    <h2 className={styles.divideLine}>/</h2>
+                    <h2 className={styles.totalPointsText}>{totalPoints()}</h2>
+                  </div>
+
+                  <button
+                    className={styles.submitButton}
+                    onclick={() => {
+                      if (error() == "") {
+                        updateGrade();
+                      }
+                    }}
+                  >
+                    Submit!
+                  </button>
+                </div>
+              </div>
+              <Show when={error() != ""}>
+                <div className={styles.errorWrapper}>
+                  <p className={styles.errorText}>{error()}</p>
+                </div>
+              </Show>
+            </div>
           </div>
         </Show>
       </div>

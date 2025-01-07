@@ -248,10 +248,33 @@ def get_student_answers_to_assignment(assignment_id: str, student_id: str):
                     "name": student["name"],
                     "questions": assignment_details["questions"],
                     "answers": student["answers"],
-                    "max_points": student["max_points"]
+                    "max_points": student["max_points"],
+                    "details_id": assignment["student_details"]
                 }
         
     raise HTTPException(status_code=404, detail="No Student found for this assignment")
 
+# Let an Educator grade an assignment
+class StudentGrade(BaseModel):
+    grade_earned: str
+    student_id: str
+    
+@assignments_router.patch("/grade/{assignment_details_id}")
+def grade_assignment_for_student(assignment_details_id: str, student_data: StudentGrade):
+    assignment_details = assignments_student_details_collection.find_one({"_id": ObjectId(assignment_details_id)})   
 
+    student_data_dict = student_data.model_dump()
+    
+    for i in range(0, len(assignment_details["students"])):
+        if student_data_dict["student_id"] == assignment_details["students"][i]["id"]:
+            assignment_details["students"][i]["points_earned"] = student_data_dict["grade_earned"]
+            # Long ass line of Code but it works. 
+            # It finds the assignment details from the _id property 
+            # Then it updates the students property of the document
+            assignments_student_details_collection.update_one({"_id": ObjectId(assignment_details_id)}, {"$set": {"students": assignment_details["students"]}})
+            return {"success": True, "message": "Grade Successfully Updated"}
         
+    raise HTTPException(status_code=404, detail="No Student Found!")
+    
+    
+    

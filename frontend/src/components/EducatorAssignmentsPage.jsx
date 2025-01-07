@@ -100,9 +100,11 @@ function EducatorAssignmentsPage() {
                                   : ""
                               } ${student.completed ? styles.completed : ""}`}
                               onclick={() => {
-                                location.replace(
-                                  `/classrooms/${classroomId}/educator/assignments/${assignment.id}/${student.id}`
-                                );
+                                if(student.completed){
+                                  location.replace(
+                                    `/classrooms/${classroomId}/educator/assignments/${assignment.id}/${student.id}`
+                                  );
+                                }
                               }}
                             >
                               <td className={styles.studentData}>
