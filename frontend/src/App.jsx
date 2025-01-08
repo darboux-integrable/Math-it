@@ -32,6 +32,7 @@ const AssignmentDetailsPage = lazy(() =>
   import("./components/AssignmentDetailsPage")
 );
 const AssignmentPage = lazy(() => import("./components/AssignmentPage"));
+const EducatorDiscussionPage = lazy(() => import("./components/EducatorDiscussionPage"));
 const UserLanding = lazy(() => import("./components/UserLanding"));
 
 function App() {
@@ -94,6 +95,11 @@ function App() {
       <Route
         path="/classrooms/:id/assignments/:assignmentId/description"
         component={() => <AssignmentDetailsPage />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/educator/discussions"
+        component={() => <EducatorDiscussionPage />}
       ></Route>
 
       <Route path="/practice" component={<MathPractice />}></Route>
