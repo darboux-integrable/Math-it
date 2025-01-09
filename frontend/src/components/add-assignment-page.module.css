@@ -1,7 +1,7 @@
 .addAssignmentSection {
-  width: 70%;
+  width: 80%;
   position: relative;
-  left: 15%;
+  left: 10%;
   color: white;
 }
 
@@ -32,8 +32,8 @@
 }
 
 .basicInfo{
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
@@ -51,7 +51,7 @@
   margin: 0;
   font-size: x-large;
   padding-bottom: 3px;
-  font-family: var(--text-font);
+  font-family: var(--title-font);
 }
 
 .assignmentInfoInput {

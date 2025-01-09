@@ -230,36 +230,35 @@ function compileText(string) {
   if (count == KILL_COUNT) {
     loadError(elements);
   }
+
   return elements;
 }
 
 /**
  * This UI component takes in a text value and loads a preview for that text.
  * The text it takes in is actually a getter for some state that is changed by a text area.
- * So the preview changes based on the value of the text area. 
+ * So the preview changes based on the value of the text area.
  */
 function TextAreaPreview(props) {
-
   const [elements, setElements] = createSignal(compileText(props.getText()));
 
   let container;
 
-  createEffect(() => { 
-    // Needed to remove old MathJax elements. 
-    while(container.firstChild){
+  createEffect(() => {
+    // Needed to remove old MathJax elements.
+    while (container.firstChild) {
       container.removeChild(container.firstChild);
     }
-    
-    // Recompile the text everytime the getText changes. 
-    setElements(compileText(props.getText()));
 
+    // Recompile the text everytime the getText changes.
+    setElements(compileText(props.getText()));
   });
 
   // Return the list of elements
   return (
     <div ref={container} className={styles.preview}>
       {elements().map((element) => {
-          return element;
+        return element;
       })}
       {() => {
         elements(); // Need this here so that every time the elements change, it runs the next line. (Mathjax.typeset();)
@@ -270,4 +269,4 @@ function TextAreaPreview(props) {
 }
 
 export default TextAreaPreview;
-export {compileText}
+export { compileText };

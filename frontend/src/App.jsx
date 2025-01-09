@@ -32,7 +32,11 @@ const AssignmentDetailsPage = lazy(() =>
   import("./components/AssignmentDetailsPage")
 );
 const AssignmentPage = lazy(() => import("./components/AssignmentPage"));
-const EducatorDiscussionPage = lazy(() => import("./components/EducatorDiscussionPage"));
+const DiscussionsPage = lazy(() => import("./components/DiscussionsPage"));
+const CreateClassroomDiscussionPage = lazy(() => import("./components/CreateClassroomDiscussionPage"));
+
+const DiscussionPage = lazy(() => import("./components/DiscussionPage"));
+
 const UserLanding = lazy(() => import("./components/UserLanding"));
 
 function App() {
@@ -99,7 +103,17 @@ function App() {
 
       <Route
         path="/classrooms/:id/educator/discussions"
-        component={() => <EducatorDiscussionPage />}
+        component={() => <DiscussionsPage accountType="educator"/>}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/educator/discussions/create"
+        component={() => <CreateClassroomDiscussionPage />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/educator/discussions/:discussionId"
+        component={() => <DiscussionPage accountType="educator"/>}
       ></Route>
 
       <Route path="/practice" component={<MathPractice />}></Route>

@@ -1,0 +1,77 @@
+.pageContent{
+    position: relative;
+    width: 80%;
+    color: white;
+    left: 10%;
+    padding-bottom: 30px;
+}
+
+.pageTitle{
+    font-family: var(--title-font);
+    background-position-y: 100%;
+    background-size: 100% 5px;
+    background-repeat: no-repeat;
+    width: fit-content;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+}
+
+.inputTitle{
+    font-family: var(--title-font);
+    font-size: x-large;
+    margin: 0;
+}
+
+.inputWrapper{
+    padding: 10px;
+    padding-inline: 0;
+    width: 100%;
+}
+
+.input{
+    background-color: var(--dark-1);
+    border: none;
+    color: white;
+    border: 2px solid transparent;
+    transition: border-color 150ms ease;
+    outline: none;
+    height: 40px;
+    border-radius: 5px;
+    width: 100%;
+    cursor: text;
+        width: 100%;
+    color-scheme: dark;
+    box-sizing: border-box;
+}
+
+.input:focus{
+    border-color: var(--green-1);
+}
+
+.inputsWrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.createButton{
+    color: white;
+    font-family: var(--text-font);
+    background-color: var(--green-1);
+    border-radius: 8px;
+    width: 150px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: scale 150ms ease;
+    border: none;
+}
+
+.createButton:hover{
+    scale: 1.05;
+}
+
+.errorText{
+    color: red;
+    text-align: center;
+    font-family: var(--text-font);
+}

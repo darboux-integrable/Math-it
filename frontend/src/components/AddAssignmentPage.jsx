@@ -58,10 +58,6 @@ function AddAssignmentPage() {
   const [currentProblemText, setCurrentProblemText] = createSignal("");
 
   const createAssignment = () => {
-    const timeSplit = assignmentDueTime().split(":");
-    const hours = timeSplit[0];
-    const minutes = timeSplit[1];
-
     fetch(`http://127.0.0.1:5000/assignments`, {
       method: "POST",
       headers: {
@@ -74,7 +70,7 @@ function AddAssignmentPage() {
         teacher: classroom.teacher,
         description: assignmentDescription(),
         due_date: assignmentDueDate(),
-        due_time: formateTime(hours, minutes),
+        due_time: assignmentDueTime(),
         total_points: "" + String(assignmentPoints()),
         questions: [
           ...generatedEquations().map((question) => question.mathjax),

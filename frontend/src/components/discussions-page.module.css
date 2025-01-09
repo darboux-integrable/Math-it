@@ -48,6 +48,12 @@
 
 .tableRow{
     display: flex;
+    cursor: pointer;
+    transition: background-color 250ms ease;
+}
+
+.tableRow:hover{
+    background-color: var(--dark-5);
 }
 
 .tableRow:not(:last-child){
@@ -60,8 +66,17 @@
 }
 
 .discussionTitle{
-    font-family: var(--text-font);
+    font-family: var(--title-font);
     color: var(--green-1);
+}
+
+.evenRow{
+    --color: hsl(from var(--green-1) h s calc(l - 10));
+    border-color: var(--color) !important;
+}
+
+.evenRow > .discussionTitle{
+    color: var(--color);
 }
 
 .addDiscussionButton{
@@ -72,4 +87,14 @@
     font-size: 1.2rem;
     padding-inline: 10px;
     height: 40px;
+    cursor: pointer;
+    transition: scale 150ms ease-out;
+}
+
+.addDiscussionButton:hover{
+    scale: 1.05;
+}
+
+.noDiscussionsText{
+    font-family: var(--text-font);
 }
