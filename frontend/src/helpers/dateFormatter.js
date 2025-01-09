@@ -33,7 +33,7 @@ function formateDate(date) {
 function formateTime(oldHours, minutes) {
   let newHours = oldHours % 12 || 12;
 
-  let dateString = newHours + ":" + minutes;
+  let dateString = newHours + ":" + (minutes < 10 ? "0" + minutes : minutes);
 
   if (oldHours > 11) {
     dateString += "PM";

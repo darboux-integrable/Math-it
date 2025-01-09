@@ -46,7 +46,7 @@ function DiscussionPage({ accountType }) {
         title: postTitle(),
         text: postText(),
         post_date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
-        post_time: `${date.getHours() + 1}:${date.getMinutes()}`,
+        post_time: `${date.getHours()}:${date.getMinutes()}`,
         name: user.first_name + " " + user.last_name
       })
     })
