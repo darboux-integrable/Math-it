@@ -13,6 +13,8 @@ function DiscussionPage({ accountType }) {
   const classroomId = params.id;
   const discussionId = params.discussionId;
 
+  const classroomPath = accountType == "educator" ? "educator" : "";
+
   const userId = getCookieValue("userID")
 
   let user;
@@ -70,19 +72,19 @@ function DiscussionPage({ accountType }) {
         buttons={[
           {
             text: "Course Home",
-            location: `/classrooms/${classroomId}/educator/`,
+            location: `/classrooms/${classroomId}/${classroomPath}`,
           },
           {
             text: "Assignments",
-            location: `/classrooms/${classroomId}/educator/assignments`,
+            location: `/classrooms/${classroomId}/${classroomPath}/assignments`,
           },
           {
             text: "Discussions",
-            location: `/classrooms/${classroomId}/educator/discussions`,
+            location: `/classrooms/${classroomId}/${classroomPath}/discussions`,
           },
           {
             text: "Grades",
-            location: `/classrooms/${classroomId}/educator/grades`,
+            location: `/classrooms/${classroomId}/${classroomPath}/grades`,
           },
         ]}
         bg="dark"
@@ -144,14 +146,26 @@ function DiscussionPage({ accountType }) {
               return (
                 <div className={styles.post}>
                   <div className={styles.postTop}>
-                    <div className={styles.postLeft}>
+                    <div
+                      className={styles.postLeft}
+                      onclick={() => {
+                        location.replace(
+                          `/classrooms/${classroomId}/educator/discussions/${discussionId}/${post._id}`
+                        );
+                      }}
+                    >
                       <h2 className={styles.postTitle}>{post.title}</h2>
                       <p className={styles.postBody}>
                         {compileText(post.text)}
                       </p>
                     </div>
                     <div className={styles.postRight}>
-                      <Show when={accountType == "educator"}>
+                      <Show
+                        when={
+                          accountType == "educator" &&
+                          post.name != user.first_name + " " + user.last_name
+                        }
+                      >
                         <div className={styles.postGradeWrapper}>
                           <div className={styles.gradeWrapper}>
                             <input
@@ -163,7 +177,7 @@ function DiscussionPage({ accountType }) {
                             />
                             <p className={styles.divideLine}>/</p>
                             <h3 className={styles.maxPointsText}>
-                              {discussion.max_points}
+                              {discussion().max_points}
                             </h3>
                           </div>
                           <button className={styles.submitGradeButton}>
@@ -173,7 +187,14 @@ function DiscussionPage({ accountType }) {
                       </Show>
                     </div>
                   </div>
-                  <div className={styles.postBottom}>
+                  <div
+                    className={styles.postBottom}
+                    onclick={() => {
+                      location.replace(
+                        `/classrooms/${classroomId}/educator/discussions/${discussionId}/${post._id}`
+                      );
+                    }}
+                  >
                     <p className={styles.postedDetailsText}>
                       Posted By {post.name} on {formateDate(post.post_date)} at{" "}
                       {formateTime(hours, minutes)}

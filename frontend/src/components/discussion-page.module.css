@@ -3,6 +3,7 @@
     width: 80%;
     left: 10%;
     color: white;
+    padding-bottom: 30px;
 }
 
 .pageTitle{
@@ -39,12 +40,23 @@
 .postTable{
     border: 3px solid var(--dark-1);
     margin-top: 10px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .post{
     padding-inline: 40px;
     background-color: var(--dark-3);
     padding-bottom: 10px;
+    transition: background-color 250ms ease;
+}
+
+.post:hover{
+    background-color: var(--dark-5);
+}
+
+.post:hover .postTitle{
+    border-color: var(--dark-3);
 }
 
 .postTop{
@@ -52,9 +64,17 @@
     justify-content: space-between;
 }
 
+.postLeft, .postBottom{
+    cursor: pointer;
+}
+
 .postTitle{
     margin: 0;
     padding-top: 10px;
+    border-bottom: 3px solid var(--dark-5);
+    width: fit-content;
+    transition: border-color 250ms ease;
+    padding-right: 10px;
     font-family: var(--title-font);
 }
 

@@ -12,6 +12,7 @@ from routes.classrooms import classrooms_router
 from routes.math_router import math_router
 from routes.announcements import announcements_router
 from routes.discussions import discussions_router
+from routes.user_comments import user_comments_router
 
 load_dotenv()
 
@@ -38,6 +39,7 @@ app.include_router(assignments_router)
 app.include_router(classrooms_router)
 app.include_router(math_router)
 app.include_router(discussions_router)
+app.include_router(user_comments_router)
 
 @app.get("/")
 def home():

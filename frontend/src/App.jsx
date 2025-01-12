@@ -39,6 +39,8 @@ const DiscussionPage = lazy(() => import("./components/DiscussionPage"));
 
 const UserLanding = lazy(() => import("./components/UserLanding"));
 
+const DiscussionPostPage = lazy(() => import("./components/DiscussionPostPage"))
+
 function App() {
   return (
     <Router>
@@ -103,7 +105,7 @@ function App() {
 
       <Route
         path="/classrooms/:id/educator/discussions"
-        component={() => <DiscussionsPage accountType="educator"/>}
+        component={() => <DiscussionsPage accountType="educator" />}
       ></Route>
 
       <Route
@@ -113,7 +115,12 @@ function App() {
 
       <Route
         path="/classrooms/:id/educator/discussions/:discussionId"
-        component={() => <DiscussionPage accountType="educator"/>}
+        component={() => <DiscussionPage accountType="educator" />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/educator/discussions/:discussionId/:postId"
+        component={() => <DiscussionPostPage accountType="educator" />}
       ></Route>
 
       <Route path="/practice" component={<MathPractice />}></Route>

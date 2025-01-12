@@ -24,6 +24,7 @@ function formateDate(date) {
   const dateSplit = date.split("-");
 
   const month = getMonth(parseInt(dateSplit[1]));
+
   const day = dateSplit[2];
   const year = dateSplit[0];
 

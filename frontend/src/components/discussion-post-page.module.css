@@ -1,0 +1,76 @@
+.pageContent{
+    color: white;
+    font-family: var(--text-font);
+    position: relative;
+    width: 80%;
+    left: 10%;
+    padding-bottom: 50px;
+}
+
+.userInformation{
+    padding-inline: 25px;
+    border-bottom: 2px solid var(--dark-1);
+    width: fit-content;
+}
+
+.discussionTitle, .createReplyTitle{
+    font-family: var(--title-font);
+}
+
+.postText{
+    border-left: 5px solid var(--green-1);
+    padding-left: 10px;
+    max-width: 50ch;
+}
+
+.replyButton{
+    color: white;
+    background-color: var(--green-1);
+    width: 150px;
+    height: 40px;
+    border: none;
+    font-family: var(--text-font);
+    font-size: 1.3rem;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: scale 150ms ease;
+}
+
+.replyButton:hover{
+    scale: 1.05;
+}
+
+.commentsTable{
+    margin-top: 30px;
+    background-color: var(--dark-3);
+    padding-inline: 10px;
+    border-radius: 8px;
+    border: 3px solid var(--dark-1);
+}
+
+.comment{
+    padding-left: 5px;
+    padding-top: 10px;
+}
+
+.comment:not(:last-child){
+    border-bottom: 3px solid var(--dark-5);
+}
+
+.commentDetails{
+    border-left: 2px solid var(--green-1);
+    padding: 5px;
+    width: fit-content;
+}
+
+.postTime{
+    margin: 0;
+    padding-left: 5px;
+    filter: brightness(0.8);
+}
+
+.usersName{
+    font-family: var(--title-font);
+    margin: 0;
+}

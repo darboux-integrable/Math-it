@@ -118,3 +118,5 @@ def create_and_add_post(post: Post, discussion_id: str):
     
     return {"message": "New post created", "id": str(new_post.inserted_id)}
 
+
+
