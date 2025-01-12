@@ -81,7 +81,6 @@ function AddAssignmentPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         sendNotification();
       });
   };
@@ -89,8 +88,13 @@ function AddAssignmentPage() {
   const sendNotification = () => {
     const date = new Date();
     const minutes = date.getMinutes();
+    const hours = date.getHours();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const day = date.getDate();
 
-    const minutesFormat = minutes < 10 ? "0" + minutes : minutes;
+    const assignmentHours = assignmentDueTime().split(":")[0];
+    const assignmentMinutes = assignmentDueTime().split(":")[1];
 
     fetch(`http://127.0.0.1:5000/notifications`, {
       method: "POST",
@@ -98,18 +102,18 @@ function AddAssignmentPage() {
         "Content-Type": "Application/JSON",
       },
       body: JSON.stringify({
-        type: "assignment",
-        title: assignmentTitle(),
-        timestamp: formateTime(date.getHours(), minutesFormat),
+        title: "New Assignment Posted",
+        timestamp: formateDate(`${year}-${month}-${day}`) + " at " + formateTime(hours, minutes),
         recipients: classroom.students,
-        class_name: classroom.title,
-        teacher: classroom.teacher,
-        due_date: formateDate(assignmentDueDate()),
+        text: `${classroom.teacher} posted a new Assignment: ${assignmentTitle()}, due on ${formateDate(assignmentDueDate())} at ${formateTime(assignmentHours, parseInt(assignmentMinutes))}`,
+        class_id: classroom._id
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        location.reload();
+        location.replace(
+          `/classrooms/${classroomId}/educator/assignments`
+        );
       });
   };
 
@@ -395,6 +399,7 @@ function AddAssignmentPage() {
                       yourOwnProblems().length > 0)
                   ) {
                     createAssignment();
+                    setError("");
                   } else {
                     setError("Error: Not all inputs have been filled. Please fill in the empty inputs.")
                   }

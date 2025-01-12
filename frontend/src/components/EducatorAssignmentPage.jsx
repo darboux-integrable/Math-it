@@ -1,6 +1,7 @@
 import styles from "./educator-assignment-page.module.css";
 import { useParams } from "@solidjs/router";
 import Navbar from "./Navbar";
+import { formateDate, formateTime } from "../helpers/dateFormatter.js";
 import { createSignal, Show, createEffect, createResource } from "solid-js";
 import TextAreaPreview from "./TextAreaPreview";
 import NumberNavbar from "./NumberNavbar";
@@ -74,10 +75,42 @@ function EducatorAssignmentPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        location.replace(`/classrooms/${classroomId}/educator/assignments`);
+        createNotification();
       })
       .catch((err) => {
         setError(err);
+      });
+  }
+
+  const createNotification = () => {
+
+    const date = new Date();
+    const minutes = date.getMinutes();
+    const hours = date.getHours();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const day = date.getDate();
+
+    fetch(`http://127.0.0.1:5000/notifications`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: "New Grade Posted",
+        timestamp:
+          formateDate(`${year}-${month}-${day}`) +
+          " at " +
+          formateTime(hours, minutes),
+        text: `New Grade Posted for ${assignmentTitle}`,
+        max_grade: totalPoints(),
+        actual_grade: pointsEarned(),
+        recipients: [studentId],
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        location.replace(`/classrooms/${classroomId}/educator/assignments`);
       });
   }
 

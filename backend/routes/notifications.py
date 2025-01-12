@@ -13,16 +13,13 @@ from .users import usersCollection
 load_dotenv()
 # type must be assignment, grade, or question
 class Notification(BaseModel):
-    type: str
     title: str
     timestamp: str
+    text: str
     recipients: List[str]
+    class_id: Optional[str] = None
     max_grade: Optional[str] = None
     actual_grade: Optional[str] = None
-    teacher: Optional[str] = None
-    due_date: Optional[str] = None
-    class_name: Optional[str] = None
-    user: Optional[str] = None
 
 cluster = MongoClient(os.getenv("DATABASE_URI"))
 
@@ -35,6 +32,7 @@ notifications_router = APIRouter(
     tags=["notifications"]
 )
 
+# Get Notification By Id. 
 @notifications_router.get("/{notification_id}")
 def get_notification(notification_id: str):
     
@@ -46,6 +44,7 @@ def get_notification(notification_id: str):
     notification["_id"] = str(notification["_id"])
     return notification
 
+# Create Notification 
 @notifications_router.post("/")
 def create_notification(notification_body: Notification):
     notification_dict = notification_body.model_dump()
@@ -57,6 +56,7 @@ def create_notification(notification_body: Notification):
     
     return {"Success": "True", "Id": str(notification.inserted_id)}
 
+# Get all Notifications for a user
 @notifications_router.get("/all_notifications/{user_id}")
 def get_all_notifications(user_id: str):
     
@@ -69,3 +69,17 @@ def get_all_notifications(user_id: str):
         notifications_array.append(notification)
     
     return notifications_array
+
+#Get all notifications for a class
+@notifications_router.get("/class_notifications/{class_id}")
+def get_all_notificatons_by_class(class_id: str):
+    notifications = notifications_collection.find({"class_id": class_id})
+    
+    notifications_array = []
+    
+    for notification in notifications:
+        notification["_id"] = str(notification["_id"])
+        notifications_array.append(notification)
+        
+    return notifications_array
+    

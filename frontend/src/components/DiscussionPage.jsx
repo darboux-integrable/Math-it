@@ -49,7 +49,8 @@ function DiscussionPage({ accountType }) {
         text: postText(),
         post_date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
         post_time: `${date.getHours()}:${date.getMinutes()}`,
-        name: user.first_name + " " + user.last_name
+        name: user.first_name + " " + user.last_name,
+        max_points: discussion().max_points,
       })
     })
     .then(res => res.json())

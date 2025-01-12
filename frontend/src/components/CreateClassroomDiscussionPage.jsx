@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import { useParams } from "@solidjs/router";
 import TextArea from "./TextArea";
 import checkFilled from "../helpers/checkForFilledInputs";
+import { formateDate, formateTime } from "../helpers/dateFormatter";
 
 function CreateClassroomDiscussionPage() {
   const params = useParams();
@@ -16,11 +17,19 @@ function CreateClassroomDiscussionPage() {
   const [error, setError] = createSignal("");
   const [maxPoints, setMaxPoints] = createSignal("");
 
+  let classroom;
+
+  fetch(`http://127.0.0.1:5000/classrooms/${classroomId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      classroom = data;
+    });
+
   const createDiscussion = () => {
     fetch("http://127.0.0.1:5000/discussions", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         title: title(),
@@ -28,16 +37,51 @@ function CreateClassroomDiscussionPage() {
         due_date: dueDate(),
         due_time: dueTime(),
         max_points: maxPoints(),
-        classroom_id: classroomId
-      })
+        classroom_id: classroomId,
+      }),
     })
-    .then(res => res.json())
-    .then(data => {
-      location.replace(
-        `/classrooms/${classroomId}/educator/discussions`
-      );
+      .then((res) => res.json())
+      .then((data) => {
+        createNotification();
+      });
+  };
+
+  const createNotification = () => {
+    const date = new Date();
+    const minutes = date.getMinutes();
+    const hours = date.getHours();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const day = date.getDate();
+
+    const assignmentHours = dueTime().split(":")[0];
+    const assignmentMinutes = dueTime().split(":")[1];
+
+    fetch(`http://127.0.0.1:5000/notifications`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: "New Discussion Posted",
+        timestamp:
+          formateDate(`${year}-${month}-${day}`) +
+          " at " +
+          formateTime(hours, minutes),
+        text: `${
+          classroom.teacher
+        } created a new discussion: ${title()} due on ${formateDate(
+          dueDate()
+        )} at ${formateTime(assignmentHours, assignmentMinutes)}`,
+        recipients: classroom.students,
+        class_id: classroom._id,
+      }),
     })
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        location.replace(`/classrooms/${classroomId}/educator/discussions`);
+      });
+  };
 
   return (
     <>

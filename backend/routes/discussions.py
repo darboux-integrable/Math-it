@@ -37,6 +37,7 @@ class Post(BaseModel):
     post_date: str
     post_time: str
     name: str
+    max_points: int
 
 # Create new discussion
 @discussions_router.post("/")
@@ -108,6 +109,7 @@ def create_and_add_post(post: Post, discussion_id: str):
     post_dict = post.model_dump()
     post_dict["replies"] = []
     post_dict["discussion_id"] = discussion_id
+    post_dict["points_earned"] = "-"
     
     new_post = post_collection.insert_one(post_dict)
         

@@ -36,13 +36,25 @@ function ClassroomEducatorLandingPage() {
       setAnnouncements(announcementsArray);
     });
 
+  const getNotifications = () => {
+    fetch(
+      `http://127.0.0.1:5000/notifications/class_notifications/${classroomId}`
+    )
+    .then(res => res.json())
+    .then(data => {
+      setNotifications(data);
+      console.log(notifications())
+    })
+  };
+
+  getNotifications();
+
   const createAnnouncement = () => {
     const date = new Date();
 
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     const day = date.getDate();
-
 
     fetch("http://127.0.0.1:5000/announcements", {
       method: "POST",
@@ -101,7 +113,15 @@ function ClassroomEducatorLandingPage() {
           <div className={styles.announcementsSection}>
             <div className={styles.newAnnouncementWrapper}>
               <h2 className={styles.newAnnouncementTitle}>New Announcement</h2>
-              <input type="text" className={styles.newAnnouncementTitleInput} placeholder="Enter Announcement Title" value={newAnnouncementTitle()} oninput={(e) => {setNewAnnouncementTitle(e.target.value)}}/>
+              <input
+                type="text"
+                className={styles.newAnnouncementTitleInput}
+                placeholder="Enter Announcement Title"
+                value={newAnnouncementTitle()}
+                oninput={(e) => {
+                  setNewAnnouncementTitle(e.target.value);
+                }}
+              />
 
               <TextArea
                 currentText={newAnnouncementText}
@@ -144,7 +164,6 @@ function ClassroomEducatorLandingPage() {
             </div>
           </div>
         </div>
-
         <NotificationArea notifications={notifications} />
       </div>
     </>
