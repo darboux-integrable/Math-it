@@ -7,7 +7,7 @@ import TextArea from "./TextArea";
 import { getCookieValue } from "../helpers/userInSession";
 
 function DiscussionPostPage({ accountType }) {
-  const classroomPath = accountType == "educator" ? "educator" : "";
+  const classroomPath = accountType == "educator" ? "educator" : "learner";
 
   const params = useParams();
   const classroomId = params.id;

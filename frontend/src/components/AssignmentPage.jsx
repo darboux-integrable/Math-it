@@ -94,7 +94,7 @@ function AssignmentPage() {
       .then((res) => res.json())
       .then((data) => {
         location.replace(
-          `/classrooms/${classroomId}/assignments/${assignmentId}/description`
+          `/classrooms/${classroomId}/learner/assignments/${assignmentId}/description`
         );
       });
   };

@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import { useParams } from "@solidjs/router";
 import { getCookieValue } from "../helpers/userInSession";
 import { compileText } from "./TextAreaPreview";
-import { formateDate } from "../helpers/dateFormatter";
+import { formateDate, formateTime } from "../helpers/dateFormatter";
 
 // assignments/:id/details
 function AssignmentDetailsPage() {
@@ -16,11 +16,16 @@ function AssignmentDetailsPage() {
   const [assignment, setAssignment] = createSignal(false);
   const [completed, setCompleted] = createSignal(false);
 
+  const [hours, setHours] = createSignal(0);
+  const [minutes, setMinutes] = createSignal(0);
+
   // Get Assignment Data
   fetch(`http://127.0.0.1:5000/assignments/${assignmentId}`)
     .then((res) => res.json())
     .then((data) => {
       setAssignment(data);
+      setHours(data.due_time.split(":")[0]);
+      setMinutes(parseInt(data.due_time.split(":")[1]));
     });
 
   // See if the user has completed the assignment already.
@@ -37,16 +42,16 @@ function AssignmentDetailsPage() {
       <Navbar
         bg="dark"
         buttons={[
-          { text: "Course Home", location: `/classrooms/${classroomId}` },
+          { text: "Course Home", location: `/classrooms/${classroomId}/learner` },
           {
             text: "Assignments",
-            location: `/classrooms/${classroomId}/assignments`,
+            location: `/classrooms/${classroomId}/learner/assignments`,
           },
           {
             text: "Discussions",
-            location: `/classrooms/${classroomId}/discussions`,
+            location: `/classrooms/${classroomId}/learner/discussions`,
           },
-          { text: "Grades", location: `/classrooms/${classroomId}/grades` },
+          { text: "Grades", location: `/classrooms/${classroomId}/learner/grades` },
         ]}
       />
 
@@ -62,14 +67,14 @@ function AssignmentDetailsPage() {
           <div className={styles.bottomContent}>
             <p className={styles.dueDate}>
               Due: {formateDate(assignment().due_date)} at{" "}
-              {assignment().due_time}
+              {formateTime(hours(), minutes())}
             </p>
             <div className={styles.startButtonWrapper}>
               <button
                 className={styles.startButton}
                 disabled={completed()}
                 onclick={() => {
-                  location.replace(`/classrooms/${classroomId}/assignments/${assignmentId}`);
+                  location.replace(`/classrooms/${classroomId}/learner/assignments/${assignmentId}`);
                 }}
               >
                 Start

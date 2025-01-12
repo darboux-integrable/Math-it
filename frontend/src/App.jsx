@@ -58,7 +58,7 @@ function App() {
       ></Route>
 
       <Route
-        path="/classrooms/landing/"
+        path="/classrooms/landing"
         component={() => <ClassroomsLandingPage />}
       ></Route>
 
@@ -84,23 +84,33 @@ function App() {
       ></Route>
 
       <Route
-        path="/classrooms/:id"
+        path="/classrooms/:id/learner/"
         component={() => <ClassroomStudentPage />}
       ></Route>
 
       <Route
-        path="/classrooms/:id/assignments"
+        path="/classrooms/:id/learner/assignments"
         component={() => <ClassroomStudentAssignmentPage />}
       ></Route>
 
       <Route
-        path="/classrooms/:id/assignments/:assignmentId"
+        path="/classrooms/:id/learner/assignments/:assignmentId"
         component={() => <AssignmentPage />}
       ></Route>
 
       <Route
-        path="/classrooms/:id/assignments/:assignmentId/description"
+        path="/classrooms/:id/learner/assignments/:assignmentId/description"
         component={() => <AssignmentDetailsPage />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/learner/discussions"
+        component={() => <DiscussionsPage accountType="learner" />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/learner/discussions/:discussionId"
+        component={() => <DiscussionPage accountType="learner" />}
       ></Route>
 
       <Route

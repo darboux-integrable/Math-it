@@ -6,11 +6,15 @@ function ClassroomsList(props) {
   const classrooms = () => props.classrooms;
 
   return (
-      <div className={styles.content}>
-        <h2 className={styles.listTitle}>{props.title}</h2>
-        <div className={styles.currentClassesList}>
-          {
-          classrooms().length == 0 ? <p className={styles.noClassesText}>You are not currently enrolled in any classes</p> : classrooms().map((classroom) => {
+    <div className={styles.content}>
+      <h2 className={styles.listTitle}>{props.title}</h2>
+      <div className={styles.currentClassesList}>
+        {classrooms().length == 0 ? (
+          <p className={styles.noClassesText}>
+            You are not currently enrolled in any classes
+          </p>
+        ) : (
+          classrooms().map((classroom) => {
             return (
               <ClassroomCard
                 imgSrc={classroom.image}
@@ -19,11 +23,14 @@ function ClassroomsList(props) {
                 startDate={classroom.start_date}
                 teacher={classroom.teacher}
                 passed={classroom.passed}
-                locationString = {props.type == "educator" ? `/classrooms/${classroom._id}/educator` : `/classrooms/${classroom._id}`}
+                locationString={
+                    `/classrooms/${classroom._id}/${props.type}`
+                }
               />
             );
-          })}
-        </div>
+          })
+        )}
+      </div>
     </div>
   );
 }

@@ -25,16 +25,16 @@ function StudentAssignmentPage() {
       <Navbar
         bg="dark"
         buttons={[
-          { text: "Course Home", location: `/classrooms/${classroomId}` },
+          { text: "Course Home", location: `/classrooms/${classroomId}/learner` },
           {
             text: "Assignments",
-            location: `/classrooms/${classroomId}/assignments`,
+            location: `/classrooms/${classroomId}/learner/assignments`,
           },
           {
             text: "Discussions",
-            location: `/classrooms/${classroomId}/discussions`,
+            location: `/classrooms/${classroomId}/learner/discussions`,
           },
-          { text: "Grades", location: `/classrooms/${classroomId}/grades` },
+          { text: "Grades", location: `/classrooms/${classroomId}/learner/grades` },
         ]}
       />
       <div className={styles.mainContent}>
@@ -60,7 +60,7 @@ function StudentAssignmentPage() {
                         : ""
                     }`}
                     onclick={() => {location.replace(
-                      `/classrooms/${classroomId}/assignments/${assignment.assignment_id}/description`
+                      `/classrooms/${classroomId}/learner/assignments/${assignment.assignment_id}/description`
                     );}}
                   >
                     <td className={styles.assignmentData}>

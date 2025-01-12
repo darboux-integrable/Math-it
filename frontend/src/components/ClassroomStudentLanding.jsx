@@ -48,16 +48,15 @@ function ClassroomStudentLanding({}) {
       <Navbar
         bg="dark"
         buttons={[
-          { text: "Course Home", location: `/classrooms/${classroomId}` },
           {
             text: "Assignments",
-            location: `/classrooms/${classroomId}/assignments`,
+            location: `/classrooms/${classroomId}/learner/assignments`,
           },
           {
             text: "Discussions",
-            location: `/classrooms/${classroomId}/discussions`,
+            location: `/classrooms/${classroomId}/learner/discussions`,
           },
-          { text: "Grades", location: `/classrooms/${classroomId}/grades` },
+          { text: "Grades", location: `/classrooms/${classroomId}/learner/grades` },
         ]}
       />
       <div className={styles.pageOpening}>

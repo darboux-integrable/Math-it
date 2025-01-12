@@ -11,9 +11,10 @@ import TextArea from "./TextArea";
 function DiscussionPage({ accountType }) {
   const params = useParams();
   const classroomId = params.id;
+  console.log(accountType);
   const discussionId = params.discussionId;
 
-  const classroomPath = accountType == "educator" ? "educator" : "";
+  const classroomPath = accountType == "educator" ? "educator" : "learner";
 
   const userId = getCookieValue("userID")
 
@@ -151,7 +152,7 @@ function DiscussionPage({ accountType }) {
                       className={styles.postLeft}
                       onclick={() => {
                         location.replace(
-                          `/classrooms/${classroomId}/educator/discussions/${discussionId}/${post._id}`
+                          `/classrooms/${classroomId}/${classroomPath}/discussions/${discussionId}/${post._id}`
                         );
                       }}
                     >
@@ -192,7 +193,7 @@ function DiscussionPage({ accountType }) {
                     className={styles.postBottom}
                     onclick={() => {
                       location.replace(
-                        `/classrooms/${classroomId}/educator/discussions/${discussionId}/${post._id}`
+                        `/classrooms/${classroomId}/${classroomPath}/discussions/${discussionId}/${post._id}`
                       );
                     }}
                   >

@@ -5,7 +5,7 @@ import { compileText } from "./TextAreaPreview";
 import { formateDate, formateTime } from "../helpers/dateFormatter";
 import { createSignal, Show } from "solid-js";
 
-function DiscussionPage({accountType}) {
+function DiscussionsPage({accountType}) {
   const params = useParams();
 
   const classroomId = params.id;
@@ -18,25 +18,29 @@ function DiscussionPage({accountType}) {
       setDiscussions(data.discussions);
     });
 
+    
+    const classroomPath = accountType == "educator" ? "educator" : "learner";
+    console.log(accountType + "|"+ classroomPath)
+
   return (
     <>
       <Navbar
         buttons={[
           {
             text: "Course Home",
-            location: `/classrooms/${classroomId}/educator/`,
+            location: `/classrooms/${classroomId}/${classroomPath}`,
           },
           {
             text: "Assignments",
-            location: `/classrooms/${classroomId}/educator/assignments`,
+            location: `/classrooms/${classroomId}/${classroomPath}/assignments`,
           },
           {
             text: "Discussions",
-            location: `/classrooms/${classroomId}/educator/discussions`,
+            location: `/classrooms/${classroomId}/${classroomPath}/discussions`,
           },
           {
             text: "Grades",
-            location: `/classrooms/${classroomId}/educator/grades`,
+            location: `/classrooms/${classroomId}/${classroomPath}/grades`,
           },
         ]}
         bg="dark"
@@ -59,7 +63,7 @@ function DiscussionPage({accountType}) {
                     className={`${styles.tableRow}`}
                     onclick={() => {
                       location.replace(
-                        `/classrooms/${classroomId}/educator/discussions/${discussion._id}`
+                        `/classrooms/${classroomId}/${classroomPath}/discussions/${discussion._id}`
                       );
                     }}
                   >
@@ -124,4 +128,4 @@ function DiscussionPage({accountType}) {
   );
 }
 
-export default DiscussionPage;
+export default DiscussionsPage;
