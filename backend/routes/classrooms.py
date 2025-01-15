@@ -33,21 +33,11 @@ classrooms_router = APIRouter(
     tags=["classrooms"]
 )
 
-# Get classroom by ID
-@classrooms_router.get("/{classroom_id}")
-def get_classroom(classroom_id: str):
-    classroom = classroom_collection.find_one({"_id": ObjectId(classroom_id)})
-    
-    if not classroom:
-        raise HTTPException(status_code=404, detail="Classroom not found")
-    
-    
-    classroom["image"] = base64.b64encode(classroom["image"]).decode('utf-8')
-    classroom["_id"] = str(classroom["_id"])
-    return classroom
 
+class ClassList(BaseModel):
+    student_ids: List[str]
+    
 # Searches for all classrooms that have a user listed as a student and returns this list.
-# It also saves the image files for these classrooms to the temp folder in the frontend.
 @classrooms_router.get("/all_classrooms/{user_id}")
 def get_all_classrooms_by_user(user_id: str):
     classrooms = classroom_collection.find({"students": {"$in": [user_id]}})
@@ -78,6 +68,40 @@ def get_all_classrooms_by_user(teacher_id: str):
         
 
     return  classrooms_array
+
+# Get a list of all the students in a class
+@classrooms_router.post("/class_list")
+def get_classlist_from_id(class_list: ClassList):
+    class_list_dict = class_list.model_dump()
+    
+    student_ids = []
+    for id in class_list_dict["student_ids"]:
+        student_ids.append(ObjectId(id))
+    
+    
+    students = usersCollection.find({"_id": {"$in": student_ids}})
+    
+    students_array = []
+    
+    for student in students:
+        student["_id"] = str(student["_id"])
+        students_array.append(student)
+    
+    return students_array
+
+
+# Get classroom by ID
+@classrooms_router.get("/{classroom_id}")
+def get_classroom(classroom_id: str):
+    classroom = classroom_collection.find_one({"_id": ObjectId(classroom_id)})
+    
+    if not classroom:
+        raise HTTPException(status_code=404, detail="Classroom not found")
+    
+    
+    classroom["image"] = base64.b64encode(classroom["image"]).decode('utf-8')
+    classroom["_id"] = str(classroom["_id"])
+    return classroom
 
 # Create New Classroom
 @classrooms_router.post("/")

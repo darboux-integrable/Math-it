@@ -79,7 +79,7 @@ function DiscussionPostPage({ accountType }) {
           post_date_and_time:
             formateDate(
               `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-            ) + `${formateTime(hours, minutes)}`,
+            ) + ` ${formateTime(hours, minutes)}`,
           text: replyText(),
         }),
       }
@@ -117,7 +117,9 @@ function DiscussionPostPage({ accountType }) {
       <div className={styles.pageContent}>
         <Show when={post() && discussion()}>
           <div className={styles.userInformation}>
-            <h1 className={styles.discussionTitle}>{discussion().title}</h1>
+            <h1 className={styles.discussionTitle} onclick={() => {location.replace(
+              `/classrooms/${classroomId}/${classroomPath}/discussions/${discussionId}`
+            );}}>{discussion().title}</h1>
             <p className={styles.userDetails}>
               {post().name} posted on {formateDate(post().post_date)} at{" "}
               {formateTime(hours, minutes)}

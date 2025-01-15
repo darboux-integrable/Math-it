@@ -1,0 +1,144 @@
+.pageContent {
+  color: white;
+  position: relative;
+  left: 10%;
+  width: 80%;
+}
+
+.pageTitle {
+  font-family: var(--title-font);
+}
+
+.studentWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--dark-1);
+  padding-inline: 10px;
+}
+
+.studentTitle {
+  font-family: var(--title-font);
+}
+
+.studentInput {
+  position: relative;
+}
+
+.selectedOption {
+  font-family: var(--text-font);
+  height: 35px;
+  background-color: var(--dark-2);
+  color: white;
+  border: none;
+  border-left: 3px solid var(--green-1);
+  outline: none;
+  padding-inline: 5px;
+  cursor: pointer;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.studentOptions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  height: 0px;
+  overflow: hidden;
+  background-color: var(--dark-2);
+  font-family: var(--text-font);
+  width: 100%;
+  transition: height 250ms linear;
+  border-radius: 3px;
+  margin-top: 5px;
+}
+
+.studentText {
+  text-align: center;
+  margin: 0;
+}
+
+.student{
+    border: none;
+    border-left: 3px solid transparent;
+    transition: border-color 150ms linear, filter 150ms linear;
+    cursor: pointer;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.student:hover{
+    border-color: var(--green-2);
+    filter: brightness(0.8);
+}
+
+.studentInput:hover > .studentOptions {
+  height: auto;
+}
+
+.gradesTable {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dark-3);
+}
+
+.grade {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 10px;
+}
+
+.gradeDisplay {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-family: var(--text-font);
+}
+
+.gradeTitle {
+  font-family: var(--title-font);
+}
+
+.gradeInput {
+  height: 35px;
+  background-color: var(--dark-1);
+  color: white;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  transition: border-color 150ms linear;
+  outline: none;
+}
+
+.updateGradeButton {
+  color: white;
+  background-color: var(--green-1);
+  font-size: 1.3rem;
+  padding-inline: 10px;
+  height: 35px;
+  width: 130px;
+  border-radius: 8px;
+  border: none;
+  margin-right: 10px;
+  font-family: var(--text-font);
+  transition: scale 150ms linear;
+  cursor: pointer;
+  scale: 0;
+}
+
+.updatedGrade {
+  scale: 1;
+}
+
+.updateGradeButton:hover {
+  scale: 1.05;
+}
+
+.gradeInput:focus {
+  border-color: var(--green-1);
+}

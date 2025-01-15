@@ -41,6 +41,8 @@ const UserLanding = lazy(() => import("./components/UserLanding"));
 
 const DiscussionPostPage = lazy(() => import("./components/DiscussionPostPage"))
 
+const GradesPage = lazy(() => import("./components/ClassroomGradesPage"));
+
 function App() {
   return (
     <Router>
@@ -114,6 +116,16 @@ function App() {
       ></Route>
 
       <Route
+        path="/classrooms/:id/learner/discussions/:discussionId/:postId"
+        component={() => <DiscussionPostPage accountType="learner" />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/learner/grades"
+        component={() => <GradesPage accountType="learner" />}
+      ></Route>
+
+      <Route
         path="/classrooms/:id/educator/discussions"
         component={() => <DiscussionsPage accountType="educator" />}
       ></Route>
@@ -131,6 +143,11 @@ function App() {
       <Route
         path="/classrooms/:id/educator/discussions/:discussionId/:postId"
         component={() => <DiscussionPostPage accountType="educator" />}
+      ></Route>
+
+      <Route
+        path="/classrooms/:id/educator/grades"
+        component={() => <GradesPage accountType="educator" />}
       ></Route>
 
       <Route path="/practice" component={<MathPractice />}></Route>

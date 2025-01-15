@@ -11,10 +11,7 @@ import TextArea from "./TextArea";
 function DiscussionPage({ accountType }) {
   const params = useParams();
   const classroomId = params.id;
-  console.log(accountType);
   const discussionId = params.discussionId;
-
-  const classroomPath = accountType == "educator" ? "educator" : "learner";
 
   const userId = getCookieValue("userID")
 
@@ -52,6 +49,7 @@ function DiscussionPage({ accountType }) {
         post_time: `${date.getHours()}:${date.getMinutes()}`,
         name: user.first_name + " " + user.last_name,
         max_points: discussion().max_points,
+        user_id: userId
       })
     })
     .then(res => res.json())
@@ -74,19 +72,19 @@ function DiscussionPage({ accountType }) {
         buttons={[
           {
             text: "Course Home",
-            location: `/classrooms/${classroomId}/${classroomPath}`,
+            location: `/classrooms/${classroomId}/${accountType}`,
           },
           {
             text: "Assignments",
-            location: `/classrooms/${classroomId}/${classroomPath}/assignments`,
+            location: `/classrooms/${classroomId}/${accountType}/assignments`,
           },
           {
             text: "Discussions",
-            location: `/classrooms/${classroomId}/${classroomPath}/discussions`,
+            location: `/classrooms/${classroomId}/${accountType}/discussions`,
           },
           {
             text: "Grades",
-            location: `/classrooms/${classroomId}/${classroomPath}/grades`,
+            location: `/classrooms/${classroomId}/${accountType}/grades`,
           },
         ]}
         bg="dark"
@@ -152,7 +150,7 @@ function DiscussionPage({ accountType }) {
                       className={styles.postLeft}
                       onclick={() => {
                         location.replace(
-                          `/classrooms/${classroomId}/${classroomPath}/discussions/${discussionId}/${post._id}`
+                          `/classrooms/${classroomId}/${accountType}/discussions/${discussionId}/${post._id}`
                         );
                       }}
                     >
@@ -193,7 +191,7 @@ function DiscussionPage({ accountType }) {
                     className={styles.postBottom}
                     onclick={() => {
                       location.replace(
-                        `/classrooms/${classroomId}/${classroomPath}/discussions/${discussionId}/${post._id}`
+                        `/classrooms/${classroomId}/${accountType}/discussions/${discussionId}/${post._id}`
                       );
                     }}
                   >

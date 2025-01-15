@@ -37,6 +37,7 @@ class Post(BaseModel):
     post_date: str
     post_time: str
     name: str
+    user_id: str
     max_points: int
 
 # Create new discussion
