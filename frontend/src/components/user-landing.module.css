@@ -8,6 +8,11 @@
   margin-top: 40px;
 }
 
+.notificationsWrapper{
+    display: flex;
+    justify-content: center;
+}
+
 .assignmentsContainer {
   display: flex;
   justify-content: center;

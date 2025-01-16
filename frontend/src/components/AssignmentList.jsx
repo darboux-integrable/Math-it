@@ -1,6 +1,7 @@
 import styles from "./assignment-list.module.css";
 import { Show } from "solid-js";
 import { getMonth } from "../helpers/dateFormatter.js";
+import { formateTime } from "../helpers/dateFormatter.js";
 
 /**
  * This UI Component takes in a list of assignments and takes out a formatted display of them. 
@@ -30,7 +31,12 @@ function AssignmentList({ assignments }) {
                   <div className={styles.rightContent}>
                     <div className={styles.rightContentWrapper}>
                       <p className={styles.timeText}>
-                        {assignment.due_time}
+                        {() => {
+                          const timeSplit = assignment.due_time.split(":");
+                          const hours = timeSplit[0];
+                          const minutes = parseInt(timeSplit[1]);
+                          return formateTime(hours, minutes);
+                          }}
                       </p>
                       <p className={styles.periodText}>
                         {assignment.period} | {assignment.teacher}

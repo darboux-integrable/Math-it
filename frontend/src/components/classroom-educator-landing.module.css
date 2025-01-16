@@ -4,12 +4,24 @@
     padding-top: 30px;
 }
 
+.topLeftContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .courseImage{
     position: relative;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
+}
+
+.courseCodeText{
+    color: white;
+    font-family: var(--text-font);
+    border-bottom: 3px solid var(--dark-4);
 }
 
 .classImage{
@@ -48,8 +60,8 @@
 }
 
 .bottomContent{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     padding-bottom: 20px;
     width: 100;
     gap: 20px;

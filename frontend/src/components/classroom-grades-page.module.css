@@ -56,6 +56,10 @@
   margin-top: 5px;
 }
 
+.noGradesText{
+  font-family: var(--text-font);
+}
+
 .studentText {
   text-align: center;
   margin: 0;

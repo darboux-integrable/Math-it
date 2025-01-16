@@ -9,8 +9,6 @@ function ClassroomGradesPage({ accountType }) {
 
   const params = useParams();
 
-  const userId = getCookieValue("userID");
-
   const classroomId = params.id;
 
   let classroom;
@@ -45,20 +43,61 @@ function ClassroomGradesPage({ accountType }) {
     setStudents(await classListFetch.json());
     setCurrentStudent(students()[0]);
 
-    console.log(students());
+    fetchGrades(currentStudent()._id);
   };
 
-  loadClassList();
-
   const fetchGrades = (studentId) => {
-    fetch(`http://127.0.0.1:5000/grades/${studentId}`)
+    fetch(
+      `http://127.0.0.1:5000/grades/${studentId}?classroom_id=${classroomId}`
+    )
       .then((res) => res.json())
       .then((gradesArray) => {
         setGrades(gradesArray);
       });
   };
 
-  fetchGrades("6763836950a23b4aa10f3f21");
+  loadClassList();
+
+  const updateGrade = (type, newGrade, id) => {
+    if (type == "assignment") {
+      fetch(`http://127.0.0.1:5000/assignments/grade/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          grade_earned: newGrade,
+          student_id: currentStudent()._id,
+        }),
+      }).then((res) => {
+        if (res.ok) {
+          // Change this to not reload the grades but just
+          // notify the user with some text on the page.
+          fetchGrades(currentStudent()._id);
+        } else {
+          alert("Error in updating grade");
+        }
+        return res.json();
+      });
+    } else if (type == "discussion") {
+      fetch(
+        `http://127.0.0.1:5000/discussions/update_grade/${id}?grade=${newGrade}`,
+        {
+          method: "PATCH",
+        }
+      ).then((res) => {
+        // Change this to not reload the grades but just
+        // notify the user with some text on the page.
+        if (res.ok) {
+          fetchGrades(currentStudent()._id);
+        } else {
+          alert("Error in updating the grade");
+        }
+
+        return res.json();
+      });
+    }
+  };
 
   return (
     <>
@@ -88,30 +127,45 @@ function ClassroomGradesPage({ accountType }) {
         <h1 className={styles.pageTitle}>Grades</h1>
         <div className={styles.gradesWrapper}>
           <div className={styles.studentWrapper}>
-            <Show when={students()}>
-              <h2 className={styles.studentTitle}>{currentStudent().first_name + " " + currentStudent().last_name}</h2>
-              <div className={styles.studentInput}>
-                <p className={styles.selectedOption}>Adam Evans</p>
-                <div className={styles.studentOptions}>
-                  {students().map((student) => {
-                    return (
-                      <div className={styles.student} onclick={(e) => {
-                        
-                        for(let i = 0; i < students().length; i++){
-                            if(student._id == students()[i]._id){
+            <Show when={students() && students().length > 0}>
+              <h2 className={styles.studentTitle}>
+                {currentStudent().first_name + " " + currentStudent().last_name}
+              </h2>
+              <Show when={accountType == "educator"}>
+                <div className={styles.studentInput}>
+                  <p className={styles.selectedOption}>
+                    {currentStudent().first_name +
+                      " " +
+                      currentStudent().last_name}
+                  </p>
+                  <div className={styles.studentOptions}>
+                    {students().map((student) => {
+                      return (
+                        <div
+                          className={styles.student}
+                          onclick={(e) => {
+                            for (let i = 0; i < students().length; i++) {
+                              if (student._id == students()[i]._id) {
                                 setCurrentStudent(student);
+                                fetchGrades(currentStudent()._id);
+                              }
                             }
-                        }
-
-                      }} >
-                        <p className={styles.studentText}>
-                          {student.first_name + " " + student.last_name}
-                        </p>
-                      </div>
-                    );
-                  })}
+                          }}
+                        >
+                          <p className={styles.studentText}>
+                            {student.first_name + " " + student.last_name}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              </Show>
+            </Show>
+            <Show when={!students() || students().length == 0}>
+              <p className={styles.noGradesText}>
+                There are currently no grades
+              </p>
             </Show>
           </div>
           <div className={styles.gradesTable}>
@@ -132,19 +186,27 @@ function ClassroomGradesPage({ accountType }) {
                             ? styles.updatedGrade
                             : ""
                         }`}
+                        onclick={() => {
+                          updateGrade(grade.type, currentValue(), grade.id);
+                        }}
                       >
                         Update
                       </button>
-                      <input
-                        type="text"
-                        value={currentValue()}
-                        oninput={(e) => {
-                          if (!isNaN(e.target.value)) {
-                            setCurrentValue(e.target.value);
-                          }
-                        }}
-                        className={styles.gradeInput}
-                      />
+                      <Show when={accountType == "educator"}>
+                        <input
+                          type="text"
+                          value={currentValue()}
+                          oninput={(e) => {
+                            if (!isNaN(e.target.value)) {
+                              setCurrentValue(e.target.value);
+                            }
+                          }}
+                          className={styles.gradeInput}
+                        />
+                      </Show>
+                      <Show when={accountType == "learner"}>
+                        <p className={styles.earnedGradeText}>{currentValue()}</p>
+                      </Show>
                       <p className={styles.divideLine}>/</p>
                       <p className={styles.maxGrade}>{grade.max_points}</p>
                     </div>

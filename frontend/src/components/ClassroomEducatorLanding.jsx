@@ -94,13 +94,16 @@ function ClassroomEducatorLandingPage() {
       />
 
       <div className={styles.topContent}>
-        <div className={styles.courseImage}>
-          <img
-            className={styles.classImage}
-            src={imgSrc()}
-            alt="Course Image"
-          />
-          <h1 className={styles.courseTitle}>{classTitle()}</h1>
+        <div className={styles.topLeftContent}>
+          <div className={styles.courseImage}>
+            <img
+              className={styles.classImage}
+              src={imgSrc()}
+              alt="Course Image"
+            />
+            <h1 className={styles.courseTitle}>{classTitle()}</h1>
+          </div>
+          <p className={styles.courseCodeText}>Class Code: {classroomId}</p>
         </div>
         <div className={styles.teacherWelcome}>
           <h1 className={styles.welcomeText}>Welcome</h1>

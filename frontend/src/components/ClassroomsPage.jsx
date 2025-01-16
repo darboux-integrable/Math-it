@@ -46,7 +46,7 @@ function ClassroomLandingPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        location.replace(`/classrooms/${data.id}/educator`)
       });
   };
 
@@ -96,6 +96,7 @@ function ClassroomLandingPage() {
 
   fetchUserFromCookie((data) => {
     setUser(data);
+    setInstructorName(user().first_name + " " + user().last_name);
     getAllClassroomsByUser();
     getAllClassesTaught();
   });
@@ -182,11 +183,12 @@ function ClassroomLandingPage() {
                     <input
                       type="text"
                       className={styles.newClassInput}
-                      value={instructorName()}
+                      value={user().first_name + " " + user().last_name}
                       oninput={(e) => {
                         setInstructorName(e.target.value);
                       }}
                       placeholder="Enter the Instructor's Name"
+                      disabled
                     />
                   </div>
                   <div>

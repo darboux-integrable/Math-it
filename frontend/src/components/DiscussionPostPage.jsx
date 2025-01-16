@@ -5,6 +5,7 @@ import { createSignal, Show } from "solid-js";
 import { formateDate, formateTime } from "../helpers/dateFormatter";
 import TextArea from "./TextArea";
 import { getCookieValue } from "../helpers/userInSession";
+import { compileText } from "./TextAreaPreview";
 
 function DiscussionPostPage({ accountType }) {
   const classroomPath = accountType == "educator" ? "educator" : "learner";
@@ -127,7 +128,7 @@ function DiscussionPostPage({ accountType }) {
           </div>
 
           <div className={styles.post}>
-            <p className={styles.postText}>{post().text}</p>
+            <p className={styles.postText}>{compileText(post().text)}</p>
 
             <button
               className={styles.replyButton}
@@ -166,13 +167,21 @@ function DiscussionPostPage({ accountType }) {
                   </div>
 
                   <div className={styles.commentWrapper}>
-                    <p className={styles.commentText}>{comment.text}</p>
+                    <p className={styles.commentText}>{compileText(comment.text)}</p>
                   </div>
                 </div>
               );
             })}
           </div>
         </Show>
+          {() => {
+            // IDK Why I need to use both of them but I do
+            // So either when the dicussion or comments update, 
+            // the mathjax will typeset again
+            discussion();
+            comments();
+            MathJax.typeset();
+          }}
       </div>
     </>
   );

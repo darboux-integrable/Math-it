@@ -104,6 +104,11 @@ def get_discussion_by_id(discussion_id: str):
     
     return discussion
 
+@discussions_router.patch("/update_grade/{post_id}")
+def update_discussion_post_grade(post_id: str, grade: int):
+    post = post_collection.find_one_and_update({"_id": ObjectId(post_id)}, {"$set": {"points_earned": grade}})
+    
+    return {"Success": True}
 # Create New post and add it to the discussion
 @discussions_router.patch("/{discussion_id}/post")
 def create_and_add_post(post: Post, discussion_id: str):
@@ -120,6 +125,8 @@ def create_and_add_post(post: Post, discussion_id: str):
     discussions_collection.find_one_and_update({"_id": ObjectId(discussion_id)}, {"$push": {"posts": str(new_post.inserted_id)}})
     
     return {"message": "New post created", "id": str(new_post.inserted_id)}
+
+
 
 
 

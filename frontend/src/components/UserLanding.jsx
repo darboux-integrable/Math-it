@@ -54,7 +54,9 @@ const UserLanding = () => {
       <Show when={user()}>
         <section className={styles.topSection}>
           {/* Notifications Section */}
-          <NotificationArea notifications={notifications} />
+          <div className={styles.notificationsWrapper}>
+            <NotificationArea notifications={notifications} />
+          </div>
 
           <div className={styles.assignmentsContainer}>
             <AssignmentList assignments={assignments} />

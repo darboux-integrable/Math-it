@@ -43,7 +43,7 @@ app.include_router(discussions_router)
 app.include_router(user_comments_router)
 
 @app.get("/grades/{student_id}")
-def get_grades_by_id(student_id: str):
+def get_grades_by_id(student_id: str, classroom_id: str):
     # O(A)
     assignment_details = assignments_student_details_collection.find({"students": {"$elemMatch": {"id": student_id}}})
     
@@ -74,8 +74,9 @@ def get_grades_by_id(student_id: str):
     
     # O(A)
     for assignment in assignments:
-        assignment["_id"] = str(assignment["_id"])
-        assignments_array.append(assignment)
+        if(assignment["class_id"] == classroom_id):
+            assignment["_id"] = str(assignment["_id"])
+            assignments_array.append(assignment)
     
     # O(AS)
     for i in range(0, len(assignments_array)):
@@ -87,7 +88,9 @@ def get_grades_by_id(student_id: str):
                 grades_array.append({
                         "title": assignments_array[i]["title"],
                         "points_earned": student["points_earned"],
-                        "max_points": student["max_points"]
+                        "max_points": student["max_points"],
+                        "type": "assignment",
+                        "id": str(assignment_details["_id"])
                 })
     
     discussion_ids = []
@@ -98,12 +101,13 @@ def get_grades_by_id(student_id: str):
         
     # O(D^2) cause len(discussion_ids) <= total_number_of_discussions
     discussions = discussions_collection.find({"_id": {"$in": discussion_ids}})
-    
+        
     discussions_array = []
     # O(D)
     for discussion in discussions:
-        discussion["_id"] = str(discussion["_id"])
-        discussions_array.append(discussion)
+        if(discussion["classroom_id"] == classroom_id):
+            discussion["_id"] = str(discussion["_id"])
+            discussions_array.append(discussion)
     
     # O(DP)
     for discussion in discussions_array:
@@ -117,7 +121,9 @@ def get_grades_by_id(student_id: str):
                 {
                     "title": discussion["title"],
                     "points_earned": post["points_earned"],
-                    "max_points": post["max_points"]
+                    "max_points": post["max_points"],
+                    "type": "discussion",
+                    "id": str(post["_id"])
                 }
             )
             

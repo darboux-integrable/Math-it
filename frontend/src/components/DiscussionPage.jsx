@@ -15,7 +15,7 @@ function DiscussionPage({ accountType }) {
 
   const userId = getCookieValue("userID")
 
-  let user;
+  const [user, setUser] = createSignal(false);
 
   const [discussion, setDiscussion] = createSignal(false);
   const [addPost, setAddPost] = createSignal(false);
@@ -29,7 +29,7 @@ function DiscussionPage({ accountType }) {
     fetch(`http://127.0.0.1:5000/users/${userId}`)
     .then(res => res.json())
     .then(userData => {
-      user = userData;
+      setUser(userData);
     })
   }
 
@@ -47,7 +47,7 @@ function DiscussionPage({ accountType }) {
         text: postText(),
         post_date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
         post_time: `${date.getHours()}:${date.getMinutes()}`,
-        name: user.first_name + " " + user.last_name,
+        name: user().first_name + " " + user().last_name,
         max_points: discussion().max_points,
         user_id: userId
       })
@@ -56,6 +56,24 @@ function DiscussionPage({ accountType }) {
     .then(data => {
       location.reload();
     })
+  }
+
+  const updateDiscussionGrade = (postId, grade) => {
+
+    fetch(`http://127.0.0.1:5000/discussions/update_grade/${postId}?grade=${grade}`, {
+      method: "PATCH"
+    })
+    .then(res => {
+      if(res.ok){
+        alert("Disucssion Grade Successfully Updated!")
+      }
+
+      return res.json()
+    })
+    .then(data => {
+      // location.reload();
+    })
+
   }
 
   fetch(`http://127.0.0.1:5000/discussions/${discussionId}`)
@@ -163,7 +181,7 @@ function DiscussionPage({ accountType }) {
                       <Show
                         when={
                           accountType == "educator" &&
-                          post.name != user.first_name + " " + user.last_name
+                          post.name != user().first_name + " " + user().last_name
                         }
                       >
                         <div className={styles.postGradeWrapper}>
@@ -171,16 +189,16 @@ function DiscussionPage({ accountType }) {
                             <input
                               type="number"
                               value={grade()}
-                              placeholder="-----"
+                              placeholder={post.points_earned}
                               className={styles.gradeInput}
-                              oninput={(e) => setGrade(e.target.innerText)}
+                              oninput={(e) => {setGrade(e.target.value)}}
                             />
                             <p className={styles.divideLine}>/</p>
                             <h3 className={styles.maxPointsText}>
                               {discussion().max_points}
                             </h3>
                           </div>
-                          <button className={styles.submitGradeButton}>
+                          <button className={styles.submitGradeButton} onclick={() => updateDiscussionGrade(post._id, grade())}>
                             Submit Grade
                           </button>
                         </div>

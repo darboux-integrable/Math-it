@@ -10,6 +10,7 @@ from bson import ObjectId
 import json
 import base64
 from .users import usersCollection
+from .assignments import assignments_collection, assignments_student_details_collection
 
 load_dotenv()
 
@@ -122,7 +123,7 @@ def create_classroom(classroom_body: Classroom):
     if not classroom:
          raise HTTPException(status_code=500, detail="Error in making new classroom") 
 
-    return {"Id" : str(classroom.inserted_id)}
+    return {"id" : str(classroom.inserted_id)}
 
 # Adds the classroom to the user and the user to the classrooms students. 
 @classrooms_router.patch("/add_student")
@@ -137,6 +138,23 @@ def addClassroom(user_id: str, classroom_id: str):
     if not classroom:
         raise HTTPException(status_code=404, detail="Classroom not found")
     
-    classroom["image"] = base64.b64encode(classroom["image"]).decode('utf-8')
-    classroom["_id"] = str(classroom["_id"])
-    return {"Working"}
+    # Add any assignments to the user if they were created before the user joined the class.
+    assignments_collection.update_many({"class_id": classroom_id}, {"$push": {"student_ids": user_id}})
+    
+    assignments = assignments_collection.find({"class_id": classroom_id})
+    
+    for assignment in assignments:
+        assignment_details_id = assignment["student_details"]
+        assignments_student_details_collection.find_one_and_update(
+            {"_id": ObjectId(assignment_details_id)},
+            {"$push": {"students": {
+            "id": user_id,
+            "name": user["first_name"] + " " + user["last_name"],
+            "answers": [],
+            "points_earned": "-",
+            "max_points": assignment["total_points"],
+            "completed": False}
+        }})
+        
+    
+    return {"Success": True}
