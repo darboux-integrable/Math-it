@@ -1,0 +1,116 @@
+.tagsContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark-1);
+    border-radius: 16px;
+    gap: 10px;
+
+}
+
+.tagsInput{
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    color: white;
+    padding-inline: 10px;
+    background-color: var(--dark-1);
+    outline: none;
+    border: 2px solid transparent;
+}
+
+.tagGrid, .selectedTags{
+    background-color: var(--dark-1);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.tagGrid:not(:empty){
+    border-color: var(--dark-1);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 3px solid var(--dark-2);
+}
+
+.tagGrid{
+    transition: all 150ms linear;
+    padding: 0;
+    margin-inline: 10px;
+    padding-inline: 10px;
+    border-top: 2px solid transparent;
+}
+
+.tagsTopSection{
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tagsBottomSection{
+    background-color: var(--dark-1);
+    animation: 150ms ease-out fade-in-no-scale forwards;
+}
+
+.tagWrapper{
+    scale: 0;
+    opacity: 0;
+    animation: 150ms ease-out fade-in forwards;
+}
+
+.errorText{
+    color: red;
+    font-family: var(--text-font);
+    text-align: center;
+    margin: 0;
+}
+
+.selectedTags{
+    border-radius: 8px;
+}
+
+.selectedTagsWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-inline: 10px;
+    border-top: 3px solid var(--dark-2);
+}
+
+.tag{
+    background-color: var(--dark-5);
+    border-radius: 4px;
+    padding-inline: 10px;
+    min-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: filter 0.2s;
+    font-family: var(--text-font);
+}
+
+.tag:hover{
+    filter: brightness(150%);
+}
+
+@keyframes fade-in-no-scale {
+  from {
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }   
+}
+
+@keyframes fade-in{
+    from {
+        scale: 0;
+        opacity: 0;
+    }
+
+    to{
+        scale: 1;
+        opacity: 1;
+    }
+}

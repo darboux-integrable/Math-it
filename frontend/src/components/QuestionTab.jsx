@@ -1,11 +1,11 @@
 import styles from './question-tab.module.css';
 
 import Tag from "./Tag";
-function QuestionTab({title, votes, answers, views, startText, tags, username}) {
+function QuestionTab({questionId, title, votes, answers, views, startText, tags, username, delay}) {
     const maxLength = 100;
 
     return (
-        <div className={styles.questionTab}>
+        <div className={styles.questionTab} style={{"animation-delay": `${delay}ms`}} onclick={() => location.replace(`/questions/${questionId}`)}>
             <div className={styles.leftContent}>
                 <p className={styles.leftText}>{votes || 0} Votes</p>
                 <p className={styles.leftText} class={answers > 0 ? styles.answeredQuestion : " "} >{answers || 0} Answers</p>

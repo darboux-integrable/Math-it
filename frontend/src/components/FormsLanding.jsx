@@ -27,78 +27,29 @@ function FormsLanding() {
     }
   };
 
-  let forms = [
-    {
-      title: "Help Loading Angular JS Templates",
-      votes: 2,
-      answers: 1,
-      views: 20,
-      startText:
-        "I have been learning angular JS for about a week and am having trouble loading my JSX templates. In the App.jsx, I create a router element and do more stuff to it to make it do more things for which is undisclosed to you, the reader.",
-      tags: ["JS", "Angular", "JSX"],
-      username: "DarbouxIntegrable",
-    },
-    {
-      title: "Help Loading Angular JS Templates",
-      votes: 2,
-      answers: 1,
-      views: 20,
-      startText:
-        "I have been learning angular JS for about a week and am having trouble loading my JSX templates. In the App.jsx, I create a router element and do more stuff to it to make it do more things for which is undisclosed to you, the reader.",
-      tags: ["JS", "Angular", "JSX"],
-      username: "DarbouxIntegrable",
-    },
-    {
-      title: "Help Loading Angular JS Templates",
-      votes: 2,
-      answers: 1,
-      views: 20,
-      startText:
-        "I have been learning angular JS for about a week and am having trouble loading my JSX templates. In the App.jsx, I create a router element and do more stuff to it to make it do more things for which is undisclosed to you, the reader.",
-      tags: ["JS", "Angular", "JSX"],
-      username: "DarbouxIntegrable",
-    },
-    {
-      title: "Help Loading Angular JS Templates",
-      votes: 2,
-      answers: 1,
-      views: 20,
-      startText:
-        "I have been learning angular JS for about a week and am having trouble loading my JSX templates. In the App.jsx, I create a router element and do more stuff to it to make it do more things for which is undisclosed to you, the reader.",
-      tags: ["JS", "Angular", "JSX"],
-      username: "DarbouxIntegrable",
-    },
-    {
-      title: "Help Loading Angular JS Templates",
-      votes: 2,
-      answers: 1,
-      views: 20,
-      startText:
-        "I have been learning angular JS for about a week and am having trouble loading my JSX templates. In the App.jsx, I create a router element and do more stuff to it to make it do more things for which is undisclosed to you, the reader.",
-      tags: ["JS", "Angular", "JSX"],
-      username: "DarbouxIntegrable",
-    },
-    {
-      title: "Help Loading Angular JS Templates",
-      votes: 2,
-      answers: 1,
-      views: 20,
-      startText:
-        "I have been learning angular JS for about a week and am having trouble loading my JSX templates. In the App.jsx, I create a router element and do more stuff to it to make it do more things for which is undisclosed to you, the reader.",
-      tags: ["JS", "Angular", "JSX"],
-      username: "DarbouxIntegrable",
-    },
-    {
-      title: "Help Loading Angular JS Templates",
-      votes: 2,
-      answers: 1,
-      views: 20,
-      startText:
-        "I have been learning angular JS for about a week and am having trouble loading my JSX templates. In the App.jsx, I create a router element and do more stuff to it to make it do more things for which is undisclosed to you, the reader.",
-      tags: ["JS", "Angular", "JSX"],
-      username: "DarbouxIntegrable",
-    },
-  ];
+  let [forms, setForms] = createSignal([]);
+  let [filteredForms, setFilteredForms] = createSignal([]);
+
+  let filterMethod;
+
+  let filterBySubject = () => {
+    setFilteredForms(
+      subjectFilter().toLowerCase() == "all tags"
+        ? filterMethod()
+        : filteredForms().filter((form) =>
+            form.tags.includes(subjectFilter().toLowerCase())
+          )
+    );
+  };
+
+  fetch(`http://127.0.0.1:5000/questions/all_questions`)
+    .then((res) => res.json())
+    .then((formsData) => {
+      setForms(formsData);
+
+      filterMethod = () => new Array(...forms()).reverse();
+      setFilteredForms(filterMethod());
+    });
 
   return (
     <div className={styles.wrapper}>
@@ -117,9 +68,10 @@ function FormsLanding() {
                 Ask Question
               </button>
             </div>
-
             <div className={styles.headBottom}>
-              <h2 className={styles.questionsCountText}>1,211,209 Questions</h2>
+              <h2 className={styles.questionsCountText}>
+                {filteredForms().length} Questions
+              </h2>
 
               <div className={styles.optionsWrapper}>
                 <div className={styles.filtersContainer}>
@@ -127,6 +79,9 @@ function FormsLanding() {
                     className={`${styles.filterButton} ${styles.activeFilter}`}
                     onClick={(e) => {
                       toggleActiveFilter(e);
+                      filterMethod = () => new Array(...forms()).reverse();
+                      setFilteredForms(filterMethod());
+                      filterBySubject();
                     }}
                   >
                     Newest
@@ -135,6 +90,10 @@ function FormsLanding() {
                     className={styles.filterButton}
                     onClick={(e) => {
                       toggleActiveFilter(e);
+                      filterMethod = () =>
+                        forms().filter((form) => form.answers > 0);
+                      setFilteredForms(filterMethod());
+                      filterBySubject();
                     }}
                   >
                     Answered
@@ -143,6 +102,11 @@ function FormsLanding() {
                     className={styles.filterButton}
                     onClick={(e) => {
                       toggleActiveFilter(e);
+                      filterMethod = () =>
+                        forms().filter((form) => form.answers == 0);
+
+                      setFilteredForms(filterMethod());
+                      filterBySubject();
                     }}
                   >
                     Unanswered
@@ -168,6 +132,7 @@ function FormsLanding() {
                           onclick={() => {
                             setSubjectFilter(tag.name);
                             setSubjectColor(tag.color);
+                            filterBySubject();
                           }}
                         >
                           <div
@@ -186,16 +151,18 @@ function FormsLanding() {
             </div>
           </div>
           <div class={styles.formsBody}>
-            {forms.map((form) => {
+            {filteredForms().map((form) => {
               return (
                 <QuestionTab
+                  questionId={form._id}
                   title={form.title}
                   votes={form.votes}
                   answers={form.answers}
                   views={form.views}
-                  startText={form.startText}
+                  startText={form.text}
                   tags={form.tags}
-                  username={form.username}
+                  username={form.user_asking}
+                  delay = {filteredForms().indexOf(form) * 100}
                 />
               );
             })}

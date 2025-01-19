@@ -141,6 +141,7 @@
   margin-top: 2px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 10;
 }
 
 .subjectFilter {
@@ -150,6 +151,7 @@
   transition: background-color 200ms linear;
   padding-inline: 10px;
   gap: 15px;
+  position: relative;
 }
 
 .subjectFilter:hover {

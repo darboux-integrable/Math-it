@@ -1,6 +1,10 @@
 {
   "tags": [
     {
+      "name": "All Tags",
+      "color": "transparent"
+    },
+    {
       "name": "Homework",
       "color": "#fff"
     },

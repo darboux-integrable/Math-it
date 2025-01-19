@@ -17,7 +17,8 @@ function AssignmentList({ assignments }) {
         </div>
         <div className={styles.assignments}>
           <Show when={assignments().length > 0}>
-            {assignments().map((assignment) => {
+            {
+            assignments().reverse().map((assignment) => {
               const dateSplit = assignment.due_date.split("-");
               return (
                 <div className={styles.assignment}>

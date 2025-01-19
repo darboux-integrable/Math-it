@@ -14,6 +14,9 @@ from routes.math_router import math_router
 from routes.announcements import announcements_router
 from routes.discussions import discussions_router, discussions_collection, post_collection
 from routes.user_comments import user_comments_router
+from routes.questions import questions_router
+from routes.question_answers import answers_router
+from routes.tags import tags_router
 
 load_dotenv()
 
@@ -41,7 +44,11 @@ app.include_router(classrooms_router)
 app.include_router(math_router)
 app.include_router(discussions_router)
 app.include_router(user_comments_router)
+app.include_router(questions_router)
+app.include_router(answers_router)
+app.include_router(tags_router)
 
+# Get all grades (discussion grades and assignment grades) for a single student
 @app.get("/grades/{student_id}")
 def get_grades_by_id(student_id: str, classroom_id: str):
     # O(A)

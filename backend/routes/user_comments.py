@@ -28,8 +28,9 @@ class UserComment(BaseModel):
     post_date_and_time: str
     user_name: Optional[str] = None
     name: Optional[str] = None
+    votes: Optional[int] = None
 
-# Create New User Comment
+# Create New User Comment for a classroom
 @user_comments_router.post("/classroom_discussion/{post_id}")
 def create_user_comment(user_comment: UserComment, post_id: str):
 

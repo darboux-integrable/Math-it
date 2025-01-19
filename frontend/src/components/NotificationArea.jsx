@@ -9,7 +9,7 @@ function NotificationArea({notifications}){
       <div className={styles.notificationArea}>
         <h1 className={styles.notificationsTitle}>Notifications</h1>
         <div className={styles.notifications}>
-          {notifications().map(notification => {
+          {notifications().reverse().map(notification => {
             return (
               <div className={styles.notification}>
                 <div className={styles.notificationHead}>
