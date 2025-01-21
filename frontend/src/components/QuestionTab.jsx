@@ -1,4 +1,5 @@
 import styles from './question-tab.module.css';
+import { compileText } from './TextAreaPreview';
 
 import Tag from "./Tag";
 function QuestionTab({questionId, title, votes, answers, views, startText, tags, username, delay}) {
@@ -14,7 +15,7 @@ function QuestionTab({questionId, title, votes, answers, views, startText, tags,
             <div className={styles.rightContent}>
                 <div class={styles.topContent}>
                     <h1 className={styles.questionTitle}>{title}</h1>
-                    <p className={styles.questionText}>{startText.length > maxLength ? startText.substring(0,maxLength - 3) + "..." : startText}</p>
+                    <p className={styles.questionText}>{compileText(startText.length > maxLength ? startText.substring(0,maxLength - 3) + "..." : startText)}</p>
                 </div>
                 <div class={styles.bottomContent}>
                     <div class={styles.tags}>

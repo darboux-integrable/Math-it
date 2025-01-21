@@ -3,13 +3,15 @@ import Landing from "./components/Landing";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import MathPractice from "./components/mathPractice";
-import QuestionPage from "./components/QuestionPage";
-import FormsLanding from "./components/FormsLanding";
 import AskQuestionPage from "./components/AskQuestionPage";
 import ResourcesPage from "./components/ResourcesPage";
 import TextAreaHelpPage from "./components/TextAreaHelpPage";
 import PageNotFoundPage from "./components/PageNotFound";
 import { lazy } from "solid-js";
+
+const QuestionPage = lazy(() => import("./components/QuestionPage"));
+
+const FormsLanding = lazy(() => import("./components/FormsLanding"));
 
 const ClassroomStudentPage = lazy(() =>
   import("./components/ClassroomStudentLanding")
@@ -152,7 +154,7 @@ function App() {
 
       <Route path="/practice" component={<MathPractice />}></Route>
 
-      <Route path="/questions" component={<FormsLanding />}></Route>
+      <Route path="/questions" component={() => <FormsLanding />}></Route>
 
       <Route path="/questions/ask" component={<AskQuestionPage />}></Route>
 

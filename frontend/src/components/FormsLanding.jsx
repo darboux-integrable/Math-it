@@ -169,6 +169,10 @@ function FormsLanding() {
           </div>
         </div>
       </div>
+      {() => {
+        filteredForms();
+        MathJax.typeset();
+      }}
     </div>
   );
 }

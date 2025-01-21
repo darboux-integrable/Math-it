@@ -60,3 +60,15 @@ def get_all_questions():
         questions_array.append(question)
         
     return questions_array
+
+# Get Question by Id
+@questions_router.get("/{question_id}")
+def get_question_by_id(question_id: str):
+    
+    question = question_collection.find_one({"_id": ObjectId(question_id)})
+    
+    if not question:
+        raise HTTPException(status_code=404, detail="No Question found with that Id")
+    
+    question["_id"] = str(question["_id"])
+    return question

@@ -3,74 +3,93 @@ import SideNavbar from "./SideNavbar";
 import Question from "./Question";
 import QuestionAnswer from "./QuestionAnswer";
 import downArrowIcon from "../assets/line-arrow.svg";
-import { createSignal } from "solid-js";
+import { createSignal, Show } from "solid-js";
 import { useParams } from "@solidjs/router";
+import TextArea from "./TextArea";
+import { getCookieValue } from "../helpers/userInSession";
+import { formateDate } from "../helpers/dateFormatter";
 
 function QuestionPage() {
   const params = useParams();
 
   const id = params.id;
 
-  const question = {
-    title: "This is the title of my question",
-    body: "Lorem ipsum odor amet, consectetuer adipiscing elit. Velit pretium nullam platea rhoncus maecenas mauris felis id. Iaculis fringilla phasellus natoque sodales praesent fermentum tristique vivamus. Etiam eleifend cursus volutpat senectus luctus libero bibendum. Maecenas praesent velit dignissim bibendum fusce. Litora tempor magnis varius pulvinar luctus. Senectus gravida dictum tincidunt ridiculus quis. Amet ac mauris pellentesque feugiat luctus ex! Orci malesuada erat; tempor nec maximus morbi.Nam arcu tincidunt sit lobortis facilisis leo. Lectus vestibulum class tristique amet tempus. Donec iaculis sagittis primis suscipit dignissim conubia vivamus. Pharetra faucibus porttitor taciti penatibus condimentum leo aliquam phasellus. In vulputate vel sagittis leo nisi turpis fames netus. Urna at facilisis, phasellus porta luctus magnis semper. Eros commodo aliquam lectus; scelerisque velit nulla. Feugiat ipsum nunc aenean leo dolor leo. Metus efficitur molestie sociosqu convallis nisi pulvinar et cursus. Cubilia nam dis, consectetur ipsum sollicitudin rhoncus vitae. Volutpat nullam amet orci netus habitant neque aliquet dictum. Placerat natoque cubilia lorem pharetra gravida, scelerisque neque.",
-    date: "April 23, 2018",
-    views: 1000,
-    upvotes: 89,
-    tags: ["Trigonometry", "Algebra", "Calculus 1", "Differential Calculus"],
-    answers: [
-      {
-        body: "This is the answer to the question",
-        comments: [
-          {
-            body: "This is a comment on the answer to the question",
-            user: "DarbouxIntegrable",
-            upvotes: 121,
-            date: "May 21, 2019",
-          },
-        ],
-        upvotes: 10,
+  const [question, setQuestion] = createSignal(false);
+
+  const [answerText, setAnswerText] = createSignal("");
+
+  const [answers, setAnswers] = createSignal([]);
+
+  const [comments, setComments] = createSignal(false);
+
+  const [toggleAnswer, setToggleAnswer] = createSignal(false);
+
+  let user;
+
+  fetch(`http://127.0.0.1:5000/users/${getCookieValue("userID")}`)
+  .then(res => res.json())
+  .then(userData => {user = userData});
+
+  const createAnswer = () => {
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    fetch(`http://127.0.0.1:5000/answers`,{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
       },
+      body: JSON.stringify({
+        text: answerText(),
+        user: user.username,
+        questionId: id,
+        user_type: user.account_type,
+        answer_date: formateDate(`${year}-${month}-${day}`)
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      location.reload();
+    })
+
+  }
+
+  // Get the question
+  const getPageData = async () => {
+    const questionResponse = await fetch(
+      `http://127.0.0.1:5000/questions/${id}`
+    );
+
+    const questionData = await questionResponse.json();
+
+    setQuestion(questionData);
+
+    const commentsResponse = await fetch(
+      `http://127.0.0.1:5000/user_comments/all_comments`,
       {
-        body: "This is the answer to the question",
-        comments: [
-          {
-            body: "This is a comment on the answer to the question",
-            user: "DarbouxIntegrable",
-            upvotes: 121,
-            date: "May 21, 2019",
-          },
-        ],
-        upvotes: 10,
-      },
-    ],
-    comments: [
-      {
-        body: "Lorem ipsum odor amet, consectetuer adipiscing elit. Hac nibh arcu natoque; natoque adipiscing nibh inceptos. Aerat vestibulum vivamus vestibulum malesuada ultricies eget. Ultrices ligula eu lacus cras aenean; rhoncus cursus mauris.",
-        upvotes: 54,
-        user: "RiemannIntegrable",
-        date: "April 24, 2019",
-      },
-      {
-        body: "Lorem ipsum odor amet, consectetuer adipiscing elit. Interdum lacinia rutrum et dui, cursus erat semper. Venenatis porta ipsum nisl magna lectus lorem egestas at.",
-        upvotes: 54,
-        user: "RiemannIntegrable",
-        date: "April 24, 2019",
-      },
-      {
-        body: "Lorem ipsum odor amet, consectetuer adipiscing elit. Vel metus magnis conubia rhoncus suscipit, vel risus netus. Mauris metus ante non cras dictum vel malesuada porta. Pulvinar pellentesque ultrices class torquent maecenas iaculis mattis.",
-        upvotes: 54,
-        user: "RiemannIntegrable",
-        date: "April 24, 2019",
-      },
-      {
-        body: "Lorem ipsum odor amet, consectetuer adipiscing elit. Suscipit consequat nisi volutpat vehicula maximus vel.",
-        upvotes: 54,
-        user: "RiemannIntegrable",
-        date: "April 24, 2019",
-      },
-    ],
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ids: question().comments }),
+      }
+    );
+
+    const commentsData = await commentsResponse.json();
+
+    setComments(commentsData);
   };
+
+  getPageData();
+
+  // Get the answers to the question
+  fetch(`http://127.0.0.1:5000/answers/question/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setAnswers(data);
+    });
 
   const [filter, setFilter] = createSignal("Highest Score (Default)");
 
@@ -78,38 +97,61 @@ function QuestionPage() {
     <div className={styles.wrapper}>
       <SideNavbar />
       <div className={styles.pageContent}>
-        <div className={styles.questionWrapper}>
-          <Question
-            title={question.title}
-            views={question.views}
-            upvotes={question.upvotes}
-            askedDate={question.date}
-            comments={question.comments}
-            questionBody={question.body}
-            tags={question.tags}
-          />
-        </div>
-
+        <Show when={question() && comments()}>
+          <div className={styles.questionWrapper}>
+            <Question
+              title={question().title}
+              views={question().views}
+              userAsking={question().user_asking}
+              upvotes={question().votes}
+              askedDate={question().ask_date}
+              comments={comments()}
+              questionBody={question().text}
+              tags={question().tags}
+              questionId={id}
+            />
+          </div>
+        </Show>
+        {() => {
+          question();
+          comments();
+          MathJax.typeset();
+        }}
         <div className={styles.answersWrapper}>
-
           <div className={styles.answersHeader}>
-            <h1 className={styles.answersTitle}>{question.answers.length} Answer{question.answers.length > 1 ? "s" : ""}</h1>
+            <h1 className={styles.answersTitle}>
+              {answers().length} Answer
+              {answers().length > 1 ? "s" : ""}
+            </h1>
             <div className={styles.dropDownContainer}>
               <div className={styles.currentOption}>
                 <p className={styles.currentOptionText}>{filter()}</p>
-                <img src={downArrowIcon} alt="down arrow for selection" className={styles.selectionArrow}/>
+                <img
+                  src={downArrowIcon}
+                  alt="down arrow for selection"
+                  className={styles.selectionArrow}
+                />
               </div>
               <div className={styles.options}>
                 <div className={styles.option}>
-                  <div className={styles.colorBox} style={{"background-color": "var(--green-1)"}}></div>
+                  <div
+                    className={styles.colorBox}
+                    style={{ "background-color": "var(--green-1)" }}
+                  ></div>
                   <p className={styles.optionText}>Highest Score (Default)</p>
                 </div>
                 <div className={styles.option}>
-                  <div className={styles.colorBox} style={{"background-color": "var(--green-2)"}}></div>
+                  <div
+                    className={styles.colorBox}
+                    style={{ "background-color": "var(--green-2)" }}
+                  ></div>
                   <p className={styles.optionText}>Newest First</p>
                 </div>
                 <div className={styles.option}>
-                  <div className={styles.colorBox} style={{"background-color": "var(--light-green-1)"}}></div>
+                  <div
+                    className={styles.colorBox}
+                    style={{ "background-color": "var(--light-green-1)" }}
+                  ></div>
                   <p className={styles.optionText}>Oldest First</p>
                 </div>
               </div>
@@ -117,16 +159,33 @@ function QuestionPage() {
           </div>
 
           <div className={styles.answersList}>
-            {question.answers.map((answer) => {
+            {answers().map((answer) => {
               return (
                 <QuestionAnswer
-                  upvotes={answer.upvotes}
+                  upvotes={answer.votes}
                   comments={answer.comments}
-                  answerBody={answer.body}
+                  answerBody={answer.text}
+                  user={answer.user}
+                  userType={answer.user_type}
                 />
               );
             })}
           </div>
+
+          <button
+            className={styles.addAnswerButton}
+            onclick={() => setToggleAnswer(!toggleAnswer())}
+          >
+            Answer Question
+          </button>
+
+          <Show when={toggleAnswer()}>
+            <h1 className={styles.createAnswerTitle}>Create Answer</h1>
+            <TextArea currentText={answerText} setCurrentText={setAnswerText} />
+
+            <button onclick={() => {createAnswer();}} className={styles.addAnswerButton} style={{"margin-top": "10px", "font-size": "1.5rem"}}>Done!</button>
+
+          </Show>
         </div>
       </div>
     </div>
