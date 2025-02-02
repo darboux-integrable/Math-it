@@ -14,7 +14,6 @@ function Vote({ itemId, userId }) {
   fetch(`http://127.0.0.1:5000/upvotes/${itemId}`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data)
       setUserVoteList(data.user_ids);
       setVotes(data.votes);
     });

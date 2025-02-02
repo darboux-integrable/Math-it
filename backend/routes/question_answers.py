@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from pymongo import MongoClient
 from bson import ObjectId
 from .upvotes import upvotes_collection
+from .questions import question_collection
 
 load_dotenv()
 
@@ -40,7 +41,10 @@ def get_all_answers_for_a_question(question_id: str):
     
     for answer in answers:
         answer["_id"] = str(answer["_id"])
+        votes = upvotes_collection.find_one({"item_id": answer["_id"]})
+        answer["votes"] = votes["votes"]
         answers_array.append(answer)
+        
         
     return answers_array
 
@@ -58,40 +62,8 @@ def create_question_answer(answer_data: Answer):
     if not new_answer:
         raise HTTPException(status_code=500, detail="Server error in created a new answer for the question")
     
+    question_collection.find_one_and_update({"_id": ObjectId(answer_dict["question_id"])}, {"$inc": {"answers": 1}})
+    
     return {"id": str(new_answer.inserted_id)}
-    
-class Answers(BaseModel):
-    ids: List[str]
-    
-@answers_router.post("/sorted_answers")
-def get_sorted_answers(answers_data: Answers):
-    answers_array = answers_data.model_dump()
-    
-    votes_list = upvotes_collection.find({"item_id": {"$in":answers_array}})
-    
-    sorted_votes_list = []
-    
-    sorted_answers = []
-    
-    for votes in votes_list:
-        sorted_votes_list.append(votes)
-        
-    # Selection Sort
-    for i in range(0, len(sorted_votes_list)):
-        
-        max = sorted_votes_list[i]
-        max_index = i
-        for j in range(i, len(sorted_votes_list)):
-            current = sorted_votes_list[j]
-            
-            if(current["votes"] > max["votes"]):
-                max = current
-                max_index = j
-        
-        temp = sorted_votes_list[i]
-        sorted_votes_list[i] = max
-        sorted_votes_list[max_index] = temp
-        answer = answers_collection.find_one({"_id": ObjectId(max["item_id"])})
-        sorted_answers.append(answer)
-    
-    return sorted_answers
+
+

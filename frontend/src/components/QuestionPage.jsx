@@ -27,8 +27,10 @@ function QuestionPage() {
   let user;
 
   fetch(`http://127.0.0.1:5000/users/${getCookieValue("userID")}`)
-  .then(res => res.json())
-  .then(userData => {user = userData});
+    .then((res) => res.json())
+    .then((userData) => {
+      user = userData;
+    });
 
   const createAnswer = () => {
     const date = new Date();
@@ -36,29 +38,24 @@ function QuestionPage() {
     const month = date.getMonth();
     const year = date.getFullYear();
 
-    fetch(`http://127.0.0.1:5000/answers`,{
+    fetch(`http://127.0.0.1:5000/answers`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         text: answerText(),
         user: user.username,
         question_id: id,
         user_type: user.account_type,
-        answer_date: formateDate(`${year}-${month}-${day}`)
-      })
+        answer_date: formateDate(`${year}-${month}-${day}`),
+      }),
     })
-    .then(res => res.json())
-    .then(data => {
-      location.reload();
-    })
-
-  }
-
-  const getHighestSorted = () => {
-    fetch(`http://127.0.0.1:5000/questions/${id}`);
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        location.reload();
+      });
+  };
 
   // Get the question
   const getPageData = async () => {
@@ -96,7 +93,36 @@ function QuestionPage() {
     .then((data) => {
       answersArray = data;
       setAnswers(data);
+      sortAnswers();
     });
+
+  const sortAnswers = () => {
+    // Use a selection sort to get the answers. 
+    let answersArr = [...answers()];
+    for(let i = 0; i < answers().length; i++){
+
+      let maxIndex = i;
+      for (let j = i + 1; j < answersArr.length; j++) {
+        if (parseInt(answersArr[maxIndex].votes) < parseInt(answersArr[j].votes)) {
+          maxIndex = j;
+        }
+      }
+
+      let temp = answersArr[i];
+      answersArr[i] = answersArr[maxIndex];
+      answersArr[maxIndex] = temp;
+    }
+    setAnswers(answersArr);
+  };
+
+
+  const setNewestAnswers = () => {
+    setAnswers([...answersArray].reverse());
+  };
+
+  const setOldestAnswers = () => {
+    setAnswers(answersArray);
+  };
 
   const [filter, setFilter] = createSignal("Highest Score (Default)");
 
@@ -140,21 +166,39 @@ function QuestionPage() {
                 />
               </div>
               <div className={styles.options}>
-                <div className={styles.option} onclick={getHighestSorted()} >
+                <div
+                  className={styles.option}
+                  onclick={() => {
+                    sortAnswers();
+                    setFilter("Highest Score");
+                  }}
+                >
                   <div
                     className={styles.colorBox}
                     style={{ "background-color": "var(--green-1)" }}
                   ></div>
                   <p className={styles.optionText}>Highest Score (Default)</p>
                 </div>
-                <div className={styles.option}>
+                <div
+                  className={styles.option}
+                  onclick={() => {
+                    setFilter("Newest First");
+                    setNewestAnswers();
+                  }}
+                >
                   <div
                     className={styles.colorBox}
                     style={{ "background-color": "var(--green-2)" }}
                   ></div>
                   <p className={styles.optionText}>Newest First</p>
                 </div>
-                <div className={styles.option}>
+                <div
+                  className={styles.option}
+                  onclick={() => {
+                    setFilter("Oldest First");
+                    setOldestAnswers();
+                  }}
+                >
                   <div
                     className={styles.colorBox}
                     style={{ "background-color": "var(--light-green-1)" }}
@@ -167,7 +211,7 @@ function QuestionPage() {
 
           <button
             className={styles.addAnswerButton}
-            style={{"margin-top": "10px"}}
+            style={{ "margin-top": "10px" }}
             onclick={() => setToggleAnswer(!toggleAnswer())}
           >
             Answer Question

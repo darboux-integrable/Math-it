@@ -154,9 +154,21 @@ function App() {
 
       <Route path="/practice" component={<MathPractice />}></Route>
 
-      <Route path="/questions" component={() => <FormsLanding />}></Route>
+      <Route
+        path="/questions"
+        component={() => <FormsLanding subjectFilterInit={"all tags"} />}
+      ></Route>
 
       <Route path="/questions/ask" component={<AskQuestionPage />}></Route>
+
+      <Route
+        path="/questions/tags/:tag"
+        component={() => {
+          const params = useParams();
+          const tag = params.tag;
+          return <FormsLanding subjectFilterInit={tag} />;
+        }}
+      ></Route>
 
       <Route path="/questions/:id" component={() => <QuestionPage />}></Route>
 

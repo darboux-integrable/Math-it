@@ -1,8 +1,8 @@
 .questionWrapper {
-  width: 80%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex-grow: 1;
 }
 .titleSection {
   display: flex;

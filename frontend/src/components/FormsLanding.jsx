@@ -5,10 +5,9 @@ import { createSignal } from "solid-js";
 import QuestionTab from "./QuestionTab";
 import { Show } from "solid-js";
 
-function FormsLanding() {
+function FormsLanding({subjectFilterInit}) {
   let tags = tagsJSON.tags;
-
-  const [subjectFilter, setSubjectFilter] = createSignal("All Tags");
+  const [subjectFilter, setSubjectFilter] = createSignal(decodeURIComponent(subjectFilterInit));
   const [subjectColor, setSubjectColor] = createSignal("");
 
   const toggleActiveFilter = (e) => {
@@ -36,7 +35,7 @@ function FormsLanding() {
     setFilteredForms(
       subjectFilter().toLowerCase() == "all tags"
         ? filterMethod()
-        : filteredForms().filter((form) =>
+        : filterMethod().filter((form) =>
             form.tags.includes(subjectFilter().toLowerCase())
           )
     );
@@ -49,6 +48,7 @@ function FormsLanding() {
 
       filterMethod = () => new Array(...forms()).reverse();
       setFilteredForms(filterMethod());
+      filterBySubject();
     });
 
   return (
@@ -118,7 +118,7 @@ function FormsLanding() {
                     <Show when={subjectFilter() != "All Tags"}>
                       <div
                         className={styles.colorBox}
-                        style={{ "background-color": subjectColor() }}
+                        style={{ "background-color": subjectColor() || `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`}}
                       ></div>
                     </Show>
 
@@ -133,6 +133,7 @@ function FormsLanding() {
                             setSubjectFilter(tag.name);
                             setSubjectColor(tag.color);
                             filterBySubject();
+
                           }}
                         >
                           <div

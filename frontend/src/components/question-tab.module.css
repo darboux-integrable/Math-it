@@ -10,6 +10,7 @@
     scale: 0;
     opacity: 0;
     animation: 250ms fade-in forwards ease-out;
+    cursor: pointer;
 }
 
 .userText{

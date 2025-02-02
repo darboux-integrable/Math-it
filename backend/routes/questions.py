@@ -59,6 +59,8 @@ def get_all_questions():
     
     for question in questions:
         question["_id"] = str(question["_id"])
+        upvotes_item = upvotes_collection.find_one({"item_id": question["_id"]})
+        question["votes"] = upvotes_item["votes"]
         questions_array.append(question)
         
     return questions_array
@@ -74,3 +76,10 @@ def get_question_by_id(question_id: str):
     
     question["_id"] = str(question["_id"])
     return question
+
+# update views
+@questions_router.patch("/{question_id}")
+def update_question_views(question_id: str):
+    question_collection.find_one_and_update({"_id": ObjectId(question_id)}, {"$inc": {"views": 1}})
+    
+    return {"Success": 1}
