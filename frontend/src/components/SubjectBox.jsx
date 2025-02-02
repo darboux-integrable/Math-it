@@ -1,7 +1,7 @@
+import { createSignal } from "solid-js";
 import styles from "./subject-box.module.css";
 
-
-function SubjectBox({ title, description, topics, color }) {
+function SubjectBox({ title, description, topics, color, setTopics, getTopics }) {
 
   return (
     <div className={styles.boxBackground}>
@@ -11,13 +11,21 @@ function SubjectBox({ title, description, topics, color }) {
               <div className={styles.colorBox} style={{"background-color": color}}></div>
               <h1 className={styles.subjectBoxTitle}>{title || "Math Topic"}</h1>
             </div>
-            <button className={styles.goButton}>Go!</button>
           </div>
           <div className={styles.boxContent}>
             <p className={styles.shortDescription}>{description}</p>
             <div className={styles.topicsWrapper}>
               {topics.map((topic) => {
-                return <button className={styles.topicTitle}>{topic.name}</button>;
+                const [active, setActive] = createSignal(false);
+                return <button className={`${styles.topicTitle} ${active() ? styles.active : " "}`} onclick={() => {
+                  if(!getTopics().includes(topic.id)){
+                    setTopics([...getTopics(), topic.id])
+                    setActive(true);
+                  } else {
+                    setActive(false);
+                    setTopics(getTopics().filter(currentTopic => currentTopic != topic.id));
+                  }
+                }} >{topic.name}</button>;
               })}
             </div>
           </div>

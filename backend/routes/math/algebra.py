@@ -16,7 +16,7 @@ def generate_single_variable_equation():
     
     solved = solve(LHS - RHS, x)
     
-    return {"mathjax": "$$" + str(LHS)+ "=" +str(RHS)+ "$$"}
+    return {"mathjax": "$$" + str(LHS)+ "=" +str(RHS)+ "$$", "answer": "$$" + "x="+str(solved[0]) + "$$"}
 
 def generate_system_of_equations():
     
@@ -31,9 +31,10 @@ def generate_system_of_equations():
     c6 = random.randint(-10, 10)    
      
     #Augmented Matrix used to represent the system. 
-    EquationMatrix = Matrix([[c1, c2, c3], [c4, c5, c6]])
+    EquationMatrix = Matrix(((c1, c2, c3), (c4, c5, c6)))
     
-    return {"mathjax": "$$\\begin{align*}" + str(c1)+"x + " + str(c2)+"y = "+str(c3)+"\\newline"+str(c4)+"x + "+str(c5)+"y = "+str(c6)+"\\end{align*}$$"}
+    solved = solve_linear_system(EquationMatrix, x, y)
+    return {"mathjax": "$$\\begin{align*}" + str(c1)+"x + " + str(c2)+"y = "+str(c3)+"\\newline"+str(c4)+"x + "+str(c5)+"y = "+str(c6)+"\\end{align*}$$", "answer": "$$" + "x="+str(solved[x]) +"$$" + "\n" "$$" + "y="+str(solved[y]) + "$$"}
          
 def generate_trinomial_quadratic():
     x = Symbol("x")
@@ -46,7 +47,11 @@ def generate_trinomial_quadratic():
     # Gets a random number large enough to always have b^2 - 4ac be positive
     b = math.ceil(math.sqrt(4 * abs(a) * abs(c)) + random.randint(0, 10))
     
-    return {"mathjax": "$$"+str(simplify(a * x**2 + b*x + c)).replace("**", "^").replace("*", "")+"=0$$"}
+    solved = solve(a * x**2 + b * x + c)
+    print(solved)
+    print(("$$x\\in" + str(solved)+"$$").replace("[", "\\{").replace("]", "\\}").replace("(", "{").replace(")","}"))
+    
+    return {"mathjax": "$$"+str(simplify(a * x**2 + b*x + c)).replace("**", "^").replace("*", "")+"=0$$", "answer": ("$$x\\in" + str(solved)+"$$").replace("[", "\\{").replace("]", "\\}").replace("(", "{").replace(")","}").replace("sqrt","\\sqrt")}
 
 def generate_factored_quadratic():
     x = Symbol("x")
@@ -60,8 +65,9 @@ def generate_factored_quadratic():
     
     factored = factor(simplify(equation))
     
+    solved = solve(equation)
     
-    return {"mathjax": "$$"+str(factored).replace("*", "")+"=0$$"}
+    return {"mathjax": "$$"+str(factored).replace("*", "")+"=0$$", "answer": ("$$x\\in" + str(solved)+"$$").replace("[", "\\{").replace("]", "\\}")}
     
 def generate_differnce_of_two_squares():
     x = Symbol("x")
@@ -73,14 +79,14 @@ def generate_differnce_of_two_squares():
     
     solved = solve(equation, x)
     
-    return {"mathjax": "$$" + str(equation).replace("**", "^").replace("*", "") + "=0$$"}
+    return {"mathjax": "$$" + str(equation).replace("**", "^").replace("*", "") + "=0$$", "answer": ("$$x\\in" + str(solved)+"$$").replace("[", "\\{").replace("]", "\\}")}
     
 def generate_absolute_value_equation():
     x = Symbol("x")
     
     c1 = random.randint(-10, 10)
     c2 = random.randint(-10, 10)
-    c3 = random.randint(-10, 10)
+    c3 = random.randint(1, 10)
     
     # |c1x + c2| = c3
     # c1x + c2 = c3 or c1x + c2 = -c3
@@ -89,8 +95,13 @@ def generate_absolute_value_equation():
     
     solution1 = solve(equation1)
     solution2 = solve(equation2)
-        
-    return {"problem": "|{}x + {}| = {}".format(c1, c2, c3), "answer": str(solution1) + " " + str(solution2)}
+    
+    
+    str1 = str(solution1).replace("]", "")
+    str2 = str(solution2).replace("[", "")
+    str3 = (str1 + ", " +str2).replace("[", "\\{").replace("]", "\\}")
+    
+    return {"mathjax": "$$|{}x + {}| = {}$$".format(c1, c2, c3), "answer": "$$x\\in"+str3+"$$"}
     
 def generate_logarithm_equation():
     
@@ -108,13 +119,12 @@ def generate_logarithm_equation():
     c3 = random.randint(1, 5)
     c4 = random.randint(1, 5)
     c5 = random.randint(1, 5)
-    
-    # # 20% chance to use the natural logarithm and an 80% chance to use the randomly generated base
-    equation = log(c1 * x + c2, b) + log(c3 * x, b) if random.randint(1, 5) != 5 else log(c1 * x + c2) + log(c3 * x)
+
+    equation = log(c1 * x + c2, b) + log(c3 * x, b)
     
     solved = solve(equation, x)
     
-    return {"problem": str(equation) + " = 0", "answer": str(solved)}
+    return {"mathjax": "$$\\log_"+str(b)+"{("+str(c1)+"x"+"+"+str(c2)+")}"+"+\\log_"+str(b)+"{("+str(c3)+"x"+")}=0$$", "answer":"$$x="+ str(solved).replace("[", "").replace("]", "").replace("(", "{").replace(")", "}").replace("sqrt", "\\sqrt") + "$$"}
 
 def generate_exponential_equation():
     x = Symbol("x", real=True)
@@ -130,6 +140,6 @@ def generate_exponential_equation():
     
     solved = solve(equation, x)
     
-    return {"problem": str(equation), "answer": str(solved)}
+    return {"mathjax": "$$"+str(b)+"^{"+str(c1)+"x+"+str(c2)+"}+"+str(b)+"^{"+str(c3)+"x"+"}=0$$", "answer": ("$$x\\in\\{"+str(solved)+"\\}$$").replace("[", "{").replace("]", "}")}
     
     

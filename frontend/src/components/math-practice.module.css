@@ -1,6 +1,8 @@
+
 .wrapper{
     display: flex;
     height: 100%;
+    padding-bottom: 30px;
 }
 
 .pageContent{
@@ -14,6 +16,7 @@
 
 .subjectBoxes{
     padding: 30px;
+    padding-bottom: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -22,4 +25,59 @@
 
 .navbar{
     display: none !important;
+}
+
+.doneButtonWrapper{
+    position: fixed;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background-color: var(--dark-4);
+    padding: 7px;
+    margin-top: 20px;
+    right: 0;
+    margin-right: 30px;
+    border-radius: 5px;
+}
+
+.doneButton{
+    background-color: var(--green-1);
+    color: white;
+    font-family: var(--text-font);
+    height: 43.2px;
+    align-self: self-end;
+    font-size: 1.6rem;
+    border-radius: 8px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    transition: all 150ms ease;
+}
+
+.doneButton:hover{
+    scale: 1.05;
+}
+
+.numberOfQuestionsInput{
+    height: 40px;
+    background-color: var(--dark-1);
+    outline: none;
+    border: 2px solid transparent;
+    transition: all 250ms ease;
+    color: white;
+    border-radius: 5px;
+    padding: 0;
+    margin: 0;
+    padding-left: 4px;
+}
+
+.numberOfQuestionsLabel{
+    color: white;
+    font-family: var(--text-font);
+    margin: 0;
+    margin-bottom: 2px;
+}
+
+.numberOfQuestionsInput:focus, .numberOfQuestionsInput:hover{
+    border-color: var(--green-1)
 }

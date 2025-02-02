@@ -16,6 +16,9 @@ class MathList(BaseModel):
     topic_ids: List[int]
     question_numbers: List[int]
 
+@math_router.get("/single_var_equation")
+def two_equation_linear_system():
+    return generate_single_variable_equation()
 
 @math_router.get("/system_2_linear_equations")
 def two_equation_linear_system():
@@ -57,7 +60,9 @@ def create_problem_set(problem_set: MathList):
                         {"id": 3, "function": generate_factored_quadratic}, 
                         {"id": 4, "function": generate_trinomial_quadratic},
                         {"id": 5, "function": generate_differnce_of_two_squares},
-                        {"id": 6, "function": generate_absolute_value_equation}
+                        {"id": 6, "function": generate_absolute_value_equation},
+                        {"id": 7, "function": generate_logarithm_equation},
+                        {"id": 8, "function": generate_exponential_equation}
                         ]
     
     for i in range(0, len(problem_set_dict["topic_ids"])):

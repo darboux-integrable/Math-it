@@ -1,7 +1,6 @@
 .boxBackground {
-  background-color: var(--dark-4);
+  background-color: var(--dark-1);
   padding: 10px;
-  box-shadow: 0px 0px 10px 5px var(--dark-1);
   border-radius: 10px;
 
 }
@@ -9,11 +8,11 @@
 .subjectBox {
   width: 65ch;
   color: white;
-  background-color: var(--dark-4);
+  background-color: var(--dark-1);
   padding-inline: 10px;
   border-radius: 10px;
   height: calc(100% - 10px);
-  border: 5px var(--dark-3) solid;
+  border: 5px var(--dark-2) solid;
   display: flex;
   flex-direction: column;
 }
@@ -91,7 +90,7 @@
   text-align: center;
   border-radius: 5px;
   border: none;
-  background-color: var(--dark-1);
+  background-color: var(--dark-3);
   color: white;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -103,4 +102,8 @@
 
 .topicTitle:hover {
   border: var(--green-1) 2px solid;
+}
+
+.active{
+  border-color: var(--green-1) !important;
 }
