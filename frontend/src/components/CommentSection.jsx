@@ -6,7 +6,7 @@ import checkFilled from "../helpers/checkForFilledInputs";
 import { formateDate, formateTime } from "../helpers/dateFormatter";
 import { getCookieValue } from "../helpers/userInSession";
 
-function CommentSection({ comments, commmentButtonTheme, questionId }) {
+function CommentSection({ commentType, comments, commmentButtonTheme, questionId }) {
   let user;
   fetch(`http://127.0.0.1:5000/users/${getCookieValue("userID")}`)
     .then((res) => res.json())
@@ -24,7 +24,7 @@ function CommentSection({ comments, commmentButtonTheme, questionId }) {
 
     const dateString = `${year}-${month}-${day}`;
 
-    fetch(`http://127.0.0.1:5000/user_comments/forums/${questionId}`, {
+    fetch(`http://127.0.0.1:5000/user_comments/${commentType}/${questionId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +55,6 @@ function CommentSection({ comments, commmentButtonTheme, questionId }) {
         {comments.map((comment) => {
           return (
             <UserComment
-              votes={comment.votes}
               commentBody={comment.text}
               user={comment.user_name}
               dateAsked={comment.post_date_and_time}

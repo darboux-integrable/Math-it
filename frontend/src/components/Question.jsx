@@ -8,12 +8,13 @@ function Question({
   userAsking,
   askedDate,
   views,
-  upvotes,
   comments,
   questionBody,
   tags,
-  questionId
+  questionId,
+  userId
 }) {
+
   return (
     <div className={styles.questionWrapper}>
       <div className={styles.titleSection}>
@@ -36,11 +37,11 @@ function Question({
         </button>
       </div>
       <div className={styles.questionBody}>
-        <Vote numberOfVotes={upvotes} />
+        <Vote itemId={questionId} userId={userId}/>
         <div className={styles.questionTextWrapper}>{compileText(questionBody)}</div>
       </div>
       <div className={styles.commentSectionWrapper}>
-        <CommentSection comments={comments} questionId={questionId}/>
+        <CommentSection commentType={"forums"} comments={comments} questionId={questionId}/>
       </div>
       <div className={styles.tagsWrapper}>
         {tags.map((tag) => {

@@ -7,6 +7,7 @@ import pymongo # Possibly remove later
 from pydantic import BaseModel
 from pymongo import MongoClient
 from bson import ObjectId
+from .upvotes import upvotes_collection
 
 load_dotenv()
 
@@ -34,7 +35,6 @@ def create_new_question(question_data: Question):
     
     question_dict = question_data.model_dump()
     question_dict["views"] = 0
-    question_dict["votes"] = 0
     question_dict["answers"] = 0
     question_dict["comments"] = []
     
@@ -42,6 +42,8 @@ def create_new_question(question_data: Question):
         question_dict["tags"][i] = question_dict["tags"][i].lower()
     
     new_question = question_collection.insert_one(question_dict)
+    
+    upvotes_collection.insert_one({"item_id": str(new_question.inserted_id), "user_ids": [], "votes": 0})
     
     if not new_question:
         raise HTTPException(status_code=500, detail="Could not create new question")

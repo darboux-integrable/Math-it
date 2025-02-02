@@ -3,9 +3,19 @@
 }
 
 .commentBody{
-    display: flex;
     font-family: var(--text-font);
     gap: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.textWrapper{
+    display: flex;
+    gap: 10px;
+}
+
+.buttonsWrapper{
+    background-color: red;
 }
 
 .upvotesText{
@@ -27,4 +37,29 @@
 .user:hover{
     color: var(--light-green-1);
     filter: brightness(1.1);
+}
+
+.voteSection{
+    background-color: var(--dark-1);
+    border-radius: 4px;
+    overflow: hidden;
+    width: fit-content;
+    float: right;
+
+    min-width: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.triangleIcon{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.triangleIcon:last-child{
+    transform: rotateX(180deg);
 }

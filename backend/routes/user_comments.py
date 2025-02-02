@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from pymongo import MongoClient
 from bson import ObjectId
 from .discussions import post_collection
+from .question_answers import answers_collection
 from .questions import question_collection
 
 load_dotenv()
@@ -18,6 +19,8 @@ cluster = MongoClient(os.getenv("DATABASE_URI"))
 database = cluster["MathIt"]
 
 user_comments_collection = database["user_comments"]
+
+comments_list_collection = database["comments_list"]
 
 user_comments_router = APIRouter(
     prefix="/user_comments",
@@ -66,7 +69,7 @@ def get_all_comments(comment_list: CommentList):
         
     return comment_array
 
-# Create a new comment for a question post not in a classroom
+# Create a new comment for a question post in a forum
 @user_comments_router.post("/forums/{question_id}")
 def create_comment_on_forum(user_comment_data: UserComment, question_id: str):
     
@@ -77,15 +80,25 @@ def create_comment_on_forum(user_comment_data: UserComment, question_id: str):
     question_collection.find_one_and_update({"_id": ObjectId(question_id)}, {"$push": {"comments": str(new_comment.inserted_id)}})
     
     return {"success": True, "message": "New Comment Created"}
+
+@user_comments_router.post("/answers/{answer_id}")
+def create_comment_on_answer(user_comment_data: UserComment, answer_id: str):
     
-class CommentList(BaseModel):
+    user_comment_dict = user_comment_data.model_dump()
+    
+    new_comment = user_comments_collection.insert_one(user_comment_dict)
+    
+    answers_collection.find_one_and_update({"_id": ObjectId(answer_id)}, {"$push": {"comments": str(new_comment.inserted_id)}})
+    
+    return {"success": True, "message": "New Comment Created"}
+
+class CommentIdList(BaseModel):
     ids: List[str]
     
 @user_comments_router.post("/all_comments")
-def get_all_comments_by_ids(comments_data: CommentList):
+def get_all_comments_by_ids(comments_data: CommentIdList):
     
     comments_dict = comments_data.model_dump()
-    
     
     comment_ids = []
     for comment_id in comments_dict["ids"]:
@@ -101,3 +114,4 @@ def get_all_comments_by_ids(comments_data: CommentList):
         comments_array.append(comment)
     
     return comments_array
+

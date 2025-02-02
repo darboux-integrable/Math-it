@@ -44,7 +44,7 @@ function QuestionPage() {
       body: JSON.stringify({
         text: answerText(),
         user: user.username,
-        questionId: id,
+        question_id: id,
         user_type: user.account_type,
         answer_date: formateDate(`${year}-${month}-${day}`)
       })
@@ -54,6 +54,10 @@ function QuestionPage() {
       location.reload();
     })
 
+  }
+
+  const getHighestSorted = () => {
+    fetch(`http://127.0.0.1:5000/questions/${id}`);
   }
 
   // Get the question
@@ -84,10 +88,13 @@ function QuestionPage() {
 
   getPageData();
 
+  let answersArray;
+
   // Get the answers to the question
   fetch(`http://127.0.0.1:5000/answers/question/${id}`)
     .then((res) => res.json())
     .then((data) => {
+      answersArray = data;
       setAnswers(data);
     });
 
@@ -103,12 +110,12 @@ function QuestionPage() {
               title={question().title}
               views={question().views}
               userAsking={question().user_asking}
-              upvotes={question().votes}
               askedDate={question().ask_date}
               comments={comments()}
               questionBody={question().text}
               tags={question().tags}
-              questionId={id}
+              questionId={question()._id}
+              userId={user._id}
             />
           </div>
         </Show>
@@ -133,7 +140,7 @@ function QuestionPage() {
                 />
               </div>
               <div className={styles.options}>
-                <div className={styles.option}>
+                <div className={styles.option} onclick={getHighestSorted()} >
                   <div
                     className={styles.colorBox}
                     style={{ "background-color": "var(--green-1)" }}
@@ -158,22 +165,9 @@ function QuestionPage() {
             </div>
           </div>
 
-          <div className={styles.answersList}>
-            {answers().map((answer) => {
-              return (
-                <QuestionAnswer
-                  upvotes={answer.votes}
-                  comments={answer.comments}
-                  answerBody={answer.text}
-                  user={answer.user}
-                  userType={answer.user_type}
-                />
-              );
-            })}
-          </div>
-
           <button
             className={styles.addAnswerButton}
+            style={{"margin-top": "10px"}}
             onclick={() => setToggleAnswer(!toggleAnswer())}
           >
             Answer Question
@@ -183,9 +177,32 @@ function QuestionPage() {
             <h1 className={styles.createAnswerTitle}>Create Answer</h1>
             <TextArea currentText={answerText} setCurrentText={setAnswerText} />
 
-            <button onclick={() => {createAnswer();}} className={styles.addAnswerButton} style={{"margin-top": "10px", "font-size": "1.5rem"}}>Done!</button>
-
+            <button
+              onclick={() => {
+                createAnswer();
+              }}
+              className={styles.addAnswerButton}
+              style={{ "margin-top": "10px", "font-size": "1.5rem" }}
+            >
+              Done!
+            </button>
           </Show>
+
+          <div className={styles.answersList}>
+            {answers().map((answer) => {
+              return (
+                <QuestionAnswer
+                  comments={answer.comments}
+                  answerBody={answer.text}
+                  user={answer.user}
+                  userType={answer.user_type}
+                  questionId={answer._id}
+                  answerId={answer._id}
+                  userId={user._id}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
