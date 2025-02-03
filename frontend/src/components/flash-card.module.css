@@ -1,0 +1,57 @@
+
+.flashCard{
+    position: relative;
+    width: 250px;
+    height: 150px;
+    cursor: pointer;
+}
+
+.card{
+    width: 250px;
+    height: 150px;
+    background-color: var(--dark-1);
+    border-radius: 10px;
+    transition: all 150ms ease;
+}
+
+.card1, .card2{
+    position: absolute;
+    width: 90%;
+    left: 10%;
+    transform-origin: bottom left;
+}
+
+
+.card3{
+    position: relative;
+    display: flex;
+    font-family: var(--title-font);
+    color: white;
+    align-items: center;
+}
+.flashCardTitle{
+    text-align: center;
+}
+
+.card2{
+    filter: brightness(0.8);
+    transform: rotate(-3deg);
+}
+
+.card1{
+    filter: brightness(0.6);
+    transform: rotate(-6deg);
+}
+
+.flashCard:hover > .card1{
+    transform: rotate(-10deg);
+
+}
+
+.flashCard:hover > .card2{
+    transform: rotate(-5deg);
+}
+
+.flashCard:hover > .card3{
+    transform: rotate(-3deg);
+}

@@ -16,6 +16,8 @@ function AskQuestionPage() {
       user = data;
     });
 
+  let newTags = []
+
   const [title, setTitle] = createSignal("");
 
   const [questionText, setQuestionText] = createSignal("");
@@ -49,9 +51,24 @@ function AskQuestionPage() {
         return res.json();
       })
       .then((data) => {
+        addNewTags();
         location.replace("/questions/" + data.id);
       })
   };
+
+  const addNewTags = () => {
+    fetch("http://127.0.0.1:5000/tags/list", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        names: newTags
+      })
+    })
+    .then(res => res.json())
+    .then(() => {})
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -96,7 +113,7 @@ function AskQuestionPage() {
               <p className={styles.tagsText}>
                 Enter Up To 5 Tags for Your Question to Be Identified By:
               </p>
-              <TagListSelection selectedTags={tags} setSelectedTags={setTags} />
+              <TagListSelection newTags={newTags} selectedTags={tags} setSelectedTags={setTags} />
             </div>
           </div>
           <div className={styles.postButtonWrapper}>

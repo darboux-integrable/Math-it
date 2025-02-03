@@ -22,6 +22,7 @@ function SideNavbar() {
     },
     {
       title: "Resources",
+      location: "/resources",
       icon: puzzleIcon,
       text: "Here you can find countless resources that can aid you in your learning journey. Resources are sorted by tag to make them easier to find. You can also save resources to come back later.",
     },

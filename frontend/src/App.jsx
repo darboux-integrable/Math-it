@@ -4,7 +4,6 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import MathPractice from "./components/mathPractice";
 import AskQuestionPage from "./components/AskQuestionPage";
-import ResourcesPage from "./components/ResourcesPage";
 import TextAreaHelpPage from "./components/TextAreaHelpPage";
 import PageNotFoundPage from "./components/PageNotFound";
 import { lazy } from "solid-js";
@@ -12,6 +11,9 @@ import { lazy } from "solid-js";
 const QuestionPage = lazy(() => import("./components/QuestionPage"));
 
 const FormsLanding = lazy(() => import("./components/FormsLanding"));
+
+const ResourcesPage = lazy(() => import("./components/ResourcesPage"));
+const AddFlashCardsPage = lazy(() => import("./components/AddFlashcardSet"));
 
 const ClassroomStudentPage = lazy(() =>
   import("./components/ClassroomStudentLanding")
@@ -35,13 +37,17 @@ const AssignmentDetailsPage = lazy(() =>
 );
 const AssignmentPage = lazy(() => import("./components/AssignmentPage"));
 const DiscussionsPage = lazy(() => import("./components/DiscussionsPage"));
-const CreateClassroomDiscussionPage = lazy(() => import("./components/CreateClassroomDiscussionPage"));
+const CreateClassroomDiscussionPage = lazy(() =>
+  import("./components/CreateClassroomDiscussionPage")
+);
 
 const DiscussionPage = lazy(() => import("./components/DiscussionPage"));
 
 const UserLanding = lazy(() => import("./components/UserLanding"));
 
-const DiscussionPostPage = lazy(() => import("./components/DiscussionPostPage"))
+const DiscussionPostPage = lazy(() =>
+  import("./components/DiscussionPostPage")
+);
 
 const GradesPage = lazy(() => import("./components/ClassroomGradesPage"));
 
@@ -155,7 +161,10 @@ function App() {
       ></Route>
 
       <Route path="/practice" component={() => <MathPractice />}></Route>
-      <Route path="/practice/problems" component={() => <ProblemsPage />}></Route>
+      <Route
+        path="/practice/problems"
+        component={() => <ProblemsPage />}
+      ></Route>
 
       <Route
         path="/questions"
@@ -175,7 +184,12 @@ function App() {
 
       <Route path="/questions/:id" component={() => <QuestionPage />}></Route>
 
-      <Route path="/resources" component={<ResourcesPage />}></Route>
+      <Route path="/resources" component={() => <ResourcesPage />}></Route>
+
+      <Route
+        path="/resources/add"
+        component={() => <AddFlashCardsPage />}
+      ></Route>
 
       <Route path="/help/textArea" component={<TextAreaHelpPage />}></Route>
 

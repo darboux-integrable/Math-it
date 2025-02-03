@@ -1,7 +1,7 @@
 import styles from "./tag-list-selection.module.css";
 import { createSignal, Show } from "solid-js";
 
-function TagListSelection({ selectedTags, setSelectedTags }) {
+function TagListSelection({ selectedTags, setSelectedTags, newTags }) {
   let tags;
 
   const [currentTag, setCurrentTag] = createSignal("");
@@ -47,6 +47,7 @@ function TagListSelection({ selectedTags, setSelectedTags }) {
       setError("");
     } else if (selectedTags().length + 1 <= 5) {
       setSelectedTags([...selectedTags(), currentTag()]);
+      newTags.push(currentTag());
       setError("");
     } else {
       setError(
@@ -64,6 +65,7 @@ function TagListSelection({ selectedTags, setSelectedTags }) {
         <input
           type="text"
           value={currentTag()}
+          placeholder="Enter Tags Names"
           onkeyup={(e) => {
             if (e.key == "Enter") {
               addAllFilteredTags();

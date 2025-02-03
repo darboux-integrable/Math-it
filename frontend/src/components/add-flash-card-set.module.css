@@ -1,0 +1,154 @@
+.page{
+    display: flex;
+    min-height: 100vh;
+}
+
+.pageContent{
+    position: relative;
+    left: 70px;
+    width: calc(100% - 70px);
+}
+
+.pageTitleWrapper{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.pageTitle{
+    color: white;
+    font-family: var(--title-font);
+    text-align: center;
+    background-image: linear-gradient(45deg, var(--green-1), var(--light-green-1));
+    background-repeat: no-repeat;
+    background-position-y: 100%;
+    background-size: 100% 5px;
+    width: fit-content;
+}
+
+.flexWrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.cardSetTitleWrapper{
+    width: calc(80% + 20px);
+    padding-inline: 10px;
+    margin-bottom: 10px;
+}
+
+.cardSetTitle{
+    color: white;
+    font-family: var(--title-font);
+    margin: 0;
+    margin-bottom: 3px;
+}
+
+.cardSetTitleInput{
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid transparent;
+    color: white;
+    background-color: var(--dark-1);
+    transition: all 250ms ease;
+    height: 40px;
+}
+
+.cardSetTitleInput:hover, .cardSetTitleInput:focus{
+    border-color: var(--green-1);
+}
+
+.currentCardWrapper{
+    max-width: 80%;
+    width: 80%;
+    padding: 10px;
+    color: white;
+    background-color: var(--dark-1);
+    border-radius: 10px;
+}
+
+.cardTop{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sideTitle{
+    font-family: var(--title-font);
+    margin: 0;
+}
+
+.flipButton, .newCardButton{
+    min-width: 120px;
+    height: 40px;
+    color: white;
+    background-color: var(--green-1);
+    font-family: var(--text-font);
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.cardOptionsWrapper{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.changeCardButtons{
+    display: flex;
+    gap: 10px;
+}
+
+.changeCardButton{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: var(--dark-1);
+    cursor: pointer;
+}
+
+.changeCardButton:first-child{
+    transform: rotate(180deg);
+}
+
+.previewWrapper{
+    width: 80%;
+}
+
+.flashcardPreviewTitle{
+    font-family: var(--title-font);
+    color: white;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.flashcard{
+    background-color: var(--dark-1);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.flashcardContentWrapper{
+    background-color: var(--dark-2);
+    display: flex;
+    gap: 5px;
+}
+
+.questionSide, .answerSide{
+    display: flex;
+    flex-grow: 1;
+    background-color: var(--dark-1);
+    flex-direction: column;
+}
+
+.answerSide{
+    padding-left: 10px;
+}

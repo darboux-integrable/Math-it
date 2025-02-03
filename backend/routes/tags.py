@@ -28,7 +28,6 @@ class Tag(BaseModel):
 def create_tag(tag_data: Tag):
     
     tag_dict = tag_data.model_dump()
-    tag_dict["times_used"] = 0
     
     new_tag = tag_collection.insert_one(tag_dict)
     
@@ -36,6 +35,24 @@ def create_tag(tag_data: Tag):
         raise HTTPException(status_code=500, detail="Server error in creating a new tag")
     
     return {"id": str(new_tag.inserted_id)}
+
+class TagList(BaseModel):
+    names: List[str]
+    
+@tags_router.post("/list")
+def create_list_of_tags(tags_data: TagList):
+
+    tag_names_array = tags_data.model_dump()["names"]
+    
+    tags_to_insert = []
+    
+    for tag in tag_names_array:
+        tags_to_insert.append({"name": tag})
+    
+    tag_collection.insert_many(tags_to_insert)
+    
+    return {"success": True}
+    
 
 @tags_router.get("/all_tags")
 def get_all_tags():
