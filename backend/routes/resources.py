@@ -54,3 +54,15 @@ def get_flashcard_list(card_list: FlashCardList):
         cards_array.append(card)
         
     return cards_array
+
+@resources_router.get("/created_by/{username}")
+def create_all_resources_created_by_user(username: str):
+    resources = resource_collection.find({"created_by": username})
+    
+    resources_array = []
+    
+    for resource in resources:
+        resource["_id"] = str(resource["_id"])
+        resources_array.append(resource)
+        
+    return resources_array

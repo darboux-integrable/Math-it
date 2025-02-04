@@ -28,6 +28,8 @@
     font-family: var(--title-font);
     color: white;
     align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 .flashCardTitle{
     text-align: center;

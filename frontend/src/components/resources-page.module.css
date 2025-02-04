@@ -60,4 +60,10 @@
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
+    color: white;
+    font-family: var(--title-font);
+}
+
+.favoriteFlashCards:has( > .noCards){
+    padding-top: 0px;
 }
