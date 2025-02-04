@@ -1,0 +1,108 @@
+.page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.pageContent {
+  margin-left: 100px;
+  height: 100%;
+  width: calc(100% - 100px);
+}
+
+.pageNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.pageTitle {
+  color: white;
+  font-family: var(--title-font);
+  background-image: linear-gradient(
+    45deg,
+    var(--green-1),
+    var(--light-green-1)
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 5px;
+  background-position-y: 100%;
+  padding-bottom: 5px;
+  width: fit-content;
+}
+
+.greenButton {
+  color: white;
+  background-color: var(--green-1);
+  border-radius: 5px;
+  border: none;
+  height: 40px;
+  min-width: 120px;
+  font-family: var(--title-font);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.greenButton:hover {
+  scale: 1.05;
+}
+
+.flashcardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flashcard {
+  background-color: var(--dark-1);
+  border-radius: 10px;
+  width: 80%;
+  min-height: 300px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.flashcardSideTitle {
+  color: white;
+  font-family: var(--title-font);
+  border-bottom: 2px solid var(--dark-2);
+  width: 95%;
+  margin-left: 2.5%;
+}
+
+.cardBody {
+  display: flex;
+  width: 95%;
+  margin-left: 2.5%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.cardText {
+  margin: 0;
+}
+
+.cardControlsWrapper {
+  display: flex;
+  width: 80%;
+  margin-top: 10px;
+}
+
+.indexButtonsWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.cardControlButton:first-child {
+  transform: rotate(180deg);
+}
+
+.cardControlButton {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--dark-1);
+  padding: 5px;
+}

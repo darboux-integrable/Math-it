@@ -78,3 +78,16 @@ def get_flashcards_by_tag(tag_name: str):
         cards_array.append(card)
         
     return cards_array
+
+@resources_router.get("/flashcard/{flashcard_id}")
+def get_flashcard_by_id(flashcard_id: str):
+    
+    flashcard = resource_collection.find_one({"_id": ObjectId(flashcard_id)})
+    
+    if not flashcard:
+        raise HTTPException(status_code=404, detail="No Flashcard Found")
+    
+    flashcard["_id"] = str(flashcard["_id"])
+    
+    return flashcard
+    

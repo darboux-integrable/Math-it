@@ -15,6 +15,7 @@ const FormsLanding = lazy(() => import("./components/FormsLanding"));
 const ResourcesPage = lazy(() => import("./components/ResourcesPage"));
 const AddFlashCardsPage = lazy(() => import("./components/AddFlashcardSet"));
 const ResourceListPage = lazy(() => import("./components/ResourceListPage"));
+const FlashcardSetPage = lazy(() => import("./components/FlashcardSetPage"))
 
 const ClassroomStudentPage = lazy(() =>
   import("./components/ClassroomStudentLanding")
@@ -195,6 +196,11 @@ function App() {
       <Route
         path="/resources/add"
         component={() => <AddFlashCardsPage />}
+      ></Route>
+
+      <Route
+        path="/resources/flashcards/:id"
+        component={() => <FlashcardSetPage />}
       ></Route>
 
       <Route path="/help/textArea" component={<TextAreaHelpPage />}></Route>

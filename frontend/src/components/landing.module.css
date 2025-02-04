@@ -1,11 +1,11 @@
 :root{
     interpolate-size: allow-keywords;
 
-    --dark-1: hsl(230, 11%, 11%);
+    --dark-1: #191a1f;
     --dark-2: hsl(225, 11%, 15%);
     --dark-3: #1e1f24;
     --dark-4: hsl(228, 10%, 8%);
-    --dark-5: hsl(228, 10%, 18%);
+    --dark-5: #292b32;
 
     --green-1: rgb(43, 209, 129);
     --green-2: #30e990;
