@@ -31,7 +31,7 @@
     padding: 10px;
     border-radius: 10px;
     width: 50%;
-    background-color: var(--dark-4);
+    background-color: var(--dark-1);
     gap: 10px;
 }
 
@@ -43,6 +43,7 @@
     min-width: 120px;
     font-size: 1.3rem;
     height: 43.2px;
+    cursor: pointer;
 }
 
 .favoritesTitle, .yourCardsTitle{
@@ -66,4 +67,17 @@
 
 .favoriteFlashCards:has( > .noCards){
     padding-top: 0px;
+}
+.tagsInput{
+    height: 35px;
+    background-color: var(--dark-3);
+    color: white;
+    outline: none;
+    border: 2px solid transparent;
+    transition: all 250ms ease;
+    border-radius: 5px;
+}
+
+.tagsInput:focus, .tagsInput:hover{
+    border-color: var(--green-1);
 }

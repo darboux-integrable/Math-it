@@ -66,3 +66,15 @@ def create_all_resources_created_by_user(username: str):
         resources_array.append(resource)
         
     return resources_array
+
+@resources_router.get("/flashcard/filter_by_tag/{tag_name}")
+def get_flashcards_by_tag(tag_name: str):
+    cards = resource_collection.find({"tags": {"$in": [tag_name]}})
+    
+    cards_array = []
+    
+    for card in cards:
+        card["_id"] = str(card["_id"])
+        cards_array.append(card)
+        
+    return cards_array

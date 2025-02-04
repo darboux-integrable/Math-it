@@ -12,8 +12,7 @@ function ResourcesPage() {
   const [yourResources, setYourResources] = createSignal([]);
   const [favorites, setFavorites] = createSignal([]);
 
-  const [tags, setTags] = createSignal([]);
-  let newTags = [];
+  const [filterTag, setFilterTag] = createSignal("");
 
   const loadPageData = async () => {
     const userFetch = await fetch(
@@ -23,12 +22,12 @@ function ResourcesPage() {
     user = await userFetch.json();
 
     const yourResourcesFetch = await fetch(
-      `http://127.0.0.1:5000/resources/created_by/${user.username}`
+      `http://127.0.0.1:5000/resources/created_by/${encodeURIComponent(
+        user.username
+      )}`
     );
 
     setYourResources(await yourResourcesFetch.json());
-
-    console.log(yourResources())
 
     const favoritesFetch = await fetch(
       "http://127.0.0.1:5000/resources/flashcard/list",
@@ -52,20 +51,41 @@ function ResourcesPage() {
         <h1 className={styles.pageTitle}>Resources</h1>
         <div className={styles.topContent}>
           <div className={styles.searchWrapper}>
-            <TagListSelection
-              newTags={newTags}
-              selectedTags={tags}
-              setSelectedTags={setTags}
+            <input
+              value={filterTag()}
+              oninput={(e) => setFilterTag(e.target.value)}
+              onkeypress={(e) => {
+                if (e.key == "Enter") {
+                  location.replace(
+                    "/resources/filter_by_tag?tag=" +
+                      encodeURIComponent(filterTag())
+                  );
+                }
+              }}
+              type="text"
+              placeholder="Enter Tag to Search By"
+              className={styles.tagsInput}
             />
-            <button className={styles.goButton}>Go!</button>
+            <button
+              className={styles.goButton}
+              onclick={() => {
+                location.replace(
+                  "/resources/filter_by_tag?tag=" +
+                    encodeURIComponent(filterTag())
+                );
+              }}
+            >
+              Go!
+            </button>
           </div>
           <div className={styles.addFlashCardWrapper}>
-            <button className={styles.goButton}>Explore</button>
+            {/* Maybe Make this a feature later after the project deadline so it is not rushed */}
+            {/* <button className={styles.goButton}>Explore</button> */}
             <button
               className={styles.goButton}
               onclick={() => location.replace("/resources/add")}
             >
-              Add FlashCard
+              Add Flashcard
             </button>
           </div>
         </div>
@@ -90,7 +110,9 @@ function ResourcesPage() {
                 return <FlashCard title={flashcard.title} />;
               })
             ) : (
-              <p className={styles.noCards}>You Have Not Created Any Resources</p>
+              <p className={styles.noCards}>
+                You Have Not Created Any Resources
+              </p>
             )}
           </div>
         </div>

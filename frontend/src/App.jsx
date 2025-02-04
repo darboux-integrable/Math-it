@@ -14,6 +14,7 @@ const FormsLanding = lazy(() => import("./components/FormsLanding"));
 
 const ResourcesPage = lazy(() => import("./components/ResourcesPage"));
 const AddFlashCardsPage = lazy(() => import("./components/AddFlashcardSet"));
+const ResourceListPage = lazy(() => import("./components/ResourceListPage"));
 
 const ClassroomStudentPage = lazy(() =>
   import("./components/ClassroomStudentLanding")
@@ -185,6 +186,11 @@ function App() {
       <Route path="/questions/:id" component={() => <QuestionPage />}></Route>
 
       <Route path="/resources" component={() => <ResourcesPage />}></Route>
+
+      <Route
+        path="/resources/filter_by_tag"
+        component={() => <ResourceListPage />}
+      ></Route>
 
       <Route
         path="/resources/add"
