@@ -74,7 +74,8 @@ def get_user_from_id(user_id: str):
 def create_new_user(user_body: User):
     user_dict = user_body.model_dump()
     username = user_dict["username"]
-
+    user_dict["favorite_resources"] = []
+    
     # Make sure does not already exist a user with the entered username
     possibleUser = usersCollection.find_one({"username": username})
 
