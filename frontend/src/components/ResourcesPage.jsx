@@ -94,7 +94,7 @@ function ResourcesPage() {
           <div className={styles.favoriteFlashCards}>
             {favorites().length > 0 ? (
               favorites().map((flashcard) => {
-                return <FlashCard title={flashcard.title} />;
+                return <FlashCard title={flashcard.title} id={flashcard._id} />;
               })
             ) : (
               <p className={styles.noCards}>No Favorited Flashcards</p>
@@ -107,7 +107,7 @@ function ResourcesPage() {
           <div className={styles.yourFlashCards}>
             {yourResources().length > 0 ? (
               yourResources().map((flashcard) => {
-                return <FlashCard title={flashcard.title} />;
+                return <FlashCard title={flashcard.title} id={flashcard._id}/>;
               })
             ) : (
               <p className={styles.noCards}>

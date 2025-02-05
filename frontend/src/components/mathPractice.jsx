@@ -23,7 +23,7 @@ function MathPractice() {
         style={{ "margin-left": window.innerWidth > 720 ? "75px" : "0px" }}
       >
         <div className={styles.doneButtonWrapper}>
-          <div className="">
+          <div >
             <p className={styles.numberOfQuestionsLabel}>Number Of Questions</p>
             <input
               type="number"
@@ -34,20 +34,25 @@ function MathPractice() {
               min={5}
             />
           </div>
-          <button
-            className={styles.doneButton}
-            onclick={() => {
-              const topicsStr = JSON.stringify(topics());
-              location.replace(
-                `/practice/problems?ids=${topicsStr.substring(
-                  1,
-                  topicsStr.length - 1
-                )}&numQuestions=${numberOfQuestions()}`
-              );
-            }}
-          >
-            Go!
-          </button>
+          <div className={styles.navButtons}>
+            <button
+              className={styles.doneButton}
+              onclick={() => {
+                const topicsStr = JSON.stringify(topics());
+                location.replace(
+                  `/practice/problems?ids=${topicsStr.substring(
+                    1,
+                    topicsStr.length - 1
+                  )}&numQuestions=${numberOfQuestions()}`
+                );
+              }}
+            >
+              Go!
+            </button>
+            <button className={styles.doneButton} onclick={() => {
+              location.replace("/practice/help");
+            }}>Get Help</button>
+          </div>
         </div>
         <div className={styles.subjectBoxes}>
           {subjects.map((subject) => {

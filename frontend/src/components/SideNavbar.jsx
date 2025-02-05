@@ -33,9 +33,10 @@ function SideNavbar() {
       location: "/classrooms/landing"
     },
     {
-      title: "Account Details",
+      title: "Account Home",
       icon: gearIcon,
-      text: "Here you can find and modify all of your account information like email, password, etc. Two Factor Authentication can also be set up and enabled.",
+      location: "/users/landing",
+      text: "The Home Page/Hub where you can access things like classes questions and more.",
     },
   ];
 

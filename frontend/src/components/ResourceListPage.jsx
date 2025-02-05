@@ -66,7 +66,7 @@ export default function ResourceListPage() {
         </div>
         <div className={styles.flashcards}>
           {flashcards().map((card) => {
-            return <FlashCard title={card.title} />;
+            return <FlashCard title={card.title} id={card._id} />;
           })}
         </div>
       </div>

@@ -8,6 +8,10 @@ import TextAreaHelpPage from "./components/TextAreaHelpPage";
 import PageNotFoundPage from "./components/PageNotFound";
 import { lazy } from "solid-js";
 
+const TutorHelpPage = lazy(() => import("./components/MathHelpPage"));
+const HelpLandingPage = lazy(() => import("./components/HelpLandingPage"))
+const TutorQuestionPage = lazy(() => import("./components/TutorQuestionPage"))
+
 const QuestionPage = lazy(() => import("./components/QuestionPage"));
 
 const FormsLanding = lazy(() => import("./components/FormsLanding"));
@@ -15,7 +19,7 @@ const FormsLanding = lazy(() => import("./components/FormsLanding"));
 const ResourcesPage = lazy(() => import("./components/ResourcesPage"));
 const AddFlashCardsPage = lazy(() => import("./components/AddFlashcardSet"));
 const ResourceListPage = lazy(() => import("./components/ResourceListPage"));
-const FlashcardSetPage = lazy(() => import("./components/FlashcardSetPage"))
+const FlashcardSetPage = lazy(() => import("./components/FlashcardSetPage"));
 
 const ClassroomStudentPage = lazy(() =>
   import("./components/ClassroomStudentLanding")
@@ -166,6 +170,15 @@ function App() {
       <Route
         path="/practice/problems"
         component={() => <ProblemsPage />}
+      ></Route>
+
+      <Route path="/practice/help" component={() => <TutorHelpPage />}></Route>
+
+      <Route path="/help/landing" component={() => <HelpLandingPage />}></Route>
+
+      <Route
+        path="/help/questions/:questionId"
+        component={() => <TutorQuestionPage />}
       ></Route>
 
       <Route

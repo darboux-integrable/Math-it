@@ -19,6 +19,7 @@ from routes.question_answers import answers_router
 from routes.tags import tags_router
 from routes.upvotes import upvotes_router
 from routes.resources import resources_router
+from routes.tutor_questions import tutor_questions_router
 
 load_dotenv()
 
@@ -51,6 +52,7 @@ app.include_router(answers_router)
 app.include_router(tags_router)
 app.include_router(upvotes_router)
 app.include_router(resources_router)
+app.include_router(tutor_questions_router)
 
 # Get all grades (discussion grades and assignment grades) for a single student
 @app.get("/grades/{student_id}")

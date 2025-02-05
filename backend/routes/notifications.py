@@ -56,6 +56,28 @@ def create_notification(notification_body: Notification):
     
     return {"Success": "True", "Id": str(notification.inserted_id)}
 
+@notifications_router.post("/by_username")
+def create_notification(notification_body: Notification):
+    notification_dict = notification_body.model_dump()
+    
+    users = usersCollection.find({"username": {"$in": notification_dict["recipients"]}});
+    
+    users_array = []
+      
+    for user in users:
+        users_array.append(user)
+    
+    for i in range(len(users_array)):
+        notification_dict["recipients"][i] = str(users_array[i]["_id"])
+    
+    notification = notifications_collection.insert_one(notification_dict)
+    
+    for recipient in notification_dict["recipients"]:
+        user = usersCollection.find_one_and_update({"_id": ObjectId(recipient)}, {"$push": {"notifications": str(notification.inserted_id)}})
+    
+    return {"Success": "True", "Id": str(notification.inserted_id)}
+
+
 # Get all Notifications for a user
 @notifications_router.get("/all_notifications/{user_id}")
 def get_all_notifications(user_id: str):

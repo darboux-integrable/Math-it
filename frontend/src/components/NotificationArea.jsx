@@ -1,6 +1,7 @@
 import styles from "./notification-area.module.css";
 import shortenString from "../helpers/shortenText.js";
 import {Show} from "solid-js"
+import { compileText } from "./TextAreaPreview";
 
 // Notifications is a getter
 function NotificationArea({notifications}){
@@ -20,7 +21,7 @@ function NotificationArea({notifications}){
                 </div>
 
                 <div className={styles.notificationBody}>
-                  <p className={styles.notificationText}>{notification.text}</p>
+                  <p className={styles.notificationText}>{shortenString(compileText(notification.text), 100)}</p>
                   <Show
                     when={notification.max_grade && notification.actual_grade}
                   >
@@ -42,6 +43,7 @@ function NotificationArea({notifications}){
           })}
         </div>
       </div>
+
     </div>
   )
 

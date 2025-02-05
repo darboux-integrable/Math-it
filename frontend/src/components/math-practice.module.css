@@ -40,11 +40,17 @@
     border-radius: 5px;
 }
 
+.navButtons{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 .doneButton{
     background-color: var(--green-1);
     color: white;
     font-family: var(--text-font);
-    height: 43.2px;
+    height: calc(43.2px / 2 - 5);
     align-self: self-end;
     font-size: 1.6rem;
     border-radius: 8px;

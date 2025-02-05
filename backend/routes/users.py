@@ -8,6 +8,7 @@ from fastapi import APIRouter, HTTPException
 import pymongo # Possibly remove later
 from pydantic import BaseModel
 from pymongo import MongoClient
+from .tutor_questions import tutor_questions_collection
 
 load_dotenv()
 
@@ -20,6 +21,7 @@ class User(BaseModel):
     account_type: str
     img: Optional[str] = None
     subjects: Optional[List[str]] = []
+    tutor_questions: Optional[List[str]] = []
     classrooms: Optional[List[str]] = []
     assignments: Optional[List[object]] = []
 
@@ -97,3 +99,59 @@ def create_new_user(user_body: User):
     
     # make inserted_id a string and not ObjectID to stop an Error
     return {"Success": "True", "user_id": str(new_user.inserted_id)}
+
+class ResourceList(BaseModel):
+    ids: List[str]
+
+@user_router.post("/find_tutors")
+def find_tutors_by_subject_list(subjects_data: ResourceList):
+    subjects_array = subjects_data.model_dump()
+    
+    tutors_list = []
+    
+    for subject in subjects_array["ids"]:
+        tutors = usersCollection.find({"subjects": subject})
+        
+        for tutor in tutors:
+            tutor["_id"] = str(tutor["_id"])
+            
+            if not (tutor in tutors_list):
+                tutors_list.append(tutor) 
+            
+    return tutors_list
+
+@user_router.patch("/{id}/favorite_resources")
+def update_users_favorite_resources(id: str, resources_list: ResourceList):
+    
+    new_list = resources_list.model_dump()
+    
+    usersCollection.find_one_and_update({"_id": ObjectId(id)}, {"$set": {"favorite_resources": new_list["ids"]}})
+    
+    return {"success": True}
+
+class TutorQuestion(BaseModel):
+    tutors: List[str]
+    question: str
+    title: str
+    asked_by: str
+    
+
+@user_router.patch("/add_tutor_question")
+def add_question_to_tutor_accounts(tutors_data: TutorQuestion):
+    tutors_dict = tutors_data.model_dump()
+    
+    question = tutor_questions_collection.insert_one({
+        "tutors": tutors_dict["tutors"],
+        "question": tutors_dict["question"],
+        "answers": [],
+        "title": tutors_dict["title"],
+        "asked_by": tutors_dict["asked_by"]
+    })
+    
+    for tutor_id in tutors_dict["tutors"]:
+        if(tutor_id != tutors_dict["asked_by"]):
+            usersCollection.find_one_and_update({"_id": ObjectId(tutor_id)}, {"$push": {"tutor_questions": str(question.inserted_id)}})
+    
+    
+    return {"success": True}
+    

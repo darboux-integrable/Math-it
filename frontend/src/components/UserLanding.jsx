@@ -49,6 +49,7 @@ const UserLanding = () => {
           { text: "Classes", location: "/classrooms/landing" },
           { text: "Resources", location: "/resources" },
           { text: "Post Questions", location: "/questions" },
+          { text: "Help", location: "/help/landing" },
         ]}
       />
       <Show when={user()}>

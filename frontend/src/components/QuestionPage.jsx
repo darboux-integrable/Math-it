@@ -7,7 +7,7 @@ import { createSignal, Show } from "solid-js";
 import { useParams } from "@solidjs/router";
 import TextArea from "./TextArea";
 import { getCookieValue } from "../helpers/userInSession";
-import { formateDate } from "../helpers/dateFormatter";
+import { formateDate, formateTime } from "../helpers/dateFormatter";
 
 function QuestionPage() {
   const params = useParams();
@@ -53,6 +53,41 @@ function QuestionPage() {
     })
       .then((res) => res.json())
       .then((data) => {
+        createNotification();
+      });
+  };
+
+  const createNotification = () => {
+    const date = new Date();
+
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    const timeStamp =
+      formateDate(`${year}-${month + 1}-${day}`) +
+      " at " +
+      formateTime(hours, minutes);
+
+    fetch("http://127.0.0.1:5000/notifications/by_username/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: "Your Question Was Answered",
+        timestamp: timeStamp,
+        text: `${user.username} has answered your question: ${
+          question().title
+        }`,
+        recipients: [question().user_asking],
+      }),
+    })
+      .then((res) => res.json())
+      .then(() => {
         location.reload();
       });
   };
@@ -97,13 +132,14 @@ function QuestionPage() {
     });
 
   const sortAnswers = () => {
-    // Use a selection sort to get the answers. 
+    // Use a selection sort to get the answers.
     let answersArr = [...answers()];
-    for(let i = 0; i < answers().length; i++){
-
+    for (let i = 0; i < answers().length; i++) {
       let maxIndex = i;
       for (let j = i + 1; j < answersArr.length; j++) {
-        if (parseInt(answersArr[maxIndex].votes) < parseInt(answersArr[j].votes)) {
+        if (
+          parseInt(answersArr[maxIndex].votes) < parseInt(answersArr[j].votes)
+        ) {
           maxIndex = j;
         }
       }
@@ -114,7 +150,6 @@ function QuestionPage() {
     }
     setAnswers(answersArr);
   };
-
 
   const setNewestAnswers = () => {
     setAnswers([...answersArray].reverse());

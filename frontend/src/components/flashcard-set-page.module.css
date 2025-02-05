@@ -13,7 +13,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 30px;
+  width: 80%;
+  margin-left: 10%;
 }
 
 .pageTitle {
@@ -61,14 +62,23 @@
   min-height: 300px;
   height: 100%;
   cursor: pointer;
+  color: white;
+  font-family: var(--text-font);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  margin-left: 2.5%;
+  border-bottom: 2px solid var(--dark-2);
 }
 
 .flashcardSideTitle {
   color: white;
+  margin: 0;
+  margin-top: 10px;
   font-family: var(--title-font);
-  border-bottom: 2px solid var(--dark-2);
-  width: 95%;
-  margin-left: 2.5%;
 }
 
 .cardBody {
@@ -82,11 +92,13 @@
 
 .cardText {
   margin: 0;
+  margin-top: 10px;
 }
 
 .cardControlsWrapper {
   display: flex;
   width: 80%;
+  justify-content: space-between;
   margin-top: 10px;
 }
 
@@ -104,5 +116,29 @@
   height: 50px;
   border-radius: 50%;
   background-color: var(--dark-1);
+  cursor: pointer;
   padding: 5px;
+}
+
+.favoriteSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.createdByText {
+  margin: 0;
+  color: white;
+  filter: brightness(0.8);
+  font-family: var(--text-font);
+}
+
+.username {
+  color: var(--green-1) !important;
+}
+
+.favoriteIcon {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
 }

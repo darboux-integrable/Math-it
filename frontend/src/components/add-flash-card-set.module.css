@@ -89,6 +89,7 @@
     font-family: var(--text-font);
     font-size: 1.5rem;
     border: none;
+    cursor: pointer;
     border-radius: 5px;
 }
 
@@ -119,6 +120,7 @@
 
 .previewWrapper{
     width: 80%;
+    font-family: var(--text-font);
 }
 
 .flashcardPreviewTitle{
@@ -168,4 +170,6 @@
 
 .doneButton{
     margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
 }
