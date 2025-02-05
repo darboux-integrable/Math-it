@@ -3,10 +3,11 @@ import Landing from "./components/Landing";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import MathPractice from "./components/mathPractice";
-import AskQuestionPage from "./components/AskQuestionPage";
 import TextAreaHelpPage from "./components/TextAreaHelpPage";
 import PageNotFoundPage from "./components/PageNotFound";
 import { lazy } from "solid-js";
+
+const AskQuestionPage = lazy(() => import("./components/AskQuestionPage"))
 
 const TutorHelpPage = lazy(() => import("./components/MathHelpPage"));
 const HelpLandingPage = lazy(() => import("./components/HelpLandingPage"))
@@ -186,7 +187,7 @@ function App() {
         component={() => <FormsLanding subjectFilterInit={"all tags"} />}
       ></Route>
 
-      <Route path="/questions/ask" component={<AskQuestionPage />}></Route>
+      <Route path="/questions/ask" component={() => <AskQuestionPage />}></Route>
 
       <Route
         path="/questions/tags/:tag"

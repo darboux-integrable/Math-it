@@ -61,6 +61,7 @@
     margin-right: 10px;
     color: var(--green-1);
     font-family: var(--title-font);
+    margin-left: 10px;
 }
 
 .unorderedList{
@@ -78,12 +79,14 @@
     min-width: 6px;
     margin-left: 23px;
     min-height: 6px;
+    margin-left: 10px;
     border-radius: 50%;
 }
 
 .unorderedList > .listItem{
     color: white;
     font-family: var(--text-font);
+    margin-left: 10px;
 }
 
 .listItem{

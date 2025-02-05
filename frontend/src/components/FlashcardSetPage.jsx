@@ -1,4 +1,4 @@
-import { createSignal, Show } from "solid-js";
+import { createSignal, onMount, Show } from "solid-js";
 import styles from "./flashcard-set-page.module.css";
 import SideNavbar from "./SideNavbar";
 import { compileText } from "./TextAreaPreview";
@@ -21,15 +21,20 @@ export default function FlashcardSetPage() {
 
   // 0 is for the question and 1 is for the answer
   const [currentSide, setCurrentSide] = createSignal(0);
+  let text;
 
   const loadCardData = () => {
+    text.innerText = "";
+
     if (currentSide() == 0) {
-      return flashcardSet().cards[currentCardIndex()].question;
+      text.innerText = flashcardSet().cards[currentCardIndex()].question;
     } else if (currentSide() == 1) {
-      return flashcardSet().cards[currentCardIndex()].answer;
+      text.innerText = flashcardSet().cards[currentCardIndex()].answer;
     }
 
-    return "";
+    MathJax.typeset();
+
+    return text.innerText;
   };
 
   const loadPageData = async () => {
@@ -70,6 +75,7 @@ export default function FlashcardSetPage() {
     loadCardData();
   };
 
+
   const saveToFavorites = async () => {
     console.log(user.favorite_resources);
 
@@ -88,6 +94,7 @@ export default function FlashcardSetPage() {
 
     const details = await updateResponse.json();
   };
+
 
   loadPageData();
 
@@ -121,9 +128,7 @@ export default function FlashcardSetPage() {
                 </h2>
               </div>
               <div className={styles.cardBody}>
-                <h2 className={styles.cardText}>
-                  {compileText(loadCardData())}
-                </h2>
+                <h2 ref={text} className={styles.cardText}>{loadCardData()}</h2>
               </div>
             </div>
             <div className={styles.cardControlsWrapper}>
@@ -175,11 +180,6 @@ export default function FlashcardSetPage() {
           </div>
         </Show>
       </div>
-      {() => {
-        currentSide();
-        flashcardSet();
-        MathJax.typeset();
-      }}
     </div>
   );
 }

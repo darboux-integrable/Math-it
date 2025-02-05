@@ -64,14 +64,14 @@ function DiscussionPage({ accountType }) {
       method: "PATCH"
     })
     .then(res => {
-      if(res.ok){
-        alert("Disucssion Grade Successfully Updated!")
-      }
+      //if(res.ok){
+      //  alert("Disucssion Grade Successfully Updated!")
+      //}
 
       return res.json()
     })
     .then(data => {
-      // location.reload();
+      location.reload();
     })
 
   }
